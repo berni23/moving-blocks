@@ -35,10 +35,7 @@ export default defineComponent({
           router.push('game');
 
         } else {
-          $q.notify({
-            message: 'please choose valid username',
-            color: 'red'
-          })
+          $q.notify({message: 'please choose valid username', color: 'red'})
         }
       }
     }

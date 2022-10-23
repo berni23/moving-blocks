@@ -13,6 +13,7 @@ import Buttons from "@/components/Buttons.vue";
 import MainHeader from "@/views/MainHeader.vue";
 import {useRouter} from "vue-router";
 import {useUsersStore} from "@/stores/users";
+import { useGamesStore } from '@/stores/games';
 
 export default defineComponent({
   name: 'HomeView',

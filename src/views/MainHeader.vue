@@ -14,8 +14,6 @@ export default {
 @import '../assets/scss/colors';
 
 .main-header {
-  position: relative;
-  width: 100%;
   height: 200px;
   margin-top: 5%;
   justify-content: center;
@@ -27,7 +25,7 @@ export default {
   font-size: 5em;
   margin-top: 50px;
   display: inline-block;
-  width: 100%;
+  //width: 100%;
   text-align: center;
   position: relative;
   color: $color-primary;

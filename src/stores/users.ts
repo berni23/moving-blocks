@@ -4,7 +4,7 @@ import User from "@/customTypes/user";
 export const useUsersStore = defineStore('users', {
     state: () => ({
         users: [] as Array<User>,
-        currentUserId: null as Number | null
+        currentUserId: null as number | null
     }),
     actions: {
         addUser(user: User) {
@@ -22,6 +22,5 @@ export const useUsersStore = defineStore('users', {
         highestId: state => Math.max(...state.users.map(x => x.id)) ?? 0,
         isCurrentUser: state => Boolean(state.currentUserId),
         currentUser: state => state.users.find((u)=>u.id===state.currentUserId)
-
-    }
+        }
 })

@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 
 import HowToPlayView from "@/views/HowToPlayView.vue";
 import NewUserView from "@/views/NewUserView.vue";
+import GameView from "@/views/GameView.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -18,15 +19,14 @@ const routes: Array<RouteRecordRaw> = [
     },
 
     {
-
         path: '/new-user',
         name: 'new-user',
         component: NewUserView
     },
     {
-        path: '/about',
-        name: 'about',
-        component: () => import('../views/AboutView.vue')
+        path: '/game',
+        name: 'game',
+        component:GameView
     }
 ]
 

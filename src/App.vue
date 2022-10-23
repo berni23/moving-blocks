@@ -13,11 +13,10 @@ body {
 
   font-family: $main-font!important;
   min-height: 100vh!important;
-  align-items: center;
-  text-align: center;
-  max-width: 1500px;
-  margin: 0 auto;
-  padding: 0;
+  align-items: center!important;
+  text-align: center!important;
+  margin: 0 auto!important;
+  padding: 0!important;
   background: linear-gradient(270deg, rgba(135, 206, 250, 0) 0%, rgba(135, 206, 250, 0.6) 100%) no-repeat;
   background: -moz-linear-gradient(270deg, rgba(135, 206, 250, 0) 0%, rgba(135, 206, 250, 0.6) 100%);
   background: -webkit-linear-gradient(270deg, rgba(135, 206, 250, 0) 0%, rgba(135, 206, 250, 0.6) 100%);
@@ -29,14 +28,15 @@ body {
   border-radius: 15px;
   box-shadow: 0 0 10px $color-primary;
   color: $color-primary-dark;
+  margin:20px;
+
 }
 
 .main-container {
   justify-content: center!important;
   display: flex!important;
   height: 100%!important;
-  width: 100%!important;
-  margin-top: 20px;
+  //width: 90vw!important;
   align-items: center;
   text-align: center;
   min-height: 50vh;
@@ -45,16 +45,6 @@ body {
   border-radius: 15px;
   box-shadow: 0 0 10px $color-primary;
   color: $color-primary-dark;
-}
-
-.main-header {
-  position: relative;
-  width: 100%;
-  height: 200px;
-  margin-top: 5%;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 
