@@ -8,10 +8,12 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@babel/core": "^7.19.6",
     "@pinia/testing": "^0.0.14",
     "core-js": "^3.8.3",
     "pinia": "^2.0.23",
     "register-service-worker": "^1.7.2",
+    "sass": "^1.55.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3"
   },
@@ -27,8 +29,10 @@
     "@vue/vue3-jest": "^27.0.0-alpha.1",
     "babel-jest": "^27.0.6",
     "jest": "^27.0.5",
+    "sass-loader": "^13.1.0",
     "ts-jest": "^27.0.4",
-    "typescript": "~4.5.5"
+    "typescript": "~4.5.5",
+    "webpack": "^5.0.0"
   },
   "browserslist": [
     "> 1%",

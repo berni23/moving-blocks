@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'pdark-font';
+    src: url("/src/assets/fonts/pdark.woff")
+    //src: url("../scss/fonts/pdark.woff");
+}
+
+$main-font: 'pdark-font';

@@ -1,0 +1,67 @@
+/* animations */
+
+@keyframes glowing {
+
+    0% {
+        background-color: rgba(135, 206, 250, 1);
+        box-shadow: 0 0px 50px 0px rgba(135, 206, 250, 1);
+    }
+
+    50% {
+        background-color: rgba(135, 206, 250, 0.2);
+        box-shadow: 0 0px 50px 0px rgba(135, 206, 250, 0.2);
+    }
+
+    100% {
+        background-color: rgba(135, 206, 250, 1);
+        box-shadow: 0 0px 50px 0px rgba(135, 206, 250, 1);
+    }
+
+}
+
+@keyframes transColor {
+
+    0% {
+        color: rgba(135, 206, 250, 1);
+    }
+
+    50% {
+        color: rgba(135, 206, 250, 0.6);
+    }
+
+    100% {
+        color: rgba(135, 206, 250, 1);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translatey(0px);
+        box-shadow: 0 0px 50px 0px rgba(135, 206, 250, 1);
+    }
+
+    50% {
+        transform: translatey(-20px);
+        box-shadow: 0 0px 50px 0px rgba(135, 206, 250, 0.2);
+    }
+
+    100% {
+        transform: translatey(0px);
+        box-shadow: 0 0px 50px 0px rgba(135, 206, 250, 1);
+    }
+}
+
+@keyframes shadow {
+
+    0% {
+        box-shadow: 0 0px 50px 0px rgba(135, 206, 250, 1);
+    }
+
+    50% {
+        box-shadow: 0 0px 50px 0px rgba(135, 206, 250, 0.2);
+    }
+
+    100% {
+        box-shadow: 0 0px 50px 0px rgba(135, 206, 250, 1);
+    }
+}

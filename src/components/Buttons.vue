@@ -1,19 +1,19 @@
 <template>
 
-  <div class="buttons">
-    <button class="buttons__try-again" v-if="isCurrentUser" id="btn-try-again" @click="$emit('try-again')">try again
-    </button>
-    <button class="buttons__how-to" id="btn-how-to">
-      <router-link to="/how-to-play">How to play</router-link>
-    </button>
-    <button class="buttons__new-user" id="btn-new-user" @click="$emit('new-user')">new user</button>
-  </div>
+
+    <custom-button class="buttons__try-again" v-if="isCurrentUser" text="'try again'"/>
+    <custom-button class="buttons__how-to"  :text="'how to play'"/>
+
+    <button class="buttons__new-user main-button" id="btn-new-user" @click="$emit('new-user')">new user</button>
 </template>
 <script lang="ts">
 import {useUsersStore} from "@/stores/users";
 import {defineComponent, ref} from 'vue';
+import CustomButton from "@/components/CustomButton.vue";
+
 export default defineComponent({
   name: 'buttons',
+  components: {CustomButton},
   setup() {
     let usersStore = useUsersStore();
     const isCurrentUser = ref(usersStore.isCurrentUser)
@@ -21,3 +21,7 @@ export default defineComponent({
   }
 });
 </script>
+<style lang="scss">
+
+
+</style>
