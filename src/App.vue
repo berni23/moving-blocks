@@ -1,30 +1,22 @@
 <template>
-  <nav>
-
-    <router-view></router-view>
-  </nav>
   <router-view/>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<style lang="scss">
+
+
+@import './assets/scss/colors';
+:root {
+  --main-bg-color: $main-bg-color;
+  --container-bg-color: white;
+  --color-primary: lightskyblue;
+  --color-primary-dark: rgb(61, 159, 219);
 }
 
-nav {
-  padding: 30px;
+
+@font-face {
+  font-family: 'headerFont';
+  src: url("assets/fonts/pdark.woff");
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>

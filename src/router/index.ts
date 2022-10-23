@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
-
 import HowToPlayView from "@/views/HowToPlayView.vue";
 const routes: Array<RouteRecordRaw> = [
   {

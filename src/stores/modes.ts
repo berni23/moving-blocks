@@ -18,9 +18,7 @@ export const modes = defineStore('user', {
                 name: 'hard',
                 maxLives: 1
             },
-
         ] as Array<Mode>,
         currentGame: null as Game | null
     }),
-
 })
