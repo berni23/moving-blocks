@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import User from "@/customTypes/user";
 
-export const usersStore = defineStore('users', {
+export const useUsersStore = defineStore('users', {
     state: () => ({
         users: [] as Array<User>,
         currentUserId: null as Number | null
@@ -10,7 +10,7 @@ export const usersStore = defineStore('users', {
         addUser(user: User) {
             this.users.push(user)
         },
-        setUserAsCurrent(user:User){
+        setUserAsCurrent(user: User) {
             this.currentUserId = user.id
         },
         getUserOfId(id: number) {
@@ -18,7 +18,10 @@ export const usersStore = defineStore('users', {
         }
     },
 
-    getters:{
-        highestId : state=>  Math.max(...state.users.map(x => x.id))??0
+    getters: {
+        highestId: state => Math.max(...state.users.map(x => x.id)) ?? 0,
+        isCurrentUser: state => Boolean(state.currentUserId),
+        currentUser: state => state.users.find((u)=>u.id===state.currentUserId)
+
     }
 })

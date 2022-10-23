@@ -1,8 +1,8 @@
-import {usersStore} from "@/stores/users";
+import {useUsersStore} from "@/stores/users";
 import createUser from "@/Logic/User/Services/createUser";
 
 
-const uStore = usersStore();
+const uStore = useUsersStore();
 const createUserAndSetAsCurrent = (name: string) => {
 
     let user = createUser(name);

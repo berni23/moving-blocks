@@ -1,23 +1,19 @@
 import User from "@/customTypes/user";
-import {usersStore} from "@/stores/users";
 
+// import {usersStore} from "@/stores/store";
+import {useUsersStore} from "@/stores/users";
 
-const uStore = usersStore();
-
-
-const makeIdService = () => {
-    return uStore.highestId + 1;
+const usersStore = useUsersStore();
+const makeId = () => {
+    return usersStore.highestId + 1;
 }
 
 const createUser = (name: string) => {
-
     let user: User = {
         name: name,
-        id: makeIdService()
+        id: makeId()
     }
-
     return user;
-
 }
 
 export default createUser;
