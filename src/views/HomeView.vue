@@ -1,34 +1,36 @@
 <template>
 
   <main-header/>
-  <div class="home container">
-    <!--    <img alt="Vue logo" src="../assets/logo.png">-->
-    <buttons/>
-  </div>
+
+  <section class="main-container container">
+    <buttons @newUser="goToNewUser"/>
+  </section>
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue';
+import {defineComponent, ref} from 'vue';
 import Buttons from "@/components/Buttons.vue";
 import MainHeader from "@/views/MainHeader.vue";
+import {useRouter} from "vue-router";
+import {useUsersStore} from "@/stores/users";
 
 export default defineComponent({
   name: 'HomeView',
   components: {MainHeader, Buttons},
+
+  setup(props, {emit}) {
+    const router = useRouter();
+    const usersStore = useUsersStore();
+    const isCurrentUser = ref(usersStore.isCurrentUser)
+    const emitNewUser = () => emit('new-user')
+    const goHowToPlay = () => router.push('how-to-play')
+    const goToNewUser = () => router.push('new-user')
+    return {isCurrentUser, goHowToPlay, goToNewUser, emitNewUser}
+
+  }
 });
 </script>
 
 <style lang="scss">
-
-.home {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding-bottom: 20px;
-  margin: 5% 0;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
 
 </style>

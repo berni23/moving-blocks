@@ -5,9 +5,10 @@
   </button>
 </template>
 
-<script>
+<script lang="ts">
 
-import {defineComponent, ref} from "vue";
+import {defineComponent, defineEmits, ref} from "vue";
+
 export default defineComponent({
   name: 'custom-button',
   props: {
@@ -20,14 +21,16 @@ export default defineComponent({
       default: ''
     }
   },
-  setup(props) {
-    let text = ref(props.text)
-    let sound = ref(props.sound);
+  setup(props,{emit}) {
+    const text = ref(props.text)
+    const sound = ref(props.sound);
+
     function buttonClick() {
-      var soundClick = document.getElementById('sound-click');
-      this.$emit('click')
-      if (this.sound) soundClick.play();
+      const soundClick = document.getElementById('sound-click') as HTMLAudioElement;
+      emit('clicked')
+      if (props.sound) soundClick.play();
     }
+
     return {text, sound, buttonClick}
   }
 })
@@ -57,7 +60,6 @@ a {
 }
 
 .main-button {
-
   font-family: $main-font;
   padding: 10px;
   transform: translatey(0px);
@@ -69,6 +71,5 @@ a {
   -webkit-transform: translatey(0px);
   -webkit-animation: float 6s ease-in-out infinite;
 }
-
 
 </style>

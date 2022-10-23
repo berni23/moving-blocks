@@ -1,27 +1,44 @@
 <template>
 
+  <div class="buttons">
+    <custom-button class="buttons__try-again" v-if="isCurrentUser" :text="'new game'"/>
+    <custom-button class="buttons__how-to" @clicked='goHowToPlay' :text="'how to play'"/>
+    <custom-button class="buttons__new-user" @clicked="emitNewUser" :text="'new user'"/>
+  </div>
 
-    <custom-button class="buttons__try-again" v-if="isCurrentUser" text="'try again'"/>
-    <custom-button class="buttons__how-to"  :text="'how to play'"/>
-
-    <button class="buttons__new-user main-button" id="btn-new-user" @click="$emit('new-user')">new user</button>
 </template>
 <script lang="ts">
 import {useUsersStore} from "@/stores/users";
 import {defineComponent, ref} from 'vue';
 import CustomButton from "@/components/CustomButton.vue";
+import {useRouter} from "vue-router";
 
 export default defineComponent({
   name: 'buttons',
   components: {CustomButton},
-  setup() {
-    let usersStore = useUsersStore();
+  props: [],
+  setup(props, {emit}) {
+
+    const router = useRouter();
+    const usersStore = useUsersStore();
     const isCurrentUser = ref(usersStore.isCurrentUser)
-    return {isCurrentUser}
+    const emitNewUser = () => emit('new-user')
+    const goHowToPlay = () => router.push('how-to-play')
+
+    return {isCurrentUser, goHowToPlay, emitNewUser}
+
   }
-});
+})
+
+
 </script>
 <style lang="scss">
+.buttons {
+  display: flex;
+  justify-content: space-around;
 
-
+  > * {
+    margin-left: 10px;
+  }
+}
 </style>
