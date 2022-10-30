@@ -3,6 +3,9 @@
     <h1 id="count-down"></h1>
     <div class="game-wrapper" v-if="gameHasStarted">
       <status :num-lives="lives" :num-coins="coins"/>
+      <div class="game container">
+        <div id="myId" class="box" style=" z-index: 10; width:50px; height:50px"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -68,6 +71,17 @@ export default defineComponent({
     animation: glowing 3s ease-in-out infinite;
     -webkit-animation: glowing 3s ease-in-out infinite;
   }
+
+
+
+  .game {
+
+    width: 97%;
+    margin : 20px  auto;
+    height: 500px;
+    position: relative;
+  }
+
 
 }
 </style>

@@ -1,15 +1,15 @@
 <template>
   <main-header/>
-  <section class="main-container container">
-    <mode-component @mode='newGame' v-if="!gameIsCreated"/>
-    <game v-else/>
+  <section class="main-container container" v-if="!gameIsCreated">
+    <mode-component @mode='newGame'/>
   </section>
+  <game v-else/>
 </template>
 <script lang="ts">
 
 import createGame from "@/Logic/Game/Services/createGame";
 import CustomButton from "@/components/CustomButton.vue";
-import {computed, defineComponent, reactive, ref} from 'vue';
+import {computed, defineComponent, ref} from 'vue';
 import ModeComponent from "@/components/Mode.vue";
 import MainHeader from "@/views/MainHeader.vue";
 import Buttons from "@/components/Buttons.vue";
@@ -29,7 +29,7 @@ export default defineComponent({
     const gamesStore = useGamesStore();
 
     const mode = ref<Mode | null>(null);
-    const user = ref<User|undefined>(usersStore.currentUser);
+    const user = ref<User | undefined>(usersStore.currentUser);
     const gameIsCreated = computed(() => Boolean(gamesStore.currentGame));
 
     if (!user) router.push('new-user');
@@ -37,11 +37,11 @@ export default defineComponent({
       mode.value = Object.assign({}, gamesStore.modeOfName(name))
 
 
-      console.log('user',usersStore.currentUser)
-      const newGame = createGame(user.value?(user.value as User).id :null, mode.value)
+      console.log('user', usersStore.currentUser)
+      const newGame = createGame(user.value ? (user.value as User).id : null, mode.value)
 
 
-      console.log('newGame',newGame);
+      console.log('newGame', newGame);
       gamesStore.setCurrentGame(newGame);
 
 
