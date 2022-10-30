@@ -1,6 +1,6 @@
 <template>
   <div class="game-status container">
-    <h3>Status</h3>
+    <div class="game-status__title">Status</div>
     <div class="status">
       <ul class="lives">
 
@@ -51,6 +51,16 @@ export default defineComponent({
   margin: 20px;
   padding: 10px;
   width: fit-content;
+
+  font-family: 'sans-serif';
+
+ &__title{
+
+   text-align:left;
+   margin-bottom:10px;
+
+ }
+
 
   .status ul {
     list-style-type: none;
