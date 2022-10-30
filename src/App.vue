@@ -1,6 +1,6 @@
 <template>
   <router-view/>
-  <audio id="sound-click" src="sounds/accept2.mp3"></audio>
+  <audios/>
 </template>
 
 <style lang="scss">
@@ -49,3 +49,9 @@ body {
 
 
 </style>
+<script>
+import Audios from "@/components/Common/Audios";
+export default {
+  components: {Audios}
+}
+</script>

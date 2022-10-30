@@ -3,11 +3,9 @@
   <div>
     <main-header/>
     <section class="main-container">
-      <q-input class='input-name' type="text" v-model="username"/>
-      <div class="buttons-mode hidden">
-        <button type="button" class="shadow-btn mode-selected">EASY</button>
-        <button type="button" class="shadow-btn">MEDIUM</button>
-        <button type="button" class="shadow-btn">HARD</button>
+      <div class="new-user">
+      <h2 class="new-user__title">Username</h2>
+      <q-input class='input-name new-user__input' type="text" v-model="username"/>
       </div>
     </section>
   </div>
@@ -44,9 +42,19 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-.input-name {
-  border: 0;
-  background: rgba(135, 206, 250, 0.3);
-  border-radius: 7px;
+
+
+.new-user {
+
+
+  display: flex;
+  flex-direction: column;
+
+  &__input {
+    border: 0;
+    background: rgba(135, 206, 250, 0.3);
+    border-radius: 7px;
+  }
+
 }
 </style>

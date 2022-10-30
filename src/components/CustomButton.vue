@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="shadow-btn main-button" @click="buttonClick">
+  <button type="button" class="shadow-btn" :class="[phase?'phase':'main-button']" @click="buttonClick">
 
     {{ text }}
   </button>
@@ -7,11 +7,16 @@
 
 <script lang="ts">
 
-import {defineComponent, defineEmits, ref} from "vue";
+import {defineComponent, ref} from "vue";
 
 export default defineComponent({
   name: 'custom-button',
   props: {
+
+    phase: {
+      type: Boolean,
+      default: false
+    },
     sound: {
       type: Boolean,
       default: true
@@ -21,17 +26,17 @@ export default defineComponent({
       default: ''
     }
   },
-  setup(props,{emit}) {
+  setup(props, {emit}) {
     const text = ref(props.text)
     const sound = ref(props.sound);
+    const phase = ref(props.phase);
 
     function buttonClick() {
       const soundClick = document.getElementById('sound-click') as HTMLAudioElement;
       emit('clicked')
       if (props.sound) soundClick.play();
     }
-
-    return {text, sound, buttonClick}
+    return {text, sound, phase, buttonClick}
   }
 })
 ;
@@ -72,4 +77,18 @@ a {
   -webkit-animation: float 6s ease-in-out infinite;
 }
 
+.phase {
+
+  font-family: $main-font;
+  padding: 10px;
+  transform: translatey(0px);
+  outline: none;
+  box-shadow: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  -webkit-transform: translatey(0px);
+  animation: float-phase 6s ease-in-out infinite !important;
+  -webkit-animation: float-phase 6s ease-in-out infinite !important;
+
+}
 </style>

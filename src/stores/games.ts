@@ -1,13 +1,15 @@
 import {defineStore} from "pinia";
 import Game from "@/customTypes/game";
 import Mode from "@/customTypes/mode";
+import {nextHFrame} from "@/Logic/Game/Utils/frames";
 
 
+// @ts-ignore
 export const useGamesStore = defineStore('user', {
     state: () => ({
-        finishedGames: [] as Array<Game>,
-        currentGame: null as Game | null,
-        arrayModes: [
+        _finishedGames: [] as Array<Game>,
+        _currentGame: null as Game | null,
+        _arrayModes: [
             {
                 name: 'easy',
                 maxLives: 5
@@ -15,26 +17,49 @@ export const useGamesStore = defineStore('user', {
             {
                 name: 'medium',
                 maxLives: 3
-            }as Mode , {
+            } as Mode, {
                 name: 'hard',
                 maxLives: 1
             } as Mode,
         ] as Array<Mode>,
 
+        _intHFrames: 0 as number,
+        _hFrame: 0 as number
+
     }),
 
     actions: {
+
+        initializeLoops() {
+            this._intHFrames = setInterval(() => this._hFrame = nextHFrame(this._hFrame), 500);
+        },
+
+        startCurrentGame() {
+            (this.currentGame as Game).started = true;
+        },
+        finishLoops() {
+            clearInterval(this._hFrame);
+        },
         removeCurrentGame() {
-            this.currentGame = null
+            this._currentGame = null
         },
         addGameToFinishedGames(game: Game) {
-            this.finishedGames.push(game);
+            this._finishedGames.push(game);
         },
 
-        modeOfName(name: string): Mode|null {
-            return this.arrayModes.find((mode) => mode.name === name) as Mode|null
+        modeOfName(name: string): Mode | null {
+            return this._arrayModes.find((mode) => mode.name === name) as Mode | null
         },
+
+        setCurrentGame(game: Game | null) {
+
+            this._currentGame = Object.assign({}, game);
+        }
     },
 
-    getters: {}
+    getters: {
+        currentGame: state => state._currentGame,
+        gameHasStarted: state => state._currentGame ? (!!state._currentGame.started) : false,
+        hFrame:state=> state._hFrame
+    }
 })

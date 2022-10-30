@@ -1,42 +1,52 @@
 <template>
   <main-header/>
   <section class="main-container container">
-    <mode-component @mode='newGame'/>
+    <mode-component @mode='newGame' v-if="!gameIsCreated"/>
+    <game v-else/>
   </section>
 </template>
 <script lang="ts">
-import {computed, defineComponent, ref} from 'vue';
-import Buttons from "@/components/Buttons.vue";
-import MainHeader from "@/views/MainHeader.vue";
-import {useUsersStore} from "@/stores/users";
-import {useRouter} from "vue-router";
-import CustomButton from "@/components/CustomButton.vue";
-import {useGamesStore} from '@/stores/games';
 
-
-import ModeComponent from "@/components/Mode.vue";
-import Mode from "@/customTypes/mode";
 import createGame from "@/Logic/Game/Services/createGame";
+import CustomButton from "@/components/CustomButton.vue";
+import {computed, defineComponent, reactive, ref} from 'vue';
+import ModeComponent from "@/components/Mode.vue";
+import MainHeader from "@/views/MainHeader.vue";
+import Buttons from "@/components/Buttons.vue";
+import {useUsersStore} from "@/stores/users";
+import {useGamesStore} from '@/stores/games';
+import Game from "@/components/Game/Game.vue";
+import Mode from "@/customTypes/mode";
+import {useRouter} from "vue-router";
+import User from "@/customTypes/user";
 
 export default defineComponent({
   name: 'GameView',
-  components: {CustomButton, MainHeader, Buttons, ModeComponent},
+  components: {Game, CustomButton, MainHeader, Buttons, ModeComponent},
   setup(props, {emit}) {
     const router = useRouter();
     const usersStore = useUsersStore();
     const gamesStore = useGamesStore();
-    const mode = ref<Mode | null>(null);
-    const user = computed(() => usersStore.currentUser);
-    if (!user.value) router.push('new-user');
-    const newGame = function (name: string) {
 
+    const mode = ref<Mode | null>(null);
+    const user = ref<User|undefined>(usersStore.currentUser);
+    const gameIsCreated = computed(() => Boolean(gamesStore.currentGame));
+
+    if (!user) router.push('new-user');
+    const newGame = function (name: string) {
       mode.value = Object.assign({}, gamesStore.modeOfName(name))
-      gamesStore.currentGame = createGame(usersStore.currentUserId as number, mode.value);
+
+
+      console.log('user',usersStore.currentUser)
+      const newGame = createGame(user.value?(user.value as User).id :null, mode.value)
+
+
+      console.log('newGame',newGame);
+      gamesStore.setCurrentGame(newGame);
+
 
     }
-
-
-    return {user, newGame}
+    return {user, newGame, gameIsCreated}
   }
 });
 </script>
