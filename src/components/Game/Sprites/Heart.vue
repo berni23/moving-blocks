@@ -14,7 +14,6 @@ export default defineComponent({
     const hFrame = computed(() => gameStore.hFrame);
     const style = computed(() => {
 
-
       return {
         backgroundImage: `url('images/heart${hFrame.value}.png'`
       }

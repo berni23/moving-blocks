@@ -10,7 +10,8 @@
       </ul>
       <br>
       <ul>
-        <li class="coin">
+        <li>
+          <coin/>
         </li>
         <li>X<span class="coin-number">{{ numCoins }}</span></li>
       </ul>
@@ -20,10 +21,11 @@
 <script lang="ts">
 import {defineComponent, ref} from "vue";
 import Heart from "@/components/Game/Sprites/Heart.vue";
+import Coin from "@/components/Game/Sprites/Coin.vue";
 
 export default defineComponent({
   name: "Status",
-  components: {Heart},
+  components: {Coin, Heart},
   props: {
     numCoins: {
       type: Number,
