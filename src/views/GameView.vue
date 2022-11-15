@@ -2,7 +2,9 @@
   <main-header/>
   <section class="main-container container" v-if="!gameIsCreated">
     <mode-component @mode='newGame'/>
+
   </section>
+
   <game v-else/>
 </template>
 <script lang="ts">
@@ -35,16 +37,10 @@ export default defineComponent({
     if (!user) router.push('new-user');
     const newGame = function (name: string) {
       mode.value = Object.assign({}, gamesStore.modeOfName(name))
-
-
       console.log('user', usersStore.currentUser)
       const newGame = createGame(user.value ? (user.value as User).id : null, mode.value)
-
-
       console.log('newGame', newGame);
       gamesStore.setCurrentGame(newGame);
-
-
     }
     return {user, newGame, gameIsCreated}
   }

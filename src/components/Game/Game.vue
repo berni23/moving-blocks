@@ -11,7 +11,6 @@
 </template>
 <script lang="ts">
 
-
 import {computed, defineComponent, onMounted, reactive} from 'vue';
 import Buttons from "@/components/Buttons.vue";
 import MainHeader from "@/views/MainHeader.vue";
@@ -39,24 +38,19 @@ export default defineComponent({
 <style lang="scss">
 
 @import 'src/assets/scss/keyframes';
-
 .game-wrapper {
-
   position: relative;
-
   .heart {
     background-image: url("/public/images/heart0.png");
     width: 30px;
     height: 30px;
   }
-
   .coin {
     position: absolute;
     background-image: url("/public/images/coin_0.png");
     width: 32px;
     height: 32px;
   }
-
   .diamond {
     position: absolute;
     background-image: url("/public/images/diamond0.png");
@@ -65,23 +59,15 @@ export default defineComponent({
     width: 50px;
     height: 50px;
   }
-
-
   .power-up {
     animation: glowing 3s ease-in-out infinite;
     -webkit-animation: glowing 3s ease-in-out infinite;
   }
-
-
-
   .game {
-
     width: 97%;
     margin : 20px  auto;
     height: 500px;
     position: relative;
   }
-
-
 }
 </style>

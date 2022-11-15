@@ -8,7 +8,7 @@ const createGame = (userId: number|null, mode: Mode):Game => {
         lives: mode.maxLives,
         started: false,
         finished: false,
-        timer: 0, //seconds
+        time: 0, //seconds
         coins:0
     } as Game;
 }
