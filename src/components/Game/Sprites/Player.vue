@@ -1,33 +1,70 @@
 <template>
 
-  <div id="me" class="me box"></div>
+  <div>{{ marginLeft }}</div>
+  <div>{{ marginTop }}</div>
+  <div id="me" class="player box" :style="{'marginLeft':marginLeft,'marginTop':marginTop}"></div>
 </template>
 
 <script lang="ts">
 
-
-import {defineComponent, watch} from 'vue';
+import {computed, defineComponent, watch} from 'vue';
 import {useGamesStore} from "@/stores/games";
+import {vBox} from "@/Logic/Game/constraints";
 
 export default defineComponent({
-  name: "view",
-
+  name: "player",
 
   setup(props, {emit}) {
-
     const gameStore = useGamesStore();
-    const me = document.getElementById('me') as HTMLElement;
+    const iteration = computed(() => gameStore.iteration);
+
+    console.log('offsetLeft', gameStore.offsetLeft);
+    const posLeft = computed(() => gameStore.offsetLeft);
+    const posTop = computed(() => gameStore.offsetTop);
+    const currentKey = computed(() => gameStore.currentKey);
 
     function applySpriteLogic() {
+      // console.log('applying sprite logic', gameStore.currentKey);
+      // console.log('top', gameStore.offsetTop);
+      // console.log('left', gameStore.offsetLeft)
+      if (!gameStore.currentKey) {
 
-      let posLeft = me.offsetLeft;
-      let posTop = me.offsetTop;
+        console.log('nil');
+        return
+      }
+      if (gameStore.goUp) {
+        console.log('up');
 
+        gameStore.setOffsetTop(posTop.value - vBox);
+        return;
+      }
 
+      if (gameStore.goDown) {
+
+        console.log('down');
+
+        gameStore.setOffsetTop(posTop.value + vBox);
+        return
+      }
+
+      if (gameStore.goLeft) {
+        console.log('left');
+
+        gameStore.setOffsetLeft(posLeft.value - vBox);
+        return
+      }
+
+      if (gameStore.goRight) {
+        console.log('right');
+        gameStore.setOffsetLeft(posLeft.value + vBox);
+        return
+      }
     }
 
-    // const iteration = ref(gameStore.iteration);
+    const marginLeft = computed(() => posLeft.value.toString() + 'px');
+    const marginTop = computed(() => posTop.value.toString() + 'px');
     watch(() => gameStore.iteration, applySpriteLogic);
+    return {marginLeft, marginTop};
 
   }
 });
@@ -36,10 +73,14 @@ export default defineComponent({
 <style lang="scss">
 
 
-.me {
+@import './src/assets/scss/colors';
+
+.player {
+  position: absolute !important;
   z-index: 10;
   width: 50px;
   height: 50px;
+  background-color: $color-user;
 }
 
 </style>

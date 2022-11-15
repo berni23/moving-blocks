@@ -27,7 +27,9 @@ export default defineComponent({
 
   .box{
 
-    position:absolute;
+    position:absolute!important;
+    width: 50px;
+    height: 50px;
   }
 
   .same-box {

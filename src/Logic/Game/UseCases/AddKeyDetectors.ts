@@ -1,12 +1,12 @@
 /* detection of W/A/S/D keys */
 
-import {keys} from "@/Logic/Game/constraints";
 import {useGamesStore} from "@/stores/games";
 
 
 const detectKey = (e: KeyboardEvent) => {
 
-    if (keys.includes(e.key)) useGamesStore().setCurrentKey(e.key)
+    const gameStore = useGamesStore();
+    gameStore.setCurrentKey(e.key)
 }
 
 const removeKey = (e: KeyboardEvent) => {
@@ -18,7 +18,7 @@ const removeKey = (e: KeyboardEvent) => {
 
 const addKeyDetectors = () => {
     document.onkeydown = detectKey;
-    document.onkeyup = removeKey;
+     document.onkeyup = removeKey;
 
 }
 
