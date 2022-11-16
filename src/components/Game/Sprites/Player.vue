@@ -1,5 +1,5 @@
 <template>
-  <div id="me" class="player box" :style="{'marginLeft':marginLeft,'marginTop':marginTop}"></div>
+  <div id="me" class="player box"  :class='classList' :style="{'marginLeft':marginLeft,'marginTop':marginTop}"></div>
 </template>
 
 <script lang="ts">
@@ -17,6 +17,9 @@ export default defineComponent({
     const posLeft = computed(() => gameStore.offsetLeft);
     const posTop = computed(() => gameStore.offsetTop);
 
+
+    const classList = computed(() => [gameStore.isBouncingDamage ? 'glowing-damage' : '']);
+
     function applySpriteLogic() {
       // console.log('applying sprite logic', gameStore.currentKey);
       // console.log('top', gameStore.offsetTop);
@@ -29,18 +32,18 @@ export default defineComponent({
       if (gameStore.goUp) {
         // console.log('up');
 
-        gameStore.setOffsetTop(Math.max(posTop.value - vBox,0));
+        gameStore.setOffsetTop(Math.max(posTop.value - vBox, 0));
         return;
       }
 
       if (gameStore.goDown) {
-        gameStore.setOffsetTop(Math.min(posTop.value + vBox,limitBottom));
+        gameStore.setOffsetTop(Math.min(posTop.value + vBox, limitBottom));
         return
       }
 
       if (gameStore.goLeft) {
 
-        let newOffset = Math.max(posLeft.value - vBox,0);
+        let newOffset = Math.max(posLeft.value - vBox, 0);
         gameStore.setOffsetLeft(newOffset);
 
         return
@@ -56,7 +59,7 @@ export default defineComponent({
     const marginLeft = computed(() => posLeft.value.toString() + 'px');
     const marginTop = computed(() => posTop.value.toString() + 'px');
     watch(() => gameStore.iteration, applySpriteLogic);
-    return {marginLeft, marginTop};
+    return {marginLeft, marginTop,classList};
 
   }
 });
@@ -66,6 +69,7 @@ export default defineComponent({
 
 
 @import './src/assets/scss/colors';
+@import './src/assets/scss/keyframes';
 
 .player {
   position: absolute !important;
@@ -75,4 +79,9 @@ export default defineComponent({
   background-color: $color-user;
 }
 
+
+.glowing-damage {
+
+  animation: glowing-damage 1s ease-in-out infinite alternate;
+}
 </style>
