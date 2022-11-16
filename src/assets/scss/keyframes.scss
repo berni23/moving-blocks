@@ -55,12 +55,12 @@
 @keyframes float {
   0% {
     transform: translatey(0px);
-    box-shadow: 0 0px 50px 0px rgba(135, 206, 250, 1);
+    box-shadow: 0 0 50px 0 rgba(135, 206, 250, 1);
   }
 
   50% {
     transform: translatey(-20px);
-    box-shadow: 0 0px 50px 0px rgba(135, 206, 250, 0.2);
+    box-shadow: 0 0 50px 0 rgba(135, 206, 250, 0.2);
   }
 
   100% {

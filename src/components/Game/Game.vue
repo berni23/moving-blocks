@@ -34,18 +34,13 @@ import NameToComponentConversor from "@/Logic/Game/Services/NameToComponentConve
 export default defineComponent({
       name: 'Game',
       components: {Player, Status, GameContent, CustomButton, MainHeader, Buttons, ModeComponent},
-
-
       setup(props, {emit}) {
         const gamesStore = useGamesStore();
         const arraySprites = computed(() => gamesStore.currentSprites);
         const gameHasStarted = computed(() => gamesStore.gameIsOngoing);
         const countdownText = ref('' as string | null);
-        onMounted(() => startGame(countdownText)
-        )
-        ;
+        onMounted(() => startGame(countdownText));
         return {
-
           componentFromString: NameToComponentConversor,
           gameHasStarted,
           box,

@@ -5,12 +5,11 @@
 
 <script lang="ts">
 
-import {computed, defineComponent, reactive, ref, watch} from 'vue';
+import {defineComponent, reactive} from 'vue';
 import {useGamesStore} from "@/stores/games";
-import {bH2, gameWidth, vOthers} from "@/Logic/Game/constraints";
-import {intToPix} from '@/Logic/Game/Utils/pixelConv';
+import {bH2, gameWidth} from "@/Logic/Game/constraints";
 import ElementSprite from '@/customTypes/elementSprite';
-import {isCollision} from "@/Logic/Game/Services/IsCollision";
+import applySpriteLogic from "@/Logic/Game/UseCases/ApplySpriteLogic";
 
 export default defineComponent({
   name: "box",
@@ -18,34 +17,14 @@ export default defineComponent({
 
   setup(props, {emit}) {
     const gameStore = useGamesStore();
-
-    // const gWidth = computed(gameWidth);
-
-    const localIteration = computed(() => shouldAppear ? gameStore.iteration : false);
     const element = reactive({offsetTop: props.offsetTop, offsetLeft: gameWidth(), radius: bH2} as ElementSprite);
-    const marginLeft = computed(() => intToPix(element.offsetLeft));
-    const marginTop = computed(() => intToPix(element.offsetTop));
-    const inBoard = computed(() => element.offsetLeft >= 0);
-    const elementPlayer = computed(() => gameStore.elementPlayer);
-    const elementCollided = ref(false);
-    const shouldAppear = computed(() => inBoard.value && !elementCollided.value);
-
-    function applySpriteLogic() {
-      if (!shouldAppear.value) return;
-      if (!inBoard.value) {
-        gameStore.removeNthSprite(props.id)
-        return
-      }
-      if (element.offsetLeft >= 500) element.offsetLeft = element.offsetLeft - vOthers;
-      if (!gameStore.isBouncingDamage && isCollision(element, elementPlayer.value)) {
-        gameStore.applyDamage();
-        gameStore.removeNthSprite(props.id)
-        elementCollided.value = true;
-      }
+    const localCbCollision = () => {
+      if (gameStore.isBouncingDamage) return;
+      gameStore.applyDamage();
+      gameStore.removeNthSprite(props.id)
     }
-    console.warn()
-    watch(() => localIteration.value, applySpriteLogic);
-    return {marginLeft, marginTop, shouldAppear};
+    return applySpriteLogic(props.id, element, localCbCollision);
+
 
   }
 });
