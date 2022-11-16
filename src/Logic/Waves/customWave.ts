@@ -1,7 +1,7 @@
 import {useGamesStore} from "@/stores/games";
 import createGameSprite from "@/Logic/Game/UseCases/CreateGameSprite";
 import box from "@/components/Game/Sprites/box.vue";
-import {gHeight, gWidth} from "@/Logic/Game/constraints";
+import {gHeight} from "@/Logic/Game/constraints";
 
 
 export default function customWave() {

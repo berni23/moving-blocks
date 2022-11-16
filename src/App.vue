@@ -13,6 +13,8 @@ body {
 
   font-family: $main-font!important;
   min-height: 100vh!important;
+  overflow-y:hidden;
+  height: 100%!important;
   align-items: center!important;
   text-align: center!important;
   margin: 0 auto!important;

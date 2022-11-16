@@ -7,7 +7,7 @@
 
 import {computed, defineComponent, reactive, watch} from 'vue';
 import {useGamesStore} from "@/stores/games";
-import {gWidth, vOthers} from "@/Logic/Game/constraints";
+import {gameWidth, vOthers} from "@/Logic/Game/constraints";
 import {intToPix} from '@/Logic/Game/Utils/pixelConv';
 
 export default defineComponent({
@@ -15,8 +15,10 @@ export default defineComponent({
   props: ['offsetTop'],
 
   setup(props, {emit}) {
-    const gameStore = useGamesStore();
-    const localState = reactive({offsetTop: props.offsetTop, offsetLeft: gWidth});
+    const gameStore = useGamesStore()
+
+    // const gWidth = computed(gameWidth);
+    const localState = reactive({offsetTop: props.offsetTop, offsetLeft: gameWidth()});
 
     const marginLeft = computed(() => intToPix(localState.offsetLeft));
     const marginTop = computed(() => intToPix(localState.offsetTop));
@@ -30,11 +32,12 @@ export default defineComponent({
       //collision with main box
 
       //outside of borders
-       if (localState.offsetLeft < 0) emit('remove')
+      if (localState.offsetLeft < 0) emit('remove')
 
     }
-     watch(() => gameStore.iteration, applySpriteLogic);
-    return {marginLeft,marginTop};
+
+    watch(() => gameStore.iteration, applySpriteLogic);
+    return {marginLeft, marginTop};
 
   }
 });

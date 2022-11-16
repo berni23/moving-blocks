@@ -1,5 +1,4 @@
-import {DefineComponent} from "vue";
-import {gHeight, gWidth} from "@/Logic/Game/constraints";
+import {gHeight} from "@/Logic/Game/constraints";
 import GameSprite from "@/customTypes/gameSprite";
 import box from "@/components/Game/Sprites/box.vue";
 

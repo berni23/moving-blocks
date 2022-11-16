@@ -1,5 +1,5 @@
 <template>
-  <main-header/>
+  <main-header v-if="!gameIsOngoing"/>
   <section class="main-container container" v-if="!gameIsCreated">
     <mode-component @mode='newGame'/>
 
@@ -40,7 +40,11 @@ export default defineComponent({
       const newGame = createGame(user.value ? (user.value as User).id : null, mode.value)
       gamesStore.setCurrentGame(newGame);
     }
-    return {user, newGame, gameIsCreated}
+
+    const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+
+    const gameIsOngoing = computed(()=>gamesStore.gameIsOngoing);
+    return {user, newGame, gameIsCreated,gameIsOngoing}
   }
 });
 </script>

@@ -1,7 +1,4 @@
 <template>
-
-  <div>{{ marginLeft }}</div>
-  <div>{{ marginTop }}</div>
   <div id="me" class="player box" :style="{'marginLeft':marginLeft,'marginTop':marginTop}"></div>
 </template>
 
@@ -9,7 +6,7 @@
 
 import {computed, defineComponent, watch} from 'vue';
 import {useGamesStore} from "@/stores/games";
-import {vBox} from "@/Logic/Game/constraints";
+import {limitBottom, vBox} from "@/Logic/Game/constraints";
 
 export default defineComponent({
   name: "player",
@@ -29,34 +26,35 @@ export default defineComponent({
       // console.log('left', gameStore.offsetLeft)
       if (!gameStore.currentKey) {
 
-        console.log('nil');
+        // console.log('nil');
         return
       }
       if (gameStore.goUp) {
-        console.log('up');
+        // console.log('up');
 
-        gameStore.setOffsetTop(posTop.value - vBox);
+        gameStore.setOffsetTop(Math.max(posTop.value - vBox,0));
         return;
       }
 
       if (gameStore.goDown) {
 
-        console.log('down');
+         console.log('down');
 
-        gameStore.setOffsetTop(posTop.value + vBox);
+        gameStore.setOffsetTop(Math.min(posTop.value + vBox,limitBottom));
         return
       }
 
       if (gameStore.goLeft) {
-        console.log('left');
 
-        gameStore.setOffsetLeft(posLeft.value - vBox);
+        let newOffset = Math.max(posLeft.value - vBox,0);
+        gameStore.setOffsetLeft(newOffset);
+
         return
       }
 
       if (gameStore.goRight) {
-        console.log('right');
-        gameStore.setOffsetLeft(posLeft.value + vBox);
+        // console.log('right');
+        gameStore.setOffsetLeft(Math.min(posLeft.value + vBox));
         return
       }
     }
