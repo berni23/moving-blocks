@@ -5,6 +5,9 @@ import customWave from "@/Logic/Waves/customWave";
 
 function startGame() {
 
+    //clear old timers
+
+
     //define waves
     customWave();
 

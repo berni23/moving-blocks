@@ -7,6 +7,8 @@ const initializeGame = () => {
 
     const gameStore = useGamesStore();
 
+    gameStore.finishLoops();
+
     const spritePusher = (arraySprites: Array<GameSprite>) => {
         let gameSprite = arraySprites.shift() as GameSprite;
         gameStore.pushCurrentSprite(gameSprite);
