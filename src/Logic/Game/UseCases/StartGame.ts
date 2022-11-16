@@ -1,22 +1,29 @@
 import countDown from "@/Logic/Game/Utils/countDown";
 import initializeGame from "@/Logic/Game/UseCases/InitializeGame";
 import customWave from "@/Logic/Waves/customWave";
+import {Ref, ref} from "vue";
+import {useGamesStore} from "@/stores/games";
 
 
-function startGame() {
+function startGame(countDownText:  Ref<string|null>) {
 
-    //clear old timers
+    //clean sprites
+    useGamesStore().removeSprites();
 
+    useGamesStore().finishLoops();
 
     //define waves
     customWave();
 
-    //countDown
-    const element = document.getElementById('count-down') as HTMLElement;
+    // const element = document.getElementById('count-down') as HTMLElement;
     const soundStart = document.getElementById('sound-start') as HTMLAudioElement;
     soundStart.play().then(r => {
     });
-    countDown(element, initializeGame);
+
+    initializeGame();
+     // countDown(countDownText, initializeGame);
+
+
 }
 
 export default startGame;

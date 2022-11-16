@@ -5,11 +5,12 @@ import {gHeight} from "@/Logic/Game/constraints";
 
 
 export default function customWave() {
-    let gameStore = useGamesStore()
+
+    const gameStore = useGamesStore();
     let gameSprite = createGameSprite(); // we pass on arguments -> hence default values are set
     gameStore.pushSprite(gameSprite);
-    let gameSprite2 = createGameSprite(box, 200, gHeight / 3); // we pass on arguments -> hence default values are set
-    gameStore.pushSprite(gameSprite2);
+    // let gameSprite2 = createGameSprite(box, 2000, gHeight / 3); // we pass on arguments -> hence default values are set
+    // gameStore.pushSprite(gameSprite2);
 
 }
 

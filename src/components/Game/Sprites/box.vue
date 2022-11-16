@@ -1,43 +1,47 @@
 <template>
 
-  <div class="box blue-box" :style="{'marginLeft':marginLeft,'marginTop':marginTop}"></div>
+  <div v-if="inBoard" class="box blue-box" :style="{'marginLeft':marginLeft,'marginTop':marginTop}"></div>
 </template>
 
 <script lang="ts">
 
 import {computed, defineComponent, reactive, watch} from 'vue';
 import {useGamesStore} from "@/stores/games";
-import {gameWidth, vOthers} from "@/Logic/Game/constraints";
+import {bH2, gameWidth, vOthers} from "@/Logic/Game/constraints";
 import {intToPix} from '@/Logic/Game/Utils/pixelConv';
+import ElementSprite from '@/customTypes/elementSprite';
+import {isCollision} from "@/Logic/Game/Services/IsCollision";
 
 export default defineComponent({
   name: "box",
-  props: ['offsetTop'],
+  props: ['offsetTop', 'id'],
 
   setup(props, {emit}) {
-    const gameStore = useGamesStore()
+    const gameStore = useGamesStore();
 
     // const gWidth = computed(gameWidth);
-    const localState = reactive({offsetTop: props.offsetTop, offsetLeft: gameWidth()});
+    const element = reactive({offsetTop: props.offsetTop, offsetLeft: gameWidth(), radius: bH2} as ElementSprite);
+    const marginLeft = computed(() => intToPix(element.offsetLeft));
+    const marginTop = computed(() => intToPix(element.offsetTop));
+    const inBoard = computed(() => element.offsetLeft >= 0);
+    const elementPlayer = computed(() => gameStore.elementPlayer);
 
-    const marginLeft = computed(() => intToPix(localState.offsetLeft));
-    const marginTop = computed(() => intToPix(localState.offsetTop));
+    const collision = computed(() => isCollision(element, elementPlayer.value));
 
     function applySpriteLogic() {
-
-      // console.log('applying sprite logic',gameStore.iteration);
-      localState.offsetLeft = localState.offsetLeft - vOthers;
-
-
-      //collision with main box
-
-      //outside of borders
-      if (localState.offsetLeft < 0) emit('remove')
-
+      if (!inBoard.value) {
+        gameStore.removeNthSprite(props.id)
+        return
+      }
+      if (element.offsetLeft >= 500) element.offsetLeft = element.offsetLeft - vOthers;
+      if (!gameStore.isBouncingDamage && isCollision(element, elementPlayer.value)) {
+        gameStore.applyDamage();
+        gameStore.removeNthSprite(props.id)
+      }
     }
 
     watch(() => gameStore.iteration, applySpriteLogic);
-    return {marginLeft, marginTop};
+    return {marginLeft, marginTop, inBoard};
 
   }
 });

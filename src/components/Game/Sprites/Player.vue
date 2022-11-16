@@ -13,12 +13,9 @@ export default defineComponent({
 
   setup(props, {emit}) {
     const gameStore = useGamesStore();
-    const iteration = computed(() => gameStore.iteration);
-
-    console.log('offsetLeft', gameStore.offsetLeft);
+    // const iteration = computed(() => gameStore.iteration);
     const posLeft = computed(() => gameStore.offsetLeft);
     const posTop = computed(() => gameStore.offsetTop);
-    const currentKey = computed(() => gameStore.currentKey);
 
     function applySpriteLogic() {
       // console.log('applying sprite logic', gameStore.currentKey);
@@ -37,9 +34,6 @@ export default defineComponent({
       }
 
       if (gameStore.goDown) {
-
-         console.log('down');
-
         gameStore.setOffsetTop(Math.min(posTop.value + vBox,limitBottom));
         return
       }

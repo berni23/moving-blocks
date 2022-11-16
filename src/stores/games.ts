@@ -4,15 +4,18 @@ import Mode from "@/customTypes/mode";
 import {nextCFrame, nextHFrame} from "@/Logic/Game/Utils/frames";
 import {
     arrayModes,
+    bH2,
     gameInterval,
     keysDown,
     keysLeft,
     keysRight,
     keysUp,
     limitBottom,
-    limitRight
+    limitRight,
+    timeDamageRecovery
 } from "@/Logic/Game/constraints";
 import GameSprite from "@/customTypes/gameSprite";
+import ElementSprite from "@/customTypes/elementSprite";
 
 
 // @ts-ignore
@@ -29,51 +32,64 @@ export const useGamesStore = defineStore('games', {
         _gameTimer: 0 as number,
         _hFrame: 0 as number,
         _cFrame: 0 as number,
-        _offsetLeft: 0,
-        _offsetTop: 0,
+        _timeDamage: null as number | null,
+        _offsetLeft: 0 as number,
+        _offsetTop: 0 as number,
         _arraySprites: [] as Array<GameSprite>,
         _currentSprites: [] as Array<GameSprite>
     }),
 
     actions: {
 
-        cleanTimers() {
+        applyDamage(intensity = 1) {
+            if (!this._currentGame || this._timeDamage) return;
+            this._currentGame.lives = Math.max(this._currentGame.lives - intensity, 0);
+            this._timeDamage = setTimeout(() => {
 
-
+                this._timeDamage = null;
+                console.log('NO TIME DAMAGE!');
+            }, timeDamageRecovery)
+        },
+        removeSprites() {
+            this._arraySprites = [];
+            this._currentSprites = [];
         },
         setOffsetLeft(offsetLeft: number) {
             this._offsetLeft = offsetLeft
         },
         pushSprite(sprite: GameSprite) {
+            sprite.id = this._arraySprites.length + 1;
             this._arraySprites.push(sprite);
         },
 
         pushCurrentSprite(sprite: GameSprite) {
-
             this._currentSprites.push(sprite);
         },
 
         removeNthSprite(n: number) {
-            this._currentSprites.splice(n, 1);
+            // this._currentSprites.splice(n, 1);
+            let index = this._currentSprites.findIndex(sprite => sprite.id == n);
+            if (!index) return;
+            this._currentSprites.splice(index, 1);
         },
         setOffsetTop(offsetTop: number) {
             this._offsetTop = offsetTop
         },
         initializeLoops() {
             this._intHFrames = setInterval(() => this._hFrame = nextHFrame(this._hFrame), 500);
-            this._intCFrames = setInterval(() => this._cFrame = nextCFrame(this._cFrame), 200);
+            this._intCFrames = setInterval(() => this._cFrame = nextCFrame(this._cFrame), 250);
             this._gameLoopInterval = setInterval(() => this._iteration++, gameInterval);
         },
         startCurrentGame() {
             let game = Object.assign(this._currentGame as Game, {});
             game.started = true;
-
             this._currentGame = game;
         },
         finishLoops() {
             clearInterval(this._hFrame);
             clearInterval(this._cFrame);
             if (this._gameLoopInterval) clearInterval(this._gameLoopInterval);
+            if (this._timeDamage) clearTimeout(this._timeDamage);
         },
         removeCurrentGame() {
             this._currentGame = null
@@ -101,9 +117,9 @@ export const useGamesStore = defineStore('games', {
     getters: {
         arraySprites: state => state._arraySprites,
         currentSprites: state => state._currentSprites,
-        gameHasStarted: state => state._currentGame ? state._currentGame.started : false,
         currentGame: state => state._currentGame,
         iteration: state => state._iteration,
+        isBouncingDamage: state => Boolean(state._timeDamage),
         currentKey: state => state._currentKey,
         hFrame: state => state._hFrame,
         cFrame: state => state._cFrame,
@@ -114,6 +130,14 @@ export const useGamesStore = defineStore('games', {
         goRight: state => keysRight.includes(state._currentKey as string) && state._offsetLeft <= limitRight(),
         goLeft: state => keysLeft.includes(state._currentKey as string),
         gameIsOngoing: state => state._currentGame && state._currentGame.started && !state._currentGame.finished,
-
+        currentLives: state => state._currentGame ? state._currentGame.lives : 0,
+        currentCoins: state => state._currentGame ? state._currentGame.coins : 0,
+        elementPlayer: state => {
+            return {
+                offsetLeft: state._offsetLeft,
+                offsetTop: state._offsetTop,
+                radius: bH2
+            } as ElementSprite;
+        }
     }
-})
+});

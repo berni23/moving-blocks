@@ -7,12 +7,12 @@ export const gHeight: number = 500;
 export const boxWidthPixels: string = '50px';
 export const boxSize: number = pixToInt(boxWidthPixels);
 export const marginGame: number = 20;
-export const limitBottom: number = gHeight - boxSize ;
+export const limitBottom: number = gHeight - boxSize;
 export const bH2: number = boxSize / 2
 export const vBox: number = 7;
 export const vOthers: number = 5;
 export const gameInterval: number = 16; // gameInterval
-
+export const timeDamageRecovery: number = 5000 //milliseconds
 export const boxIniMarginLeft: string = "750px";
 export const boxIniMarginTop: string = "250px";
 
@@ -29,5 +29,5 @@ export const arrayModes = [{name: 'easy', maxLives: 5} as Mode, {name: 'medium',
 } as Mode,] as Array<Mode>
 
 
-export const gameWidth = ():number=> Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-export const limitRight = (): number=> gameWidth() - boxSize - marginGame*2;
+export const gameWidth = (): number => Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+export const limitRight = (): number => gameWidth() - boxSize - marginGame * 2;
