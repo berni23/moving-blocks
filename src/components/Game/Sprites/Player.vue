@@ -77,6 +77,7 @@ export default defineComponent({
   width: 50px;
   height: 50px;
   background-color: $color-user;
+  transition: 1s animation;
 }
 
 
