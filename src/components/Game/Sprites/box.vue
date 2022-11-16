@@ -1,11 +1,11 @@
 <template>
 
-  <div v-if="inBoard" class="box blue-box" :style="{'marginLeft':marginLeft,'marginTop':marginTop}"></div>
+  <div v-if="shouldAppear" class="box blue-box" :style="{'marginLeft':marginLeft,'marginTop':marginTop}"></div>
 </template>
 
 <script lang="ts">
 
-import {computed, defineComponent, reactive, watch} from 'vue';
+import {computed, defineComponent, reactive, ref, watch} from 'vue';
 import {useGamesStore} from "@/stores/games";
 import {bH2, gameWidth, vOthers} from "@/Logic/Game/constraints";
 import {intToPix} from '@/Logic/Game/Utils/pixelConv';
@@ -20,15 +20,18 @@ export default defineComponent({
     const gameStore = useGamesStore();
 
     // const gWidth = computed(gameWidth);
+
+    const localIteration = computed(() => shouldAppear ? gameStore.iteration : false);
     const element = reactive({offsetTop: props.offsetTop, offsetLeft: gameWidth(), radius: bH2} as ElementSprite);
     const marginLeft = computed(() => intToPix(element.offsetLeft));
     const marginTop = computed(() => intToPix(element.offsetTop));
     const inBoard = computed(() => element.offsetLeft >= 0);
     const elementPlayer = computed(() => gameStore.elementPlayer);
-
-    const collision = computed(() => isCollision(element, elementPlayer.value));
+    const elementCollided = ref(false);
+    const shouldAppear = computed(() => inBoard.value && !elementCollided.value);
 
     function applySpriteLogic() {
+      if (!shouldAppear.value) return;
       if (!inBoard.value) {
         gameStore.removeNthSprite(props.id)
         return
@@ -37,11 +40,12 @@ export default defineComponent({
       if (!gameStore.isBouncingDamage && isCollision(element, elementPlayer.value)) {
         gameStore.applyDamage();
         gameStore.removeNthSprite(props.id)
+        elementCollided.value = true;
       }
     }
-
-    watch(() => gameStore.iteration, applySpriteLogic);
-    return {marginLeft, marginTop, inBoard};
+    console.warn()
+    watch(() => localIteration.value, applySpriteLogic);
+    return {marginLeft, marginTop, shouldAppear};
 
   }
 });
