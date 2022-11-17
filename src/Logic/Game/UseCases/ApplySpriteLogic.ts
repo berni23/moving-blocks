@@ -1,4 +1,4 @@
-//todo apply sprite logic that all of the sprites should have in common
+//logic all the sprites should have in common
 
 import {computed, ref, watch} from "vue";
 import {vOthers} from "@/Logic/Game/constraints";
