@@ -14,10 +14,15 @@ export default defineComponent({
 
   setup() {
 
-    const audio = new Audio(require('../../assets/sounds/sound_coin.mp3'));
-    const gamesStore = useGamesStore();
-    watch(() => gamesStore.currentCoins, () => audio.play());
+    const audioCoin = new Audio(require('../../assets/sounds/sound_coin.mp3'));
 
+    const audioDamage = new Audio(require('../../assets/sounds/damage.mp3'));
+
+    const gamesStore = useGamesStore();
+    watch(() => gamesStore.currentCoins, () => audioCoin.play());
+    watch(() => gamesStore.currentLives, (newVal, oldVal) => {
+      if (newVal < oldVal) audioDamage.play();
+    });
   }
 
 })
