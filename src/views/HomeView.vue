@@ -3,7 +3,7 @@
   <main-header/>
 
   <section class="main-container container">
-    <buttons @howToPlay="goHowToPlay" @newUser="goToNewUser"/>
+    <buttons @howToPlay="goHowToPlay" @newUser="goToNewUser" @newGame="goToNewGame"/>
   </section>
 </template>
 
@@ -24,7 +24,8 @@ export default defineComponent({
     const isCurrentUser = ref(usersStore.isCurrentUser)
     const goHowToPlay = () => router.push('how-to-play')
     const goToNewUser = () => router.push('new-user')
-    return {isCurrentUser, goHowToPlay, goToNewUser}
+    const goToNewGame = () => router.push('game')
+    return {isCurrentUser, goHowToPlay, goToNewUser,goToNewGame}
 
   }
 });

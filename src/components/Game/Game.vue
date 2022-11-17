@@ -42,12 +42,10 @@ export default defineComponent({
         const router = useRouter();
         const usersStore = useUsersStore();
         const user = ref<User | null>(usersStore.currentUser);
-
         const arraySprites = computed(() => gamesStore.currentSprites);
         const gameHasStarted = computed(() => gamesStore.gameIsOngoing);
         const countdownText = ref('' as string | null);
         onMounted(() => {
-
           if (!user.value) router.push('new-user')
 
           else startGame(countdownText)

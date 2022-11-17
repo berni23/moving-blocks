@@ -1,8 +1,8 @@
 <template>
 
   <div class="buttons">
-    <custom-button class="buttons__try-again" v-if="isCurrentUser" :text="'new game'"/>
-    <custom-button class="buttons__how-to" @clicked='emitHowToPlay' :text="'how to play'"/>
+    <custom-button class="buttons__try-again" v-if="isCurrentUser"  @clicked="emitNewGame" :text="'new game'"/>
+    <custom-button class="buttons__how-to" :phase="true" @clicked='emitHowToPlay' :text="'how to play'"/>
     <custom-button class="buttons__new-user" @clicked="emitNewUser" :text="'new user'"/>
   </div>
 
@@ -21,8 +21,8 @@ export default defineComponent({
     const isCurrentUser = ref(usersStore.isCurrentUser)
     const emitNewUser = () => emit('new-user')
     const emitHowToPlay = () =>emit('how-to-play');
-
-    return {isCurrentUser, emitHowToPlay, emitNewUser}
+    const emitNewGame = () =>emit('new-game');
+    return {isCurrentUser, emitHowToPlay, emitNewUser,emitNewGame}
 
   }
 })

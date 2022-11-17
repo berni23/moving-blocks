@@ -10,10 +10,7 @@
       <custom-button class="btn-1" v-if="lastStep" id="tutorial-back" @clicked="toMain" :text="'back to main'"/>
       <custom-button class="btn-2" v-else id="tutorial-next" @clicked="next" :text="'next'"/>
     </div>
-
-
   </section>
-
 </template>
 
 <script lang="ts">
