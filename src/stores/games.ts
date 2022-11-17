@@ -1,7 +1,6 @@
 import {defineStore} from "pinia";
 import Game from "@/customTypes/game";
 import Mode from "@/customTypes/mode";
-import { nextHFrame} from "@/Logic/Game/Utils/frames";
 import {
     arrayModes,
     bH2,
@@ -68,12 +67,16 @@ export const useGamesStore = defineStore('games', {
         setOffsetLeft(offsetLeft: number) {
             this._offsetLeft = offsetLeft
         },
-        pushSprite(sprite: GameSprite) {
+        saveSprite(sprite: GameSprite) {
             sprite.id = this._arraySprites.length + 1;
             this._arraySprites.push(sprite);
         },
 
-        pushCurrentSprite(sprite: GameSprite) {
+        saveArraySprites(arraySprites: Array<GameSprite>) {
+            this._currentSprites = this._currentSprites.concat(arraySprites);
+        },
+
+        displaySprite(sprite: GameSprite) {
             this._currentSprites.push(sprite);
         },
 

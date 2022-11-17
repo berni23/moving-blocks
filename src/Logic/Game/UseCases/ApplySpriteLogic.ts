@@ -24,7 +24,9 @@ const   applySpriteLogic = (id: number, element: ElementSprite, callbackCollisio
             gameStore.removeNthSprite(id)
             return
         }
-        if (element.offsetLeft >= 500) element.offsetLeft = element.offsetLeft - vOthers;
+        // if (element.offsetLeft >= 500)
+
+            element.offsetLeft = element.offsetLeft - vOthers;
         if (isCollision(element, elementPlayer.value)) {
             elementCollided.value = true;
             callbackCollision();

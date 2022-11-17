@@ -1,6 +1,6 @@
 import countDown from "@/Logic/Game/Utils/countDown";
 import initializeGame from "@/Logic/Game/UseCases/InitializeGame";
-import customWave from "@/Logic/Waves/customWave";
+import customWave from "@/Logic/Waves/CustomWave";
 import {Ref, ref} from "vue";
 import {useGamesStore} from "@/stores/games";
 

@@ -1,6 +1,8 @@
 <template>
 
   <div id="me" class="player box" :class='classList' :style="{'marginLeft':marginLeft,'marginTop':marginTop}">
+
+    <img  src='images/player.gif' alt="player"/>
   </div>
 </template>
 
@@ -47,7 +49,7 @@ export default defineComponent({
     const marginLeft = computed(() => posLeft.value.toString() + 'px');
     const marginTop = computed(() => posTop.value.toString() + 'px');
     watch(() => gameStore.iteration, applySpriteLogic);
-    return {size:boxWidthPixels,marginLeft, marginTop, classList};
+    return {size: boxWidthPixels, marginLeft, marginTop, classList};
 
   }
 });
@@ -62,8 +64,8 @@ export default defineComponent({
 .player {
   position: absolute !important;
   z-index: 10;
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 40px;
   background-color: $color-user;
   transition: 1s animation;
 }

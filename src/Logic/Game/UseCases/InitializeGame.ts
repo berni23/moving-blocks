@@ -11,7 +11,7 @@ const initializeGame = () => {
 
     const spritePusher = (arraySprites: Array<GameSprite>) => {
         let gameSprite = arraySprites.shift() as GameSprite;
-        gameStore.pushCurrentSprite(gameSprite);
+        gameStore.displaySprite(gameSprite);
         if (!arraySprites.length) return;
         setTimeout(() => spritePusher(arraySprites), arraySprites[0].time);
     }

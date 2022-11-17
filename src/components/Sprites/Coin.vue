@@ -26,11 +26,8 @@ export default defineComponent({
     }
   },
   setup(props) {
-
-
     const gameStore = useGamesStore();
     const element = reactive({offsetTop: props.offsetTop, offsetLeft: gameWidth(), radius: cH2} as ElementSprite);
-
     const localCbCollision = () => {
       gameStore.increaseCoins();
       gameStore.removeNthSprite(props.id)

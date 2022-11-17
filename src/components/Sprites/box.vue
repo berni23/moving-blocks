@@ -1,8 +1,13 @@
 <template>
 
-  <div v-if="shouldAppear" class="box blue-box"
+  <div v-if="shouldAppear" class="box"
 
-       :style="{'width':size, 'height':size,'marginLeft':marginLeft,'marginTop':marginTop}"></div>
+       :style="{'width':size, 'height':size,'marginLeft':marginLeft,'marginTop':marginTop}">
+
+    <img
+        src='images/alien.gif'
+        :style="{'width':size, 'height':size}" alt="alien"/>
+  </div>
 </template>
 
 <script lang="ts">

@@ -19,6 +19,8 @@ export const timePowerUp: number = 6000 //milliseconds
 export const limitBottom: number = gHeight - boxSize;
 export const initialCoordinates = [0, gHeight / 2];
 export const bH2: number = boxSize / 2
+export const playerRadius: number = boxSize / 2
+
 export const vBox: number = 7;
 
 
