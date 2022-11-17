@@ -1,17 +1,18 @@
 <template>
   <div class="coin status-coin"
-       :style="{'backgroundImage':bgImage}">
+       :style="{'width':size,'height':size,'backgroundImage':bgImage}">
   </div>
 </template>
 <script lang="ts">
 import {defineComponent} from "vue";
 import {coinSprite} from "@/Logic/Game/Utils/SpriteImages";
+import {coinWidthPixels} from "@/Logic/Game/constraints";
 
 export default defineComponent({
   name: "StatusCoin",
 
   setup(props) {
-    return {bgImage: coinSprite()}
+    return {'size':coinWidthPixels,bgImage: coinSprite()}
   }
 })
 </script>

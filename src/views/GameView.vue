@@ -10,11 +10,11 @@
 <script lang="ts">
 
 import createGame from "@/Logic/Game/Services/createGame";
-import CustomButton from "@/components/CustomButton.vue";
+import CustomButton from "@/components/Buttons/CustomButton.vue";
 import {computed, defineComponent, ref} from 'vue';
-import ModeComponent from "@/components/Mode.vue";
+import ModeComponent from "@/components/Game/Mode.vue";
 import MainHeader from "@/views/MainHeader.vue";
-import Buttons from "@/components/Buttons.vue";
+import Buttons from "@/components/Buttons/Buttons.vue";
 import {useUsersStore} from "@/stores/users";
 import {useGamesStore} from '@/stores/games';
 import Game from "@/components/Game/Game.vue";

@@ -1,5 +1,5 @@
 <template>
-  <div id="me" class="player box"  :class='classList' :style="{'marginLeft':marginLeft,'marginTop':marginTop}"></div>
+  <div id="me" class="player box" :class='classList' :style="{'marginLeft':marginLeft,'marginTop':marginTop}"></div>
 </template>
 
 <script lang="ts">
@@ -13,44 +13,30 @@ export default defineComponent({
 
   setup(props, {emit}) {
     const gameStore = useGamesStore();
-    // const iteration = computed(() => gameStore.iteration);
     const posLeft = computed(() => gameStore.offsetLeft);
     const posTop = computed(() => gameStore.offsetTop);
 
 
-    const classList = computed(() => [gameStore.isBouncingDamage ? 'glowing-damage' : '']);
+    const classList = computed(() => [
+      gameStore.isBouncingDamage ? 'glowing-damage' : '',
+      gameStore.isPowerUp ? 'glowing-power-up' : '']);
 
     function applySpriteLogic() {
-      // console.log('applying sprite logic', gameStore.currentKey);
-      // console.log('top', gameStore.offsetTop);
-      // console.log('left', gameStore.offsetLeft)
-      if (!gameStore.currentKey) {
-
-        // console.log('nil');
-        return
-      }
+      if (!gameStore.currentKey) return
       if (gameStore.goUp) {
-        // console.log('up');
-
         gameStore.setOffsetTop(Math.max(posTop.value - vBox, 0));
         return;
       }
-
       if (gameStore.goDown) {
         gameStore.setOffsetTop(Math.min(posTop.value + vBox, limitBottom));
         return
       }
-
       if (gameStore.goLeft) {
-
         let newOffset = Math.max(posLeft.value - vBox, 0);
         gameStore.setOffsetLeft(newOffset);
-
         return
       }
-
       if (gameStore.goRight) {
-        // console.log('right');
         gameStore.setOffsetLeft(Math.min(posLeft.value + vBox));
         return
       }
@@ -59,7 +45,7 @@ export default defineComponent({
     const marginLeft = computed(() => posLeft.value.toString() + 'px');
     const marginTop = computed(() => posTop.value.toString() + 'px');
     watch(() => gameStore.iteration, applySpriteLogic);
-    return {marginLeft, marginTop,classList};
+    return {marginLeft, marginTop, classList};
 
   }
 });
@@ -68,8 +54,8 @@ export default defineComponent({
 <style lang="scss">
 
 
-@import './src/assets/scss/colors';
-@import './src/assets/scss/keyframes';
+@import '../../assets/scss/colors';
+@import '../../assets/scss/keyframes';
 
 .player {
   position: absolute !important;
@@ -84,5 +70,11 @@ export default defineComponent({
 .glowing-damage {
 
   animation: glowing-damage 1s ease-in-out infinite alternate;
+}
+
+.glowing-power-up {
+  animation: glowing 3s ease-in-out infinite;
+  -webkit-animation: glowing 3s ease-in-out infinite;
+
 }
 </style>

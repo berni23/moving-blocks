@@ -17,16 +17,16 @@
 <script lang="ts">
 
 import {computed, defineComponent, onMounted, ref} from 'vue';
-import Buttons from "@/components/Buttons.vue";
+import Buttons from "@/components/Buttons/Buttons.vue";
 import MainHeader from "@/views/MainHeader.vue";
-import CustomButton from "@/components/CustomButton.vue";
+import CustomButton from "@/components/Buttons/CustomButton.vue";
 import {useGamesStore} from '@/stores/games';
-import ModeComponent from "@/components/Mode.vue";
+import ModeComponent from "@/components/Game/Mode.vue";
 import startGame from "@/Logic/Game/UseCases/StartGame";
 import GameContent from "@/components/Game/GameContent.vue";
-import Status from "@/components/Game/Status.vue";
-import Player from "@/components/Game/Sprites/Player.vue";
-import box from "@/components/Game/Sprites/box.vue";
+import Status from "@/components/Status/Status.vue";
+import Player from "@/components/Sprites/Player.vue";
+import box from "@/components/Sprites/box.vue";
 import {gHeight} from "@/Logic/Game/constraints";
 import {intToPix} from "@/Logic/Game/Utils/pixelConv";
 import NameToComponentConversor from "@/Logic/Game/Services/NameToComponentConversor";
@@ -61,7 +61,6 @@ export default defineComponent({
 
 #count-down {
 
-
   color: $color-primary;
 }
 
@@ -69,36 +68,13 @@ export default defineComponent({
   position: relative;
 
   .heart {
-    background-image: url("/public/images/heart0.png");
+    background-image: url("/public/images/hearts/heart0.png");
     width: 30px;
     height: 30px;
   }
 
-  .coin {
-    position: absolute;
-    background-image: url("/public/images/coin_0.png");
-    width: 32px;
-    height: 32px;
-  }
-
-  .diamond {
-    position: absolute;
-    background-image: url("/public/images/diamond0.png");
-    background-repeat: no-repeat;
-    transform: scale(1.5);
-    width: 50px;
-    height: 50px;
-  }
-
-  .power-up {
-    animation: glowing 3s ease-in-out infinite;
-    -webkit-animation: glowing 3s ease-in-out infinite;
-  }
 
   .game {
-    //width: 97%;
-    //margin: 20px auto;
-    //height: 500px;
     position: relative;
   }
 
@@ -106,14 +82,10 @@ export default defineComponent({
   .box {
 
     position: absolute !important;
-    width: 50px;
-    height: 50px;
   }
 
   .same-box {
     position: absolute;
-    width: 50px;
-    height: 50px;
   }
 
   .blue-box, .fast-blue-box {

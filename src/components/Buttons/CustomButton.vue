@@ -44,9 +44,9 @@ export default defineComponent({
 
 <style lang="scss">
 
-@import '../assets/scss/colors.scss';
-@import '../assets/scss/fonts';
-@import "../assets/scss/keyframes";
+@import '../../assets/scss/colors';
+@import '../../assets/scss/fonts';
+@import "../../assets/scss/keyframes";
 
 a {
   color: black;

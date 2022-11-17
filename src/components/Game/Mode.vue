@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import CustomButton from "@/components/CustomButton.vue";
+import CustomButton from "@/components/Buttons/CustomButton.vue";
 export default {
   name: "Mode",
   components: {CustomButton},

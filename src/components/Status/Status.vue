@@ -20,9 +20,9 @@
 </template>
 <script lang="ts">
 import {computed, defineComponent} from "vue";
-import Heart from "@/components/Game/Sprites/Heart.vue";
+import Heart from "@/components/Sprites/Heart.vue";
 import { useGamesStore } from "@/stores/games";
-import StatusCoin from "@/components/Game/Sprites/StatusCoin.vue";
+import StatusCoin from "@/components/Status/StatusCoin.vue";
 
 export default defineComponent({
   name: "Status",
@@ -38,7 +38,7 @@ export default defineComponent({
 </script>
 <style lang="scss">
 
-@import "src/assets/scss/colors";
+@import "../../assets/scss/colors";
 .game-status {
   margin: 20px;
   padding: 10px;

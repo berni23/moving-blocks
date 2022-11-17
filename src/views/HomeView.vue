@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import {defineComponent, ref} from 'vue';
-import Buttons from "@/components/Buttons.vue";
+import Buttons from "@/components/Buttons/Buttons.vue";
 import MainHeader from "@/views/MainHeader.vue";
 import {useRouter} from "vue-router";
 import {useUsersStore} from "@/stores/users";

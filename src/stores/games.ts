@@ -12,7 +12,8 @@ import {
     keysUp,
     limitBottom,
     limitRight,
-    timeDamageRecovery
+    timeDamageRecovery,
+    timePowerUp
 } from "@/Logic/Game/constraints";
 import GameSprite from "@/customTypes/gameSprite";
 import ElementSprite from "@/customTypes/elementSprite";
@@ -33,6 +34,7 @@ export const useGamesStore = defineStore('games', {
         _hFrame: 0 as number,
         _cFrame: 0 as number,
         _timeDamage: null as number | null,
+        _timePowerUp: null as number | null,
         _offsetLeft: 0 as number,
         _offsetTop: 0 as number,
         _arraySprites: [] as Array<GameSprite>,
@@ -50,8 +52,17 @@ export const useGamesStore = defineStore('games', {
             }, timeDamageRecovery)
         },
 
+        applyPowerUp() {
+            if (this._timePowerUp) clearTimeout(this._timePowerUp);
+            this._timePowerUp = setTimeout(() => {
+                this._timePowerUp = null;
+            }, timePowerUp)
+            if (this._timeDamage) clearTimeout(this._timeDamage);
+
+        },
+
         increaseCoins(value = 1) {
-            (this._currentGame as Game).coins += 1;
+            (this._currentGame as Game).coins += value;
 
         },
         removeSprites() {
@@ -124,6 +135,7 @@ export const useGamesStore = defineStore('games', {
         currentGame: state => state._currentGame,
         iteration: state => state._iteration,
         isBouncingDamage: state => Boolean(state._timeDamage),
+        isPowerUp: state => Boolean(state._timePowerUp),
         currentKey: state => state._currentKey,
         hFrame: state => state._hFrame,
         cFrame: state => state._cFrame,

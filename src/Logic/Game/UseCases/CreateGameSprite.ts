@@ -1,6 +1,6 @@
 import {gHeight} from "@/Logic/Game/constraints";
 import GameSprite from "@/customTypes/gameSprite";
-import box from "@/components/Game/Sprites/box.vue";
+import box from "@/components/Sprites/box.vue";
 
 
 //time in milliseconds

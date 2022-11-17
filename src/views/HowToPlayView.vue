@@ -19,7 +19,7 @@
 <script lang="ts">
 import {computed, defineComponent, ref} from "vue";
 import {useRouter} from "vue-router";
-import CustomButton from "@/components/CustomButton.vue";
+import CustomButton from "@/components/Buttons/CustomButton.vue";
 import MainHeader from "@/views/MainHeader.vue";
 
 export default defineComponent({

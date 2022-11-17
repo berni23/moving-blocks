@@ -10,13 +10,12 @@
 <script lang="ts">
 import {useUsersStore} from "@/stores/users";
 import {defineComponent, ref} from 'vue';
-import CustomButton from "@/components/CustomButton.vue";
+import CustomButton from "@/components/Buttons/CustomButton.vue";
 import {useRouter} from "vue-router";
 
 export default defineComponent({
   name: 'buttons',
   components: {CustomButton},
-  props: [],
   setup(props, {emit}) {
 
     const router = useRouter();
