@@ -2,7 +2,7 @@
 
   <div class="buttons">
     <custom-button class="buttons__try-again" v-if="isCurrentUser" :text="'new game'"/>
-    <custom-button class="buttons__how-to" @clicked='goHowToPlay' :text="'how to play'"/>
+    <custom-button class="buttons__how-to" @clicked='emitHowToPlay' :text="'how to play'"/>
     <custom-button class="buttons__new-user" @clicked="emitNewUser" :text="'new user'"/>
   </div>
 
@@ -17,14 +17,12 @@ export default defineComponent({
   name: 'buttons',
   components: {CustomButton},
   setup(props, {emit}) {
-
-    const router = useRouter();
-    const usersStore = useUsersStore();
+     const usersStore = useUsersStore();
     const isCurrentUser = ref(usersStore.isCurrentUser)
     const emitNewUser = () => emit('new-user')
-    const goHowToPlay = () => router.push('how-to-play')
+    const emitHowToPlay = () =>emit('how-to-play');
 
-    return {isCurrentUser, goHowToPlay, emitNewUser}
+    return {isCurrentUser, emitHowToPlay, emitNewUser}
 
   }
 })

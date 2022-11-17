@@ -18,7 +18,6 @@ import {useGamesStore} from "@/stores/games";
 import {bH2, gameWidth} from "@/Logic/Game/constraints";
 import ElementSprite from '@/customTypes/elementSprite';
 import applySpriteLogic from "@/Logic/Game/UseCases/ApplySpriteLogic";
-// import {powerUpSprite} from "@/Logic/Game/Utils/SpriteImages";
 
 export default defineComponent({
   name: "PowerUp",

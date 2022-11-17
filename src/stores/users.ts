@@ -4,14 +4,14 @@ import User from "@/customTypes/user";
 export const useUsersStore = defineStore('users', {
         state: () => ({
             _users: [] as Array<User>,
-            _currentUserId: null as number | null
+            _currentUser: null as User | null
         }),
         actions: {
             addUser(user: User) {
                 this._users.push(user)
             },
             setUserAsCurrent(user: User) {
-                this._currentUserId = user.id
+                this._currentUser = user;
             },
             getUserOfId(id: number) {
                 return this._users.filter((user) => user.id == id);
@@ -27,8 +27,10 @@ export const useUsersStore = defineStore('users', {
                 }
                 return max ? max : 0;
             },
-            isCurrentUser: state => Boolean(state._currentUserId),
-            currentUser: (state): User | undefined => state._users.find((u) => u.id === state._currentUserId)
-        }
+            isCurrentUser: state => Boolean(state._currentUser),
+            currentUser: state => state._currentUser
+        },
+
+        persist: true
     }
 )

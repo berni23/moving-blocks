@@ -30,16 +30,30 @@ import box from "@/components/Sprites/box.vue";
 import {gHeight} from "@/Logic/Game/constraints";
 import {intToPix} from "@/Logic/Game/Utils/pixelConv";
 import NameToComponentConversor from "@/Logic/Game/Services/NameToComponentConversor";
+import {useUsersStore} from "@/stores/users";
+import User from "@/customTypes/user";
+import {useRouter} from "vue-router";
 
 export default defineComponent({
       name: 'Game',
       components: {Player, Status, GameContent, CustomButton, MainHeader, Buttons, ModeComponent},
       setup(props, {emit}) {
         const gamesStore = useGamesStore();
+        const router = useRouter();
+        const usersStore = useUsersStore();
+        const user = ref<User | null>(usersStore.currentUser);
+
         const arraySprites = computed(() => gamesStore.currentSprites);
         const gameHasStarted = computed(() => gamesStore.gameIsOngoing);
         const countdownText = ref('' as string | null);
-        onMounted(() => startGame(countdownText));
+        onMounted(() => {
+
+          if (!user.value) router.push('new-user')
+
+          else startGame(countdownText)
+        });
+
+
         return {
           componentFromString: NameToComponentConversor,
           gameHasStarted,
@@ -68,7 +82,6 @@ export default defineComponent({
   position: relative;
 
   .heart {
-    background-image: url("/public/images/hearts/heart0.png");
     width: 30px;
     height: 30px;
   }

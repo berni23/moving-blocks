@@ -1,12 +1,14 @@
 <template>
-  <div id="me" class="player box" :class='classList' :style="{'marginLeft':marginLeft,'marginTop':marginTop}"></div>
+
+  <div id="me" class="player box" :class='classList' :style="{'marginLeft':marginLeft,'marginTop':marginTop}">
+  </div>
 </template>
 
 <script lang="ts">
 
 import {computed, defineComponent, watch} from 'vue';
 import {useGamesStore} from "@/stores/games";
-import {limitBottom, vBox} from "@/Logic/Game/constraints";
+import {boxWidthPixels, limitBottom, vBox} from "@/Logic/Game/constraints";
 
 export default defineComponent({
   name: "player",
@@ -45,7 +47,7 @@ export default defineComponent({
     const marginLeft = computed(() => posLeft.value.toString() + 'px');
     const marginTop = computed(() => posTop.value.toString() + 'px');
     watch(() => gameStore.iteration, applySpriteLogic);
-    return {marginLeft, marginTop, classList};
+    return {size:boxWidthPixels,marginLeft, marginTop, classList};
 
   }
 });

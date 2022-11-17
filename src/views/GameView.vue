@@ -19,32 +19,29 @@ import {useUsersStore} from "@/stores/users";
 import {useGamesStore} from '@/stores/games';
 import Game from "@/components/Game/Game.vue";
 import Mode from "@/customTypes/mode";
-import {useRouter} from "vue-router";
 import User from "@/customTypes/user";
 
 export default defineComponent({
   name: 'GameView',
   components: {Game, CustomButton, MainHeader, Buttons, ModeComponent},
   setup(props, {emit}) {
-    const router = useRouter();
+
     const usersStore = useUsersStore();
     const gamesStore = useGamesStore();
 
     const mode = ref<Mode | null>(null);
-    const user = ref<User | undefined>(usersStore.currentUser);
+    const user = ref<User | null>(usersStore.currentUser);
     const gameIsCreated = computed(() => Boolean(gamesStore.currentGame));
-
-    if (!user) router.push('new-user');
     const newGame = function (name: string) {
       mode.value = Object.assign({}, gamesStore.modeOfName(name))
       const newGame = createGame(user.value ? (user.value as User).id : null, mode.value)
       gamesStore.setCurrentGame(newGame);
     }
 
-    const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+    // const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
 
-    const gameIsOngoing = computed(()=>gamesStore.gameIsOngoing);
-    return {user, newGame, gameIsCreated,gameIsOngoing}
+    const gameIsOngoing = computed(() => gamesStore.gameIsOngoing);
+    return {user, newGame, gameIsCreated, gameIsOngoing}
   }
 });
 </script>

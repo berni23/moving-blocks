@@ -2,10 +2,10 @@
 
   <div>
     <main-header/>
-    <section class="main-container">
+    <section class="main-container container">
       <div class="new-user">
-      <h2 class="new-user__title">Username</h2>
-      <q-input class='input-name new-user__input' type="text" v-model="username"/>
+        <h2 class="new-user__title">Username</h2>
+        <q-input class='input-name new-user__input' type="text" v-model="username"/>
       </div>
     </section>
   </div>
@@ -17,12 +17,15 @@ import MainHeader from "@/views/MainHeader.vue";
 import {useRouter} from "vue-router";
 import {useQuasar} from "quasar";
 import createUserAndSetAsCurrent from "@/Logic/User/UseCases/createUserAndSetAsCurrent";
+import {useUsersStore} from '@/stores/users';
 
 export default defineComponent({
   name: 'new-user',
   components: {MainHeader},
   setup(props, {emit}) {
     const username = ref('')
+
+    const usersStore = useUsersStore();
     const $q = useQuasar();
     const userValidation = (username: string) => username.length > 2
     const router = useRouter();

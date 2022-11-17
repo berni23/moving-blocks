@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import Game from "@/customTypes/game";
 import Mode from "@/customTypes/mode";
-import {nextCFrame, nextHFrame} from "@/Logic/Game/Utils/frames";
+import { nextHFrame} from "@/Logic/Game/Utils/frames";
 import {
     arrayModes,
     bH2,
@@ -27,12 +27,8 @@ export const useGamesStore = defineStore('games', {
         _currentGame: null as Game | null,
         _finishedGames: [] as Array<Game>,
         _currentKey: '' as string | null,
-        _intHFrames: 0 as number,
-        _intCFrames: 0 as number,
         _iteration: 0 as number,
         _gameTimer: 0 as number,
-        _hFrame: 0 as number,
-        _cFrame: 0 as number,
         _timeDamage: null as number | null,
         _timePowerUp: null as number | null,
         _offsetLeft: 0 as number,
@@ -91,8 +87,6 @@ export const useGamesStore = defineStore('games', {
             this._offsetTop = offsetTop
         },
         initializeLoops() {
-            this._intHFrames = setInterval(() => this._hFrame = nextHFrame(this._hFrame), 500);
-            this._intCFrames = setInterval(() => this._cFrame = nextCFrame(this._cFrame), 250);
             this._gameLoopInterval = setInterval(() => this._iteration++, gameInterval);
         },
         startCurrentGame() {
@@ -101,8 +95,6 @@ export const useGamesStore = defineStore('games', {
             this._currentGame = game;
         },
         finishLoops() {
-            clearInterval(this._hFrame);
-            clearInterval(this._cFrame);
             if (this._gameLoopInterval) clearInterval(this._gameLoopInterval);
             if (this._timeDamage) clearTimeout(this._timeDamage);
         },
@@ -137,8 +129,6 @@ export const useGamesStore = defineStore('games', {
         isBouncingDamage: state => Boolean(state._timeDamage),
         isPowerUp: state => Boolean(state._timePowerUp),
         currentKey: state => state._currentKey,
-        hFrame: state => state._hFrame,
-        cFrame: state => state._cFrame,
         offsetLeft: state => state._offsetLeft,
         offsetTop: state => state._offsetTop,
         goUp: state => keysUp.includes(state._currentKey as string) && state._offsetTop >= 0,
