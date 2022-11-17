@@ -11,7 +11,7 @@
       <br>
       <ul>
         <li>
-          <coin/>
+          <status-coin/>
         </li>
         <li>X<span class="coin-number">{{ numCoins?numCoins:0 }}</span></li>
       </ul>
@@ -19,25 +19,14 @@
   </div>
 </template>
 <script lang="ts">
-import {computed, defineComponent, ref} from "vue";
+import {computed, defineComponent} from "vue";
 import Heart from "@/components/Game/Sprites/Heart.vue";
-import Coin from "@/components/Game/Sprites/Coin.vue";
 import { useGamesStore } from "@/stores/games";
+import StatusCoin from "@/components/Game/Sprites/StatusCoin.vue";
 
 export default defineComponent({
   name: "Status",
-  components: {Coin, Heart},
-  // props: {
-  //   numCoins: {
-  //     type: Number,
-  //     default: 0
-  //   },
-  //
-  //   numLives: {
-  //     type: Number,
-  //     default: 0
-  //   },
-  // },
+  components: {StatusCoin, Heart},
   setup(props) {
 
     const gamesStore = useGamesStore();

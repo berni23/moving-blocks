@@ -1,24 +1,15 @@
 <template>
-  <div class='heart' :style="style">
+  <div class='heart' :style="{'backgroundImage':bgImage}">
   </div>
 </template>
 <script lang="ts">
-import {useGamesStore} from "@/stores/games";
-import {computed, defineComponent} from "vue";
+import {defineComponent} from "vue";
+import {heartSprite} from "@/Logic/Game/Utils/SpriteImages";
 
 export default defineComponent({
   name: "heart",
-  props: {},
   setup(props) {
-    const gameStore = useGamesStore();
-    const hFrame = computed(() => gameStore.hFrame);
-    const style = computed(() => {
-
-      return {
-        backgroundImage: `url('images/heart${hFrame.value}.png'`
-      }
-    });
-    return {style}
+    return {bgImage: heartSprite()}
   }
 })
 </script>

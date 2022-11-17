@@ -1,6 +1,8 @@
 <template>
 
-  <div v-if="shouldAppear" class="box blue-box" :style="{'marginLeft':marginLeft,'marginTop':marginTop}"></div>
+  <div v-if="shouldAppear" class="box blue-box"
+
+       :style="{'marginLeft':marginLeft,'marginTop':marginTop}"></div>
 </template>
 
 <script lang="ts">

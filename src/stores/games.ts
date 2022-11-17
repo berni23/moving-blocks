@@ -47,8 +47,12 @@ export const useGamesStore = defineStore('games', {
             this._timeDamage = setTimeout(() => {
 
                 this._timeDamage = null;
-                console.log('NO TIME DAMAGE!');
             }, timeDamageRecovery)
+        },
+
+        increaseCoins(value = 1) {
+            (this._currentGame as Game).coins += 1;
+
         },
         removeSprites() {
             this._arraySprites = [];
