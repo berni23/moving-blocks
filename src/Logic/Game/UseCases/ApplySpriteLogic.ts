@@ -26,7 +26,7 @@ const applySpriteLogic = (id: number, element: ElementSprite, callbackCollision:
 
         if (!shouldAppear.value) return;
 
-      element.offsetLeft = element.offsetLeft - vOthers;
+     element.offsetLeft = element.offsetLeft - vOthers;
         if (isCollision(element, elementPlayer.value)) {
 
             elementCollided.value = true;
