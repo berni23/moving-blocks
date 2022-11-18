@@ -10,8 +10,8 @@ import {
     keysRight,
     keysUp,
     limitBottom,
-    limitRight,
-    playerHeight2,
+    limitRight, playerHeight,
+    playerHeight2, playerWidth,
     playerWidth2,
     timeDamageRecovery,
     timePowerUp
@@ -147,8 +147,8 @@ export const useGamesStore = defineStore('games', {
             return {
                 offsetLeft: state._offsetLeft,
                 offsetTop: state._offsetTop,
-                width2: playerWidth2,
-                height2: playerHeight2
+                width2: playerWidth,
+                height2: playerHeight
             } as ElementSprite;
         }
     }

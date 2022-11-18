@@ -17,11 +17,10 @@ export const limitRight = (): number => gameWidth() - playerWidth - marginGame *
 export const playerWidth: number = 75;
 export const playerHeight: number = 40;
 
-export const boxSize: number = 50;
+export const boxSize: number = 40;
 export const coinSize: number = 32;
 export const diamondSize: number = boxSize;
 export const powerUpSize: number = boxSize;
-
 
 
 export const playerWidth2: number = playerWidth / 2;
@@ -47,7 +46,7 @@ export const timePowerUp: number = 10000 //milliseconds
 export const limitBottom: number = gHeight - playerHeight;
 export const initialCoordinates = [0, gHeight / 2];
 
-export const vBox: number = 7;
+export const vBox: number = 5;
 export const vOthers: number = 5;
 
 

@@ -1,6 +1,7 @@
 import {useGamesStore} from "@/stores/games";
 import createGameSprite from "@/Logic/Game/UseCases/CreateGameSprite";
 import {gHeight} from "@/Logic/Game/constraints";
+import createEnemyWall from "@/Logic/Waves/Services/WaveGenerators/CreateEnemyWall";
 
 
 export default function customWave() {
@@ -14,6 +15,9 @@ export default function customWave() {
     gameStore.saveSprite(gameSprite2);
     gameStore.saveSprite(gameSprite3);
     gameStore.saveSprite(gameSprite4);
+
+    // createEnemyWall();
+
 
 }
 

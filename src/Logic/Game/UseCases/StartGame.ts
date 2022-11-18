@@ -9,12 +9,9 @@ function startGame(countDownText:  Ref<string|null>) {
 
     //clean sprites
     useGamesStore().removeSprites();
-
     useGamesStore().finishLoops();
-
     //define waves
     customWave();
-
     // const element = document.getElementById('count-down') as HTMLElement;
     const soundStart = document.getElementById('sound-start') as HTMLAudioElement;
     soundStart.play().then(r => {

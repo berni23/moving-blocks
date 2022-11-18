@@ -6,7 +6,7 @@
 
     <img
         src='images/alien.gif'
-        :style="{'width':spriteSize, 'height':spriteSize}" alt="alien"/>
+        :style="{'width':spriteSize, 'height':spriteSize,'margin':'2.5px'}"  style='margin:2.5px' alt="alien"/>
   </div>
 </template>
 
@@ -28,16 +28,22 @@ export default defineComponent({
     const element = reactive({
       offsetTop: props.offsetTop,
       offsetLeft: gameWidth(),
-      width2: bH2,
-      height2: bH2
+      width2: boxSize,
+      height2: boxSize
     } as ElementSprite);
+
+
+    let collisions = 0;
     const localCbCollision = () => {
+      collisions++;
+
+      console.log('collision!',collisions);
       if (gameStore.isBouncingDamage) return;
       if (!gameStore.isPowerUp) gameStore.applyDamage();
 
       gameStore.removeNthSprite(props.id);
     }
-    const spriteSize = intToPix(boxSize - 5);
+    const spriteSize = intToPix(boxSize + 5);
     return {spriteSize: spriteSize, size: boxWidthPixels, ...applySpriteLogic(props.id, element, localCbCollision)};
 
 
@@ -50,4 +56,9 @@ export default defineComponent({
 
 @import '../../assets/scss/colors';
 
+
+.box {
+
+  background-color: blue !important;
+}
 </style>
