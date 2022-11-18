@@ -1,8 +1,8 @@
 <template>
 
-  <div id="me" class="player box" :class='classList' :style="{'marginLeft':marginLeft,'marginTop':marginTop}">
+  <div id="me" class="player box" :class='classList' :style="{'height':height,'width':width, 'marginLeft':marginLeft,'marginTop':marginTop}">
 
-    <img  src='images/player.gif' alt="player"/>
+    <img  :style="{'height':height,'width':width}" src='images/player.gif' alt="player"/>
   </div>
 </template>
 
@@ -10,7 +10,8 @@
 
 import {computed, defineComponent, watch} from 'vue';
 import {useGamesStore} from "@/stores/games";
-import {boxWidthPixels, limitBottom, vBox} from "@/Logic/Game/constraints";
+import {limitBottom, playerHeightPixels, playerWidthPixels, vBox} from "@/Logic/Game/constraints";
+
 
 export default defineComponent({
   name: "player",
@@ -45,11 +46,10 @@ export default defineComponent({
         return
       }
     }
-
     const marginLeft = computed(() => posLeft.value.toString() + 'px');
     const marginTop = computed(() => posTop.value.toString() + 'px');
     watch(() => gameStore.iteration, applySpriteLogic);
-    return {size: boxWidthPixels, marginLeft, marginTop, classList};
+    return {height: playerHeightPixels,width:playerWidthPixels, marginLeft, marginTop, classList};
 
   }
 });
@@ -64,9 +64,9 @@ export default defineComponent({
 .player {
   position: absolute !important;
   z-index: 10;
-  width: 75px;
-  height: 40px;
-  background-color: $color-user;
+  //width: 75px;
+  //height: 40px;
+  //background-color: $color-user;
   transition: 1s animation;
 }
 

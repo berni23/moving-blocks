@@ -3,14 +3,16 @@ import Game from "@/customTypes/game";
 import Mode from "@/customTypes/mode";
 import {
     arrayModes,
-    bH2,
     gameInterval,
+    initialCoordinates,
     keysDown,
     keysLeft,
     keysRight,
     keysUp,
     limitBottom,
     limitRight,
+    playerHeight2,
+    playerWidth2,
     timeDamageRecovery,
     timePowerUp
 } from "@/Logic/Game/constraints";
@@ -30,8 +32,8 @@ export const useGamesStore = defineStore('games', {
         _gameTimer: 0 as number,
         _timeDamage: null as number | null,
         _timePowerUp: null as number | null,
-        _offsetLeft: 0 as number,
-        _offsetTop: 0 as number,
+        _offsetLeft: initialCoordinates[0] as number,
+        _offsetTop: initialCoordinates[1] as number,
         _arraySprites: [] as Array<GameSprite>,
         _currentSprites: [] as Array<GameSprite>
     }),
@@ -145,7 +147,8 @@ export const useGamesStore = defineStore('games', {
             return {
                 offsetLeft: state._offsetLeft,
                 offsetTop: state._offsetTop,
-                radius: bH2
+                width2: playerWidth2,
+                height2: playerHeight2
             } as ElementSprite;
         }
     }

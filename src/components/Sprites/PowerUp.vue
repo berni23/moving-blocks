@@ -15,7 +15,7 @@
 
 import {defineComponent, reactive} from 'vue';
 import {useGamesStore} from "@/stores/games";
-import {bH2, gameWidth} from "@/Logic/Game/constraints";
+import {gameWidth, pH2, powerUpSize} from "@/Logic/Game/constraints";
 import ElementSprite from '@/customTypes/elementSprite';
 import applySpriteLogic from "@/Logic/Game/UseCases/ApplySpriteLogic";
 
@@ -25,9 +25,8 @@ export default defineComponent({
 
   setup(props, {emit}) {
     const gameStore = useGamesStore();
-    const element = reactive({offsetTop: props.offsetTop, offsetLeft: gameWidth(), radius: bH2} as ElementSprite);
+    const element = reactive({offsetTop: props.offsetTop, offsetLeft: gameWidth(),width2:pH2,height2:pH2} as ElementSprite);
     const localCbCollision = () => {
-
       gameStore.applyPowerUp();
       gameStore.removeNthSprite(props.id);
     }

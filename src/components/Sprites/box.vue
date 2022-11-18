@@ -6,7 +6,7 @@
 
     <img
         src='images/alien.gif'
-        :style="{'width':size, 'height':size}" alt="alien"/>
+        :style="{'width':spriteSize, 'height':spriteSize}" alt="alien"/>
   </div>
 </template>
 
@@ -14,9 +14,10 @@
 
 import {defineComponent, reactive} from 'vue';
 import {useGamesStore} from "@/stores/games";
-import {bH2, boxWidthPixels, gameWidth} from "@/Logic/Game/constraints";
+import {bH2, boxSize, boxWidthPixels, gameWidth} from "@/Logic/Game/constraints";
 import ElementSprite from '@/customTypes/elementSprite';
 import applySpriteLogic from "@/Logic/Game/UseCases/ApplySpriteLogic";
+import {intToPix} from "@/Logic/Game/Utils/pixelConv";
 
 export default defineComponent({
   name: "box",
@@ -24,14 +25,20 @@ export default defineComponent({
 
   setup(props, {emit}) {
     const gameStore = useGamesStore();
-    const element = reactive({offsetTop: props.offsetTop, offsetLeft: gameWidth(), radius: bH2} as ElementSprite);
+    const element = reactive({
+      offsetTop: props.offsetTop,
+      offsetLeft: gameWidth(),
+      width2: bH2,
+      height2: bH2
+    } as ElementSprite);
     const localCbCollision = () => {
       if (gameStore.isBouncingDamage) return;
       if (!gameStore.isPowerUp) gameStore.applyDamage();
 
       gameStore.removeNthSprite(props.id);
     }
-    return {size: boxWidthPixels, ...applySpriteLogic(props.id, element, localCbCollision)};
+    const spriteSize = intToPix(boxSize - 5);
+    return {spriteSize: spriteSize, size: boxWidthPixels, ...applySpriteLogic(props.id, element, localCbCollision)};
 
 
   }
