@@ -9,7 +9,7 @@
 import {defineComponent, onMounted, reactive} from "vue";
 import {useGamesStore} from "@/stores/games";
 import applySpriteLogic from "@/Logic/Game/UseCases/ApplySpriteLogic";
-import {bH2, diamondWidthPixels, gameWidth} from "@/Logic/Game/constraints";
+import {diamondWidthPixels, gameWidth} from "@/Logic/Game/constraints";
 import ElementSprite from "@/customTypes/elementSprite";
 
 export default defineComponent({
@@ -27,7 +27,7 @@ export default defineComponent({
 
     onMounted(() => console.log('diamond mounted!'));
     const gameStore = useGamesStore();
-    const element = reactive({offsetTop: props.offsetTop, offsetLeft: gameWidth(), radius: bH2} as ElementSprite);
+    const element = reactive({offsetTop: props.offsetTop, offsetLeft: gameWidth()} as ElementSprite);
     const localCbCollision = () => {
       gameStore.increaseCoins(3);
       gameStore.removeNthSprite(props.id)

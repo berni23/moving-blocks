@@ -11,7 +11,7 @@
 import {defineComponent, reactive} from "vue";
 import {useGamesStore} from "@/stores/games";
 import applySpriteLogic from "@/Logic/Game/UseCases/ApplySpriteLogic";
-import {cH2, coinWidthPixels, gameWidth} from "@/Logic/Game/constraints";
+import { coinSize, coinWidthPixels, gameWidth} from "@/Logic/Game/constraints";
 import ElementSprite from "@/customTypes/elementSprite";
 
 export default defineComponent({
@@ -30,8 +30,8 @@ export default defineComponent({
     const element = reactive({
       offsetTop: props.offsetTop,
       offsetLeft: gameWidth(),
-      width2: cH2,
-      height2: cH2,
+      width: coinSize,
+      height: coinSize,
     } as ElementSprite);
     const localCbCollision = () => {
       gameStore.increaseCoins();

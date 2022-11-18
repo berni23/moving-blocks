@@ -23,14 +23,6 @@ export const diamondSize: number = boxSize;
 export const powerUpSize: number = boxSize;
 
 
-export const playerWidth2: number = playerWidth / 2;
-export const playerHeight2: number = playerHeight / 2
-export const cH2: number = coinSize / 2
-export const dH2: number = diamondSize / 2
-export const bH2: number = boxSize / 2
-export const pH2: number = powerUpSize / 2
-
-
 export const playerWidthPixels: string = intToPix(playerWidth);
 export const playerHeightPixels: string = intToPix(playerHeight);
 export const boxWidthPixels: string = intToPix(boxSize);

@@ -16,17 +16,17 @@ const applySpriteLogic = (id: number, element: ElementSprite, callbackCollision:
     const inBoard = computed(() => element.offsetLeft >= 0);
     const elementPlayer = computed(() => gameStore.elementPlayer);
     const elementCollided = ref(false);
-    const shouldAppear = true;
-
-    // computed(() => inBoard.value && !elementCollided.value );
+    const shouldAppear = computed(() => inBoard.value && !elementCollided.value);
 
     function loopLogic() {
-        // if (!shouldAppear.value) return;
-        if (!inBoard.value) {
+        if (!inBoard.value || !shouldAppear.value) {
             gameStore.removeNthSprite(id)
             return
         }
-        if (element.offsetLeft >= 500) element.offsetLeft = element.offsetLeft - vOthers;
+
+        if (!shouldAppear.value) return;
+
+      element.offsetLeft = element.offsetLeft - vOthers;
         if (isCollision(element, elementPlayer.value)) {
 
             elementCollided.value = true;

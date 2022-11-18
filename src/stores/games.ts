@@ -11,8 +11,7 @@ import {
     keysUp,
     limitBottom,
     limitRight, playerHeight,
-    playerHeight2, playerWidth,
-    playerWidth2,
+     playerWidth,
     timeDamageRecovery,
     timePowerUp
 } from "@/Logic/Game/constraints";
@@ -147,8 +146,8 @@ export const useGamesStore = defineStore('games', {
             return {
                 offsetLeft: state._offsetLeft,
                 offsetTop: state._offsetTop,
-                width2: playerWidth,
-                height2: playerHeight
+                width: playerWidth,
+                height: playerHeight
             } as ElementSprite;
         }
     }

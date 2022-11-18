@@ -1,12 +1,12 @@
 <template>
 
   <div v-if="shouldAppear" class="box"
-
-       :style="{'width':size, 'height':size,'marginLeft':marginLeft,'marginTop':marginTop}">
+       :style="{width:size, height:size,'marginLeft':marginLeft,'marginTop':marginTop}">
 
     <img
+        class="box__image"
         src='images/alien.gif'
-        :style="{'width':spriteSize, 'height':spriteSize,'margin':'2.5px'}"  style='margin:2.5px' alt="alien"/>
+        :style="{width:size, height:size}" alt="alien"/>
   </div>
 </template>
 
@@ -14,7 +14,7 @@
 
 import {defineComponent, reactive} from 'vue';
 import {useGamesStore} from "@/stores/games";
-import {bH2, boxSize, boxWidthPixels, gameWidth} from "@/Logic/Game/constraints";
+import {boxSize, boxWidthPixels, gameWidth} from "@/Logic/Game/constraints";
 import ElementSprite from '@/customTypes/elementSprite';
 import applySpriteLogic from "@/Logic/Game/UseCases/ApplySpriteLogic";
 import {intToPix} from "@/Logic/Game/Utils/pixelConv";
@@ -28,16 +28,11 @@ export default defineComponent({
     const element = reactive({
       offsetTop: props.offsetTop,
       offsetLeft: gameWidth(),
-      width2: boxSize,
-      height2: boxSize
+      width: boxSize,
+      height: boxSize
     } as ElementSprite);
 
-
-    let collisions = 0;
     const localCbCollision = () => {
-      collisions++;
-
-      console.log('collision!',collisions);
       if (gameStore.isBouncingDamage) return;
       if (!gameStore.isPowerUp) gameStore.applyDamage();
 
@@ -59,6 +54,10 @@ export default defineComponent({
 
 .box {
 
-  background-color: blue !important;
+  //background-color: blue !important;
+
+  &__image{
+    transform:scale(1.125);
+  }
 }
 </style>
