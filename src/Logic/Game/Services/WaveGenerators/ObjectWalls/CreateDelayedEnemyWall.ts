@@ -1,8 +1,8 @@
 import {boxSize} from "@/Logic/Game/constraints";
 import CreateGameSprite from "@/Logic/Game/UseCases/CreateGameSprite";
-import saveSprite from "@/Logic/Game/Services/SaveSprite";
+import saveSprite from "@/Logic/Game/Services/Save/SaveSprite";
 import {maxNumEnemies} from "@/Logic/Game/Services/WaveGenerators/ObjectWalls/CreateEnemyWall";
-import saveArraySprites from "@/Logic/Game/Services/SaveArraySprites";
+import saveArraySprites from "@/Logic/Game/Services/Save/SaveArraySprites";
 
 
 //hole position must be a number from 1 to 10;

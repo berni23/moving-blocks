@@ -1,6 +1,6 @@
 import {boxSize, gHeight, marginGame} from "@/Logic/Game/constraints";
 import CreateGameSprite from "@/Logic/Game/UseCases/CreateGameSprite";
-import saveSprite from "@/Logic/Game/Services/SaveSprite";
+import saveSprite from "@/Logic/Game/Services/Save/SaveSprite";
 
 
 export const maxNumEnemies = Math.max(Math.floor((gHeight - marginGame * 2) / (boxSize + 5)) - 1, 1);

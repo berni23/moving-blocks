@@ -14,22 +14,38 @@ export default defineComponent({
 
   setup() {
 
+
     const audioCoin = new Audio(require('../../assets/sounds/sound_coin.mp3'));
     const audioDamage = new Audio(require('../../assets/sounds/damage.mp3'));
     const audioDiamond = new Audio(require('../../assets/sounds/diamond.mp3'));
     const audioPowerUp = new Audio(require('../../assets/sounds/power_up.mp3'));
     const gamesStore = useGamesStore();
+
+    let currentAudio = audioCoin;
+
+    const stopCurrentAudio = () => {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+
+
+    const playAudio = (audio: HTMLAudioElement) => {
+      stopCurrentAudio();
+      currentAudio = audio;
+      currentAudio.play();
+    }
+
     watch(() => gamesStore.currentCoins, (newVal, oldVal) => {
-          if (newVal == oldVal + 3) audioDiamond.play();
-          else if (newVal > oldVal) audioCoin.play()
+       if (newVal == oldVal + 3) playAudio(audioDiamond);
+          else if (newVal > oldVal) playAudio(audioCoin);
         }
     );
     watch(() => gamesStore.currentLives, (newVal, oldVal) => {
-      if (newVal < oldVal) audioDamage.play();
+      if (newVal < oldVal) playAudio(audioDamage);
     });
 
     watch(() => gamesStore.isPowerUp, (newVal, oldVal) => {
-      if (newVal) audioPowerUp.play();
+      if (newVal) playAudio(audioPowerUp);
     });
 
 

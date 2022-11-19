@@ -5,7 +5,7 @@ import {vOthers} from "@/Logic/Game/constraints";
 import ElementSprite from "@/customTypes/elementSprite";
 import {intToPix} from "@/Logic/Game/Utils/pixelConv";
 import {useGamesStore} from "@/stores/games";
-import {isCollision} from "@/Logic/Game/Services/IsCollision";
+import {isCollision} from "@/Logic/Game/Services/Conditions/IsCollision";
 
 const applySpriteLogic = (id: number, element: ElementSprite, callbackCollision: Function) => {
 

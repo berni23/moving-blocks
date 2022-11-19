@@ -2,7 +2,7 @@ import createEnemyWall, {maxNumEnemies} from "@/Logic/Game/Services/WaveGenerato
 import {getRandomInt} from "@/Logic/Game/Utils/randomNumberGenerators";
 
 
-export default function createRandomWalls(timeDelay = 800, numWalls = 10,type='box',holeType='box') {
+export default function createRandomWalls(timeDelay = 800, numWalls = 10,type='box',holeType='coin') {
     let position = Math.round(maxNumEnemies / 2);
     for (let i = 0; i <= numWalls; i++) {
         createEnemyWall(timeDelay, position,type,holeType);

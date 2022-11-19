@@ -9,7 +9,7 @@
 </template>
 <script lang="ts">
 
-import createGame from "@/Logic/Game/Services/createGame";
+import createGame from "@/Logic/Game/Services/Create/createGame";
 import CustomButton from "@/components/Buttons/CustomButton.vue";
 import {computed, defineComponent, ref} from 'vue';
 import ModeComponent from "@/components/Game/Mode.vue";
