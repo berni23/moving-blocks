@@ -128,10 +128,18 @@ export const useGamesStore = defineStore('games', {
 
         removeCurrentKey() {
             this._currentKey = ''
+        },
+
+        finishCurrentGame() {
+            if (!this._currentGame) return;
+            this._currentGame.finished = true;
+            this._finishedGames.push(this._currentGame);
+            this._currentGame = null;
         }
     },
 
     getters: {
+        finishedGames: state => state._finishedGames,
         arraySprites: state => state._arraySprites,
         currentSprites: state => state._currentSprites,
         currentGame: state => state._currentGame,

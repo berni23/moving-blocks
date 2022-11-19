@@ -13,21 +13,28 @@
 import {computed, defineComponent, reactive, ref, watch} from 'vue';
 import {useGamesStore} from "@/stores/games";
 import {limitBottom, playerHeightPixels, playerWidthPixels, vBox} from "@/Logic/Game/constraints";
+import router from '@/router';
 
 
 export default defineComponent({
   name: "player",
 
   setup(props, {emit}) {
+
     const gameStore = useGamesStore();
+
+    const logicGameFinished = () => {
+      router.push('stats');
+      gameStore.finishCurrentGame();
+    }
+
+    logicGameFinished();
     const posLeft = computed(() => gameStore.offsetLeft);
     const posTop = computed(() => gameStore.offsetTop);
 
 
     const gameFinished = ref(false);
-
     const spritePlayerUrl = ref<string | null>('images/player.gif');
-
     const classList = computed(() => {
 
       if (gameFinished.value) return [];
@@ -59,6 +66,7 @@ export default defineComponent({
       }
     }
 
+
     const dimensions = reactive({height: playerHeightPixels, width: playerWidthPixels});
     const marginLeft = computed(() => posLeft.value.toString() + 'px');
     const marginTop = computed(() => posTop.value.toString() + 'px');
@@ -67,14 +75,13 @@ export default defineComponent({
           if (gameStore.currentLives == 0) {
             spritePlayerUrl.value = 'images/explosion.gif';
             gameFinished.value = true;
-
             dimensions.height = '250px';
             dimensions.width = '250px';
-            setTimeout(() => spritePlayerUrl.value = null, 2500);
+            setTimeout(logicGameFinished, 2500)
+            ;
           }
         }
     );
-
 
     return {spritePlayerUrl, dimensions, marginLeft, marginTop, classList};
 

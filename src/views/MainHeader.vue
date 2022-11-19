@@ -15,7 +15,7 @@ export default {
 
 .main-header {
   height: 200px;
-  margin-top: 5%;
+  //margin-top: 5%;
   justify-content: center;
   align-items: center;
   text-align: center;
