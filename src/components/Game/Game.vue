@@ -6,8 +6,8 @@
       <div class="game container" :style="{'height':height}">
         <player/>
 
-        <div v-for='sprite in arraySprites' :key="sprite.id">
-          <component v-if='sprite.component' :offsetTop='sprite.offsetTop' :id=sprite.id
+        <div v-if=arraySprites.length v-for='sprite in arraySprites' :key="sprite?sprite.id:0">
+          <component v-if='sprite && sprite.component' :offsetTop='sprite.offsetTop' :id=sprite.id
                      :is="componentFromString(sprite.component)"/>
         </div>
       </div>
@@ -51,6 +51,7 @@ export default defineComponent({
           else startGame(countdownText)
         });
 
+        console.log('arraySprites', arraySprites.value);
 
         return {
           componentFromString: NameToComponentConversor,

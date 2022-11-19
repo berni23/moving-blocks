@@ -10,8 +10,9 @@ import {
     keysRight,
     keysUp,
     limitBottom,
-    limitRight, playerHeight,
-     playerWidth,
+    limitRight,
+    playerHeight,
+    playerWidth,
     timeDamageRecovery,
     timePowerUp
 } from "@/Logic/Game/constraints";
@@ -74,7 +75,12 @@ export const useGamesStore = defineStore('games', {
         },
 
         saveArraySprites(arraySprites: Array<GameSprite>) {
-            this._currentSprites = this._currentSprites.concat(arraySprites);
+
+            arraySprites.forEach((sprite: GameSprite) => {
+                sprite.id = this._arraySprites.length + 1;
+                this.saveSprite(sprite);
+            });
+
         },
 
         displaySprite(sprite: GameSprite) {

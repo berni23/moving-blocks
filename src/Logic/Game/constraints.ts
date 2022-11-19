@@ -38,7 +38,7 @@ export const timePowerUp: number = 10000 //milliseconds
 export const limitBottom: number = gHeight - playerHeight;
 export const initialCoordinates = [0, gHeight / 2];
 
-export const vBox: number = 5;
+export const vBox: number = 6
 export const vOthers: number = 5;
 
 

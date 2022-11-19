@@ -1,20 +1,17 @@
-import createEnemyWall, {maxNumEnemies} from "@/Logic/Game/Services/WaveGenerators/CreateEnemyWall";
+import createEnemyWall, {maxNumEnemies} from "@/Logic/Game/Services/WaveGenerators/ObjectWalls/CreateEnemyWall";
 import {getRandomInt} from "@/Logic/Game/Utils/randomNumberGenerators";
 
 
-export default function createRandomWalls(timeDelay = 800, numWalls = 10) {
+export default function createRandomWalls(timeDelay = 800, numWalls = 10,type='box',holeType='box') {
     let position = Math.round(maxNumEnemies / 2);
     for (let i = 0; i <= numWalls; i++) {
-        console.log('position ' + i, position);
-        createEnemyWall(timeDelay, position);
+        createEnemyWall(timeDelay, position,type,holeType);
         position = weightedRandomHoleNum(position, maxNumEnemies);
-
-
     }
 }
 
 
-function calcPositionProbabilities(prevPosition: number, numEnemies: number) {
+export function calcPositionProbabilities(prevPosition: number, numEnemies: number) {
 
     let sumProbs: number = 0;
     let arrayProbs: Array<number> = [];
@@ -25,10 +22,9 @@ function calcPositionProbabilities(prevPosition: number, numEnemies: number) {
 
     return [arrayProbs, sumProbs];
 
-
 }
 
-function weightedRandomHoleNum(prevPosition: number, numEnemies: number) {
+export function weightedRandomHoleNum(prevPosition: number, numEnemies: number) {
     let i;
     const probabilities = calcPositionProbabilities(prevPosition, numEnemies)
     let weights: Array<number> = probabilities[0] as Array<number>;
