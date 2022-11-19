@@ -1,14 +1,16 @@
 <template>
 
-  <div id="me" class="player box" :class='classList' :style="{'height':height,'width':width, 'marginLeft':marginLeft,'marginTop':marginTop}">
+  <div id="me" class="player box" :class='classList'
+       :style="{'height':dimensions.height,'width':dimensions.width, 'marginLeft':marginLeft,'marginTop':marginTop}">
 
-    <img  :style="{'height':height,'width':width}" src='images/player.gif' alt="player"/>
+    <img v-if="spritePlayerUrl" :style="{'height':dimensions.height,'width':dimensions.width}" :src="spritePlayerUrl"
+         alt="player"/>
   </div>
 </template>
 
 <script lang="ts">
 
-import {computed, defineComponent, watch} from 'vue';
+import {computed, defineComponent, reactive, ref, watch} from 'vue';
 import {useGamesStore} from "@/stores/games";
 import {limitBottom, playerHeightPixels, playerWidthPixels, vBox} from "@/Logic/Game/constraints";
 
@@ -22,11 +24,21 @@ export default defineComponent({
     const posTop = computed(() => gameStore.offsetTop);
 
 
-    const classList = computed(() => [
-      gameStore.isBouncingDamage ? 'glowing-damage' : '',
-      gameStore.isPowerUp ? 'glowing-power-up' : '']);
+    const gameFinished = ref(false);
+
+    const spritePlayerUrl = ref<string | null>('images/player.gif');
+
+    const classList = computed(() => {
+
+      if (gameFinished.value) return [];
+      return [
+        gameStore.isBouncingDamage ? 'glowing-damage' : '',
+        gameStore.isPowerUp ? 'glowing-power-up' : '']
+    });
 
     function applySpriteLogic() {
+
+      if (gameFinished.value) return;
       if (!gameStore.currentKey) return
       if (gameStore.goUp) {
         gameStore.setOffsetTop(Math.max(posTop.value - vBox, 0));
@@ -46,10 +58,25 @@ export default defineComponent({
         return
       }
     }
+
+    const dimensions = reactive({height: playerHeightPixels, width: playerWidthPixels});
     const marginLeft = computed(() => posLeft.value.toString() + 'px');
     const marginTop = computed(() => posTop.value.toString() + 'px');
     watch(() => gameStore.iteration, applySpriteLogic);
-    return {height: playerHeightPixels,width:playerWidthPixels, marginLeft, marginTop, classList};
+    watch(() => gameStore.currentLives, () => {
+          if (gameStore.currentLives == 0) {
+            spritePlayerUrl.value = 'images/explosion.gif';
+            gameFinished.value = true;
+
+            dimensions.height = '250px';
+            dimensions.width = '250px';
+            setTimeout(() => spritePlayerUrl.value = null, 2500);
+          }
+        }
+    );
+
+
+    return {spritePlayerUrl, dimensions, marginLeft, marginTop, classList};
 
   }
 });
