@@ -46,8 +46,10 @@ export default defineComponent({
 
 .table-board {
 
+  width:100%;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 
 
   ul {

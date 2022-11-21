@@ -9,7 +9,12 @@
     font-family: 'roboto-medium';
     src: url("/src/assets/fonts/Roboto/Roboto-Medium.ttf")
     //src: url("../scss/fonts/pdark.woff");
+}@font-face {
+    font-family: 'roboto-light';
+    src: url("/src/assets/fonts/Roboto/Roboto-Light.ttf")
+    //src: url("../scss/fonts/pdark.woff");
 }
 
 $main-font: 'pdark-font';
 $second-font: 'roboto-medium';
+$second-font-light: 'roboto-light';

@@ -6,7 +6,6 @@
 
     <div class="ranking__content">
 
-
       <q-table
 
           hide-pagination
@@ -128,6 +127,8 @@ export default defineComponent({
 
 .ranking {
 
+
+  flex: 1;
   margin: 30px;
   padding: 20px;
   display: flex;
@@ -135,9 +136,31 @@ export default defineComponent({
 
   &__content {
 
-    font-family: $second-font!important;
+
+    font-family: $second-font;
+
+    font-weight: normal!important;
     display: flex;
     flex-direction: row;
+
+    &__table{
+
+      //color:$color-primary!important;
+
+
+
+      thead{
+        background-color: whitesmoke;
+      }
+      tbody{
+
+        font-family: $second-font-light;
+
+      }
+
+
+      width:100%
+    }
 
     &__game {
 
