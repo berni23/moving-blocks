@@ -41,7 +41,7 @@ export default defineComponent({
       'Use the W/S/D/A keys in order to move up, down,right and left respectively',
       'Try to obtain the maximum amount of coins possible',
       'Avoid aliens! they will damage your spaceship',
-      'If you hit  a box with the same color as yours, you will not lose life for a while',
+      'Space Powerups! catch them and you will become invencible for some time',
       'NOW GO OUT THERE AND SMASH YOUR KEYBOARD!'
 
     ]);
@@ -62,7 +62,6 @@ export default defineComponent({
       {width:boxWidthPixels,height: boxWidthPixels},
 
     ]);
-
 
     const image = computed(() => images.value[step.value]);
     const size = computed(() => imageSizes.value[step.value]);
