@@ -5,10 +5,8 @@
        :style="{'width':size, 'height':size,'marginLeft':marginLeft,'marginTop':marginTop}"
        class="power-up">
     <img
-
-
         class="power-up__image"
-        src='images/powerUps/Spinning-orb-new-GIF-2.gif'
+        src='/images/powerUp.gif'
         :style="{'width':element.width, 'height':element.height}" alt="power_up"/>
   </div>
 

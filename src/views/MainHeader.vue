@@ -71,6 +71,11 @@ export default defineComponent({
         label: 'Ranking',
         name: 'ranking'
 
+      }, {
+        icon: 'sports_esports',
+        label: 'Controls',
+        name: 'controls'
+
       }
     ];
 

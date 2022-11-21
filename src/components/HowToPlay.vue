@@ -3,6 +3,13 @@
   <main-header/>
   <section class="how-to-play container">
 
+
+    <img
+        v-if="image"
+        class="how-to-play__image"
+        :src="image"
+        :style="{width:size.width, height:size.height}" :alt="image"/>
+
     <div class="how-to-play__tutorial">
       <p>{{ prompt }}</p>
     </div>
@@ -18,22 +25,47 @@ import {computed, defineComponent, ref} from "vue";
 import {useRouter} from "vue-router";
 import CustomButton from "@/components/Buttons/CustomButton.vue";
 import MainHeader from "@/views/MainHeader.vue";
+import Box from "@/components/Sprites/box.vue";
+import {boxWidthPixels, playerHeightPixels, playerWidthPixels} from "@/Logic/Game/constraints";
 
 export default defineComponent({
-  name: 'HowToPlayView',
-  components: {MainHeader, CustomButton},
+  name: 'HowToPlay',
+  components: {MainHeader, CustomButton, Box},
   setup(props) {
 
     const step = ref(0 as number)
+
+
     const router = useRouter();
     const arrayPrompts = ref([
       'Use the W/S/D/A keys in order to move up, down,right and left respectively',
       'Try to obtain the maximum amount of coins possible',
-      'If you hit a blue box, you will lose one life',
+      'Avoid aliens! they will damage your spaceship',
       'If you hit  a box with the same color as yours, you will not lose life for a while',
       'NOW GO OUT THERE AND SMASH YOUR KEYBOARD!'
 
     ]);
+
+    const images = ref([
+      '/images/player.gif',
+      '/images/coins/coin.gif',
+      '/images/alien.gif',
+      '/images/powerUp.gif',
+      '', ''
+
+    ]);
+
+    const imageSizes = ref([
+      {width:playerWidthPixels,height: playerHeightPixels},
+      {width:boxWidthPixels,height: boxWidthPixels},
+      {width:boxWidthPixels,height: boxWidthPixels},
+      {width:boxWidthPixels,height: boxWidthPixels},
+
+    ]);
+
+
+    const image = computed(() => images.value[step.value]);
+    const size = computed(() => imageSizes.value[step.value]);
 
     const next = () => {
       if (step.value >= (arrayPrompts.value.length - 1)) step.value = 0;
@@ -44,7 +76,7 @@ export default defineComponent({
     const prompt = computed(() => arrayPrompts.value[step.value]);
     const lastStep = computed(() => (arrayPrompts.value.length - 1) === step.value);
 
-    return {step, next, toMain, prompt, lastStep}
+    return {step, next, toMain, prompt, lastStep, size, image}
 
 
   }
@@ -57,7 +89,10 @@ export default defineComponent({
 
 .how-to-play {
 
-  margin-top:20px;
+  margin-top: 20px;
+  &__image{
+    margin:20px;
+  }
 
   &__tutorial {
     display: flex;

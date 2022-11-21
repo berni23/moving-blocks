@@ -1,11 +1,12 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import HowToPlayView from "@/views/HowToPlayView.vue";
+import HowToPlayView from "@/components/HowToPlay.vue";
 import NewUserView from "@/views/NewUserView.vue";
 import GameView from "@/views/GameView.vue";
 import TableBoardView from "@/views/TableBoardView.vue";
 import ChooseModeView from "@/views/ChooseModeView.vue";
 import resetGame from "@/Logic/Game/UseCases/ResetGame";
+import ControlsView from "@/views/ControlsView.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -41,6 +42,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '/choose-mode',
         name: 'choose-mode',
         component: ChooseModeView
+    },
+    {
+        path: '/controls',
+        name: 'controls',
+        component: ControlsView
     },
 
     {
