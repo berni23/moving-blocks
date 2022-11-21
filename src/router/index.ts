@@ -9,7 +9,8 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
         name: 'home',
-        component: HomeView
+        component: HomeView,
+        alias:"/home"
     },
 
     {
@@ -29,10 +30,17 @@ const routes: Array<RouteRecordRaw> = [
         component:GameView
     } ,
     {
-        path: '/stats',
-        name: 'stats',
+        path: '/ranking',
+        name: 'ranking',
+        props: { title: 'Ranking'},
         component:TableBoardView
-    }
+    },
+
+
+    {
+        path: "/:catchAll(.*)", // Unrecognized path automatically matches 404
+        redirect:'/'
+    },
 ]
 
 const router = createRouter({

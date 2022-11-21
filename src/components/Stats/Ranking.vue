@@ -135,36 +135,25 @@ export default defineComponent({
   flex-direction: column;
 
   &__content {
-
-
     font-family: $second-font;
-
     font-weight: normal!important;
     display: flex;
     flex-direction: row;
-
     &__table{
 
       //color:$color-primary!important;
-
-
 
       thead{
         background-color: whitesmoke;
       }
       tbody{
-
         font-family: $second-font-light;
 
       }
-
-
       width:100%
     }
 
     &__game {
-
-
       display: flex;
       flex-direction: row;
 

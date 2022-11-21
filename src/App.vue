@@ -9,6 +9,9 @@
 @import './assets/scss/fonts';
 
 
+.hidden{
+
+}
 body {
 
   font-family: $main-font!important;
