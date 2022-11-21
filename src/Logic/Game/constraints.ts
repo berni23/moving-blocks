@@ -54,7 +54,8 @@ export const keys = keysUp.concat(keysDown).concat(keysRight).concat(keysLeft);
 
 //game constraints
 
-export const gameInterval: number = 16; // gameInterval
+export const gameInterval: number = 16
+; // gameInterval
 export const arrayModes = [{name: 'easy', maxLives: 5} as Mode, {name: 'medium', maxLives: 3} as Mode, {
     name: 'hard',
     maxLives: 1

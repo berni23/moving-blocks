@@ -1,25 +1,16 @@
 <template>
 
-
+<audios/>
   <div class="navigation">
     <q-layout view="lHh lpr lFf" container style="height:60px" class="rounded-borders">
       <q-header elevated class="navigation__header">
-
-
         <q-toolbar>
           <q-breadcrumbs style="font-size: 16px">
-            <!--            <q-breadcrumbs-el style="color:lightskyblue" label="Main" icon="home"/>-->
-
-
             <q-breadcrumbs-el v-for="item in toolbarItems" :key="item.name"
-
                               class="toolbar-item"
                               :class="[item.name===routeName?'current-item':'item']" :label="item.label"
-
                               @click="goTo(item.name)"
                               :icon="item.icon"/>
-            <!--            <q-breadcrumbs-el label="Ranking" icon="trending_up"/>-->
-
           </q-breadcrumbs>
         </q-toolbar>
       </q-header>
@@ -40,6 +31,7 @@ import {defineComponent, ref} from 'vue';
 
 import CustomButton from "@/components/Buttons/CustomButton.vue";
 import {useRoute, useRouter} from 'vue-router';
+import Audios from "@/components/Common/Audios.vue";
 
 export default defineComponent({
   name: "main-header",
@@ -55,19 +47,14 @@ export default defineComponent({
       default: true
     }
   },
-  components: {CustomButton},
+  components: {Audios, CustomButton},
 
   setup(props) {
 
 
     const route = useRoute();
     const router = useRouter();
-
-
     const title= ref(props.title);
-
-
-    console.log('title',title.value);
     const goTo = (name:string)=> {router.push('/'+name)}
 
 

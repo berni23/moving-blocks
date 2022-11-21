@@ -2,7 +2,7 @@
   <div class="coin status-coin"
        :style="{'width':size,'height':size}">
     <img
-        src='images/coins/coin.gif'
+        src='/images/coins/coin.gif'
         :style="{'width':size, 'height':size}" alt="coin"/>
   </div>
 </template>

@@ -3,7 +3,7 @@
        :style="{'width':size,'height':size, 'marginLeft':marginLeft,'marginTop':marginTop}">
 
     <img
-        src='images/coins/coin.gif'
+        src='/images/coins/coin.gif'
         :style="{'width':size, 'height':size}" alt="coin"/>
   </div>
 </template>

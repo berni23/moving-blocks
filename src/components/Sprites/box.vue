@@ -5,7 +5,7 @@
 
     <img
         class="box__image"
-        src='images/alien.gif'
+        src='/images/alien.gif'
         :style="{width:size, height:size}" alt="alien"/>
   </div>
 </template>

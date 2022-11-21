@@ -24,7 +24,7 @@ export default function customWave() {
     // duplicateSpritesAndShuffle();
     // // createRandomWalls();
     // createRandomWalls();
-    // createRandomWalls();s
+    // createRandomWalls();
 
 
 }

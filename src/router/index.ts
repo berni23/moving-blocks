@@ -4,13 +4,15 @@ import HowToPlayView from "@/views/HowToPlayView.vue";
 import NewUserView from "@/views/NewUserView.vue";
 import GameView from "@/views/GameView.vue";
 import TableBoardView from "@/views/TableBoardView.vue";
+import ChooseModeView from "@/views/ChooseModeView.vue";
+import resetGame from "@/Logic/Game/UseCases/ResetGame";
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
         name: 'home',
         component: HomeView,
-        alias:"/home"
+        alias: "/home"
     },
 
     {
@@ -25,28 +27,33 @@ const routes: Array<RouteRecordRaw> = [
         component: NewUserView
     },
     {
-        path: '/game',
+        path: '/game/:mode',
         name: 'game',
-        component:GameView
-    } ,
+        component: GameView
+    },
     {
         path: '/ranking',
         name: 'ranking',
-        props: { title: 'Ranking'},
-        component:TableBoardView
+        props: {title: 'Ranking'},
+        component: TableBoardView
     },
-
+    {
+        path: '/choose-mode',
+        name: 'choose-mode',
+        component: ChooseModeView
+    },
 
     {
         path: "/:catchAll(.*)", // Unrecognized path automatically matches 404
-        redirect:'/'
+        redirect: '/'
     },
 ]
 
 const
     router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
-    routes
-})
+        history: createWebHistory(process.env.BASE_URL),
+        routes
+    });
+
 
 export default router

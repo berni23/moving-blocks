@@ -1,3 +1,4 @@
+
 <template>
   <button type="button" class="shadow-btn" :class="[phase?'phase':'main-button']" @click="buttonClick">
 
@@ -27,14 +28,16 @@ export default defineComponent({
     }
   },
   setup(props, {emit}) {
-    const text = ref(props.text)
+    const text = ref(props.text);
     const sound = ref(props.sound);
     const phase = ref(props.phase);
 
+    const audioClick = new Audio(require('/src/assets/sounds/accept2.mp3'));
+
+
     function buttonClick() {
-      const soundClick = document.getElementById('sound-click') as HTMLAudioElement;
       emit('clicked')
-      if (props.sound) soundClick.play();
+      if (props.sound) audioClick.play();
     }
     return {text, sound, phase, buttonClick}
   }

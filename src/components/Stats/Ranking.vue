@@ -48,10 +48,11 @@
   </div>
 </template>
 <script lang="ts">
-import {computed, defineComponent, ref} from "vue";
+import {computed, defineComponent, onBeforeMount, ref} from "vue";
 import Game from "@/customTypes/game";
 import {useUsersStore} from "@/stores/users";
 import {millisToReadableMinAndSec} from "@/Logic/Game/Utils/timeUtils";
+import resetGame from "@/Logic/Game/UseCases/ResetGame";
 
 export default defineComponent({
   name: "ranking",
@@ -67,6 +68,10 @@ export default defineComponent({
   },
   setup(props) {
 
+
+    onBeforeMount(() => resetGame())
+
+
     const arrayGames = ref(props.arrayGames as Array<Game>);
     const userStore = useUsersStore();
     const arrayGamesForRanking = computed(() => {
@@ -81,7 +86,6 @@ export default defineComponent({
       }).sort((game1, game2) => (game1.coins > game2.coins) ? -1 : 1);
     });
 
-    console.log('games for ranking', arrayGamesForRanking.value)
     const columns = [
 
       {

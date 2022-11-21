@@ -6,16 +6,13 @@ import GameSprite from "@/customTypes/gameSprite";
 const initializeGame = () => {
 
     const gameStore = useGamesStore();
-
-    gameStore.finishLoops();
-
     const spritePusher = (arraySprites: Array<GameSprite>) => {
+
         let gameSprite = arraySprites.shift() as GameSprite;
+        if (gameSprite.component != 'timer') gameStore.displaySprite(gameSprite);
+        if (!arraySprites.length || !gameStore.currentGame) return;
 
 
-        if(gameSprite.component!='timer') gameStore.displaySprite(gameSprite);
-
-        if (!arraySprites.length) return;
         setTimeout(() => spritePusher(arraySprites), arraySprites[0].time);
     }
 

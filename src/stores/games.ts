@@ -47,14 +47,15 @@ export const useGamesStore = defineStore('games', {
             this._currentGame.lives = Math.max(this._currentGame.lives - intensity, 0);
             this._timeDamage = setTimeout(() => {
 
-                this._timeDamage = null;
+                if (this._timeDamage) clearTimeout(this._timeDamage);
+
             }, timeDamageRecovery)
         },
 
         applyPowerUp() {
             if (this._timePowerUp) clearTimeout(this._timePowerUp);
             this._timePowerUp = setTimeout(() => {
-                this._timePowerUp = null;
+                if (this._timePowerUp) clearTimeout(this._timePowerUp)
             }, timePowerUp)
             if (this._timeDamage) clearTimeout(this._timeDamage);
 
@@ -107,9 +108,14 @@ export const useGamesStore = defineStore('games', {
             this._currentGame = game;
         },
         finishLoops() {
-            this._iteration = 0;
             if (this._gameLoopInterval) clearInterval(this._gameLoopInterval);
             if (this._timeDamage) clearTimeout(this._timeDamage);
+            if (this._timePowerUp) clearTimeout(this._timePowerUp);
+
+            this._gameLoopInterval = null;
+            this._timeDamage = null;
+            this._timePowerUp = null;
+            this._iteration = 0;
         },
         removeCurrentGame() {
             this._currentGame = null
@@ -133,23 +139,36 @@ export const useGamesStore = defineStore('games', {
             this._currentKey = ''
         },
 
-        finishCurrentGame() {
 
-            if (!this._currentGame) return;
+        resetGameVars() {
 
-
-            console.log('finishing current game!!');
-            //set time , finished true and add to finished games
-            this._currentGame.time = this._iteration * gameInterval;
-
-            this._currentGame.finished = true;
-            this.addGameToFinishedGames(this._currentGame);
-
-            //reset values to pre-game
-            this._currentGame = null;
+            //finish
             this.finishLoops();
             this._offsetLeft = initialCoordinates[0];
             this._offsetTop = initialCoordinates[1];
+
+            //remove
+            this.removeCurrentGame();
+            this.removeSprites();
+            this.removeCurrentKey();
+
+
+        },
+        finishCurrentGame() {
+
+            if (this._currentGame) {
+                //set time , finished true and add to finished games
+                this._currentGame.time = this._iteration * gameInterval;
+
+                this._currentGame.finished = true;
+                this.addGameToFinishedGames(this._currentGame);
+
+
+            }
+            this.resetGameVars();
+
+            //reset values to pre-game
+
 
         }
     },

@@ -1,7 +1,4 @@
 <template>
-  <audio id="sound-click" src="sounds/accept2.mp3"></audio>
-  <audio id="sound-start" src="sounds/start.mp3"></audio>
-
 </template>
 
 <script lang="ts">
@@ -20,21 +17,17 @@ export default defineComponent({
     const audioExplosion = new Audio(require('../../assets/sounds/explosion.mp3'));
     const gamesStore = useGamesStore();
     let currentAudio = audioCoin;
-
     let play = true;
     const stopCurrentAudio = () => {
       currentAudio.pause();
       currentAudio.currentTime = 0;
     }
     const playAudio = (audio: HTMLAudioElement) => {
-
-
       if (!play) return;
       stopCurrentAudio();
       currentAudio = audio;
       currentAudio.play();
     }
-
     watch(() => gamesStore.currentCoins, (newVal, oldVal) => {
           if (newVal == oldVal + 3) playAudio(audioDiamond);
           else if (newVal > oldVal) playAudio(audioCoin);
@@ -47,13 +40,9 @@ export default defineComponent({
       }
       if (newVal < oldVal) playAudio(audioDamage);
     });
-
     watch(() => gamesStore.isPowerUp, (newVal, oldVal) => {
       if (newVal) playAudio(audioPowerUp);
     });
-
-
   }
-
 })
 </script>

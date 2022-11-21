@@ -24,18 +24,14 @@ export default defineComponent({
     const gameStore = useGamesStore();
     const logicGameFinished = () => {
       gameStore.finishCurrentGame();
-
-      console.log('games finished', gameStore.finishedGames);
-      router.push('stats');
+      router.push('/ranking')
 
     }
 
     const posLeft = computed(() => gameStore.offsetLeft);
     const posTop = computed(() => gameStore.offsetTop);
-
-
     const gameFinished = ref(false);
-    const spritePlayerUrl = ref<string | null>('images/player.gif');
+    const spritePlayerUrl = ref<string | null>('/images/player.gif');
     const classList = computed(() => {
 
       if (gameFinished.value) return [];
@@ -73,7 +69,7 @@ export default defineComponent({
     watch(() => gameStore.iteration, applySpriteLogic);
     watch(() => gameStore.currentLives, () => {
           if (gameStore.currentLives == 0) {
-            spritePlayerUrl.value = 'images/explosion.gif';
+            spritePlayerUrl.value = '/images/explosion.gif';
             gameFinished.value = true;
             dimensions.height = '250px';
             dimensions.width = '250px';

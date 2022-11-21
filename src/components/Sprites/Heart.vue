@@ -2,7 +2,7 @@
   <div class='heart'>
 
     <img
-        src='images/hearts/heart.gif' alt="live"/>
+        src='/images/hearts/heart.gif' alt="live"/>
   </div>
 </template>
 <script lang="ts">

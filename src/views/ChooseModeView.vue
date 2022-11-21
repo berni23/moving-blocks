@@ -1,27 +1,34 @@
 <template>
-  <main-header :show-title="false"/>
-  <game/>
+  <main-header :show-title="true" :title="'Difficulty'"/>
+  <section class="main-container container">
+    <mode-component @mode='newGame'/>
+  </section>
 </template>
 <script lang="ts">
 
 import CustomButton from "@/components/Buttons/CustomButton.vue";
-import {computed, defineComponent} from 'vue';
+import {defineComponent, onBeforeMount, ref} from 'vue';
 import ModeComponent from "@/components/Game/Mode.vue";
 import MainHeader from "@/views/MainHeader.vue";
 import Buttons from "@/components/Buttons/Buttons.vue";
-import {useGamesStore} from '@/stores/games';
+import {useUsersStore} from "@/stores/users";
 import Game from "@/components/Game/Game.vue";
+import User from "@/customTypes/user";
 import Audios from "@/components/Common/Audios.vue";
 import {useRouter} from "vue-router";
+import resetGame from "@/Logic/Game/UseCases/ResetGame";
 
 export default defineComponent({
-  name: 'GameView',
+  name: 'ChooseModeView',
   components: {Audios, Game, CustomButton, MainHeader, Buttons, ModeComponent},
   setup(props, {emit}) {
-    const gamesStore = useGamesStore();
+
+    onBeforeMount(() => resetGame())
+    const usersStore = useUsersStore();
     const router = useRouter();
-    if (!gamesStore.currentGame) router.push('choose-mode')
-    return {};
+    const user = ref<User | null>(usersStore.currentUser);
+    const newGame = (name: string) => router.push({name: 'game', params: {'mode': name}});
+    return {user, newGame}
   }
 });
 </script>

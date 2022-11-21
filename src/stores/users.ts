@@ -31,6 +31,6 @@ export const useUsersStore = defineStore('users', {
             currentUser: state => state._currentUser
         },
 
-        persist: true
+        persist:true
     }
 )
