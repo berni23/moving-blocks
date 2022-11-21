@@ -13,8 +13,8 @@ export const useUsersStore = defineStore('users', {
             setUserAsCurrent(user: User) {
                 this._currentUser = user;
             },
-            getUserOfId(id: number) {
-                return this._users.filter((user) => user.id == id);
+            getUserOfId(id: number):User|undefined {
+                return this._users.find((user) => user.id == id);
             }
         },
 

@@ -22,13 +22,14 @@ export default defineComponent({
   setup(props, {emit}) {
 
     const gameStore = useGamesStore();
-
     const logicGameFinished = () => {
-      router.push('stats');
       gameStore.finishCurrentGame();
+
+      console.log('games finished', gameStore.finishedGames);
+      router.push('stats');
+
     }
 
-    logicGameFinished();
     const posLeft = computed(() => gameStore.offsetLeft);
     const posTop = computed(() => gameStore.offsetTop);
 
@@ -65,7 +66,6 @@ export default defineComponent({
         return
       }
     }
-
 
     const dimensions = reactive({height: playerHeightPixels, width: playerWidthPixels});
     const marginLeft = computed(() => posLeft.value.toString() + 'px');

@@ -47,12 +47,8 @@ export default defineComponent({
         const countdownText = ref('' as string | null);
         onMounted(() => {
           if (!user.value) router.push('new-user')
-
           else startGame(countdownText)
         });
-
-        console.log('arraySprites', arraySprites.value);
-
         return {
           componentFromString: NameToComponentConversor,
           gameHasStarted,

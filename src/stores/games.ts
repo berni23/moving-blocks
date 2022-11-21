@@ -22,6 +22,8 @@ import ElementSprite from "@/customTypes/elementSprite";
 
 // @ts-ignore
 export const useGamesStore = defineStore('games', {
+
+    persist: true,
     state: () => ({
 
         _gameLoopInterval: null as number | null,
@@ -105,6 +107,7 @@ export const useGamesStore = defineStore('games', {
             this._currentGame = game;
         },
         finishLoops() {
+            this._iteration = 0;
             if (this._gameLoopInterval) clearInterval(this._gameLoopInterval);
             if (this._timeDamage) clearTimeout(this._timeDamage);
         },
@@ -131,10 +134,23 @@ export const useGamesStore = defineStore('games', {
         },
 
         finishCurrentGame() {
+
             if (!this._currentGame) return;
+
+
+            console.log('finishing current game!!');
+            //set time , finished true and add to finished games
+            this._currentGame.time = this._iteration * gameInterval;
+
             this._currentGame.finished = true;
-            this._finishedGames.push(this._currentGame);
+            this.addGameToFinishedGames(this._currentGame);
+
+            //reset values to pre-game
             this._currentGame = null;
+            this.finishLoops();
+            this._offsetLeft = initialCoordinates[0];
+            this._offsetTop = initialCoordinates[1];
+
         }
     },
 

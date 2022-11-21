@@ -4,4 +4,12 @@
     //src: url("../scss/fonts/pdark.woff");
 }
 
+
+@font-face {
+    font-family: 'roboto-medium';
+    src: url("/src/assets/fonts/Roboto/Roboto-Medium.ttf")
+    //src: url("../scss/fonts/pdark.woff");
+}
+
 $main-font: 'pdark-font';
+$second-font: 'roboto-medium';
