@@ -1,6 +1,6 @@
 <template>
 
-  <main-header/>
+  <main-header :title="title"/>
   <div class="table-board">
     <ranking :title="'easy mode'" :array-games="easyModeGames"></ranking>
     <ranking :title="'medium mode'" :array-games="mediumModeGames"></ranking>
@@ -22,7 +22,11 @@ import Ranking from "@/components/Stats/Ranking.vue";
 export default defineComponent({
       name: "table-board-view",
       components: {Ranking, MainHeader},
-      setup() {
+
+       props:['title'],
+      setup(props) {
+
+
 
         const gameStore = useGamesStore();
         const games = ref<Array<game>>(gameStore.finishedGames)
@@ -31,12 +35,14 @@ export default defineComponent({
         const hardModeGames = computed(() => games.value.filter((game) => game.mode.name == 'hard'));
 
         console.log('games', mediumModeGames);
-        return {easyModeGames, mediumModeGames, hardModeGames};
+        return {title:props.title,easyModeGames, mediumModeGames, hardModeGames};
 
       }
     }
 )
 </script>
+
+
 
 <style lang="scss">
 

@@ -13,16 +13,16 @@ export default function customWave() {
 
     saveSprite(createGameSprite()); // we pass on arguments -> hence default values are set
     saveSprite(createGameSprite('coin', 2000, gHeight / 3)); // we pass on arguments -> hence default values are set
-    createSnakeWall();
-    createObjectsInRandPosition(40, 50)
-    createRandomWalls();
-    createSnakeWall(80,10,'coin','box')
-    createObjectsInRandPosition(50, 120)
-    createObjectsInRandPosition(20, 60)
-
-
-    duplicateSpritesAndShuffle();
+    // createSnakeWall();
+    // createObjectsInRandPosition(40, 50)
     // createRandomWalls();
+    // createSnakeWall(80,10,'coin','box')
+    // createObjectsInRandPosition(50, 120)
+    // createObjectsInRandPosition(20, 60)
+    //
+    //
+    // duplicateSpritesAndShuffle();
+    // // createRandomWalls();
     // createRandomWalls();
     // createRandomWalls();s
 

@@ -1,5 +1,5 @@
 <template>
-  <main-header v-if="!gameIsOngoing"/>
+  <main-header :show-title="false"/>
   <section class="main-container container" v-if="!gameIsCreated">
     <mode-component @mode='newGame'/>
 

@@ -12,6 +12,8 @@
 
 
             <q-breadcrumbs-el v-for="item in toolbarItems" :key="item.name"
+
+                              class="toolbar-item"
                               :class="[item.name===routeName?'current-item':'item']" :label="item.label"
 
                               @click="goTo(item.name)"
@@ -34,7 +36,7 @@
 
 <script lang="ts">
 
-import {defineComponent} from 'vue';
+import {defineComponent, ref} from 'vue';
 
 import CustomButton from "@/components/Buttons/CustomButton.vue";
 import {useRoute, useRouter} from 'vue-router';
@@ -62,7 +64,10 @@ export default defineComponent({
     const router = useRouter();
 
 
+    const title= ref(props.title);
 
+
+    console.log('title',title.value);
     const goTo = (name:string)=> {router.push('/'+name)}
 
 
@@ -82,7 +87,7 @@ export default defineComponent({
       }
     ];
 
-    return {goTo,showTitle:props.showTitle,title: props.title, toolbarItems, routeName: route.name}
+    return {goTo,showTitle:props.showTitle,title, toolbarItems, routeName: route.name}
 
   }
 });
@@ -99,20 +104,21 @@ export default defineComponent({
   font-size: .8rem !important;
   font-family: $second-font;
 
-
   &__header {
-
 
     background-color: white !important;
     color: $color-primary !important;
   }
 
   .item {
-
     color: $color-primary !important;
 
   }
 
+  .toolbar-item{
+
+    cursor: pointer;
+  }
   .current-item {
 
     color: $color-primary-dark !important;

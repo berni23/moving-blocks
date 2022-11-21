@@ -1,15 +1,14 @@
 <template>
-  <div class="game-status container">
-    <div class="game-status__title">Status</div>
-    <div class="status">
-      <ul class="lives">
-
+  <div class="game-status">
+<!--    <div class="game-status__title">Status</div>-->
+    <div class="game-status__content">
+      <ul class="lives container">
         <li v-for="i in numLives" :key="i">
         <heart/>
         </li>
       </ul>
       <br>
-      <ul>
+      <ul class="coins container">
         <li>
           <status-coin/>
         </li>
@@ -53,14 +52,26 @@ export default defineComponent({
 
  }
 
+  &__content {
 
-  .status ul {
-    list-style-type: none;
+
     display: flex;
-    margin: 0;
-    padding: 0;
-    color: $color-primary-dark;
-    font-size: 25px;
+
+
+    ul:first-of-type{
+
+
+      margin-right: 10px;
+    }
+    ul {
+
+      list-style-type: none;
+      display: flex;
+      margin:0;
+      padding: 10px;
+      color: $color-primary-dark;
+      font-size: 25px;
+    }
   }
 
 

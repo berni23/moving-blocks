@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 id="count-down">{{ countdownText }}</h1>
+    <h1 id="count-down" v-if="!gameHasStarted">{{ countdownText }}</h1>
     <div class="game-wrapper" v-if="gameHasStarted">
       <status/>
       <div class="game container" :style="{'height':height}">
