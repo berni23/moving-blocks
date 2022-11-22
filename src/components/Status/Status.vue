@@ -3,7 +3,7 @@
 <!--    <div class="game-status__title">Status</div>-->
     <div class="game-status__content">
       <ul class="lives container">
-        <li v-for="i in numLives" :key="i">
+        <li v-if="numLives" v-for="i in numLives" :key="i">
         <heart/>
         </li>
       </ul>

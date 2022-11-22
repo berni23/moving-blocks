@@ -163,7 +163,6 @@ export const useGamesStore = defineStore('games', {
                 this._currentGame.finished = true;
                 this.addGameToFinishedGames(this._currentGame);
 
-
             }
             this.resetGameVars();
 

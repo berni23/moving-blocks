@@ -16,7 +16,7 @@
 </template>
 <script lang="ts">
 
-import {computed, defineComponent, onMounted, ref} from 'vue';
+import {computed, defineComponent, onBeforeMount, onMounted, ref} from 'vue';
 import Buttons from "@/components/Buttons/Buttons.vue";
 import MainHeader from "@/views/MainHeader.vue";
 import CustomButton from "@/components/Buttons/CustomButton.vue";
@@ -25,14 +25,15 @@ import GameContent from "@/components/Game/GameContent.vue";
 import Status from "@/components/Status/Status.vue";
 import Player from "@/components/Sprites/Player.vue";
 import {useRoute, useRouter} from "vue-router";
-import { useGamesStore } from '@/stores/games';
-import { useUsersStore } from '@/stores/users';
+import {useGamesStore} from '@/stores/games';
+import {useUsersStore} from '@/stores/users';
 import User from '@/customTypes/user';
 import startGame from '@/Logic/Game/UseCases/StartGame';
 import NameToComponentConversor from '@/Logic/Game/Services/Conversors/NameToComponentConversor';
-import { intToPix } from '@/Logic/Game/Utils/pixelConv';
-import { gHeight } from '@/Logic/Game/constraints';
+import {intToPix} from '@/Logic/Game/Utils/pixelConv';
+import {gHeight} from '@/Logic/Game/constraints';
 import createGameWithMode from '@/Logic/Game/UseCases/CreteGameWithMode';
+import resetGame from "@/Logic/Game/UseCases/ResetGame";
 
 export default defineComponent({
       name: 'Game',
@@ -40,15 +41,24 @@ export default defineComponent({
       setup(props, {emit}) {
 
         const route = useRoute();
-        createGameWithMode(typeof route.params.mode =='string'?route.params.mode:'easy');
-        const gamesStore = useGamesStore();
         const router = useRouter();
+        resetGame();
+        const gamesStore = useGamesStore();
         const usersStore = useUsersStore();
         const user = ref<User | null>(usersStore.currentUser);
-        if (!user.value) router.push('new-user')
+        if (!user.value) router.push('/new-user')
         const arraySprites = computed(() => gamesStore.currentSprites);
         const gameHasStarted = computed(() => gamesStore.gameIsOngoing);
-        const countdownText = ref('heey' as string | null);
+        const countdownText = ref('' as string | null);
+
+
+        onBeforeMount(()=>{
+
+          if (!route.params.mode) router.push('/choose-mode');
+          resetGame();
+          createGameWithMode(typeof route.params.mode == 'string' ? route.params.mode : 'easy');
+
+        })
         onMounted(() => startGame(countdownText));
         return {
           componentFromString: NameToComponentConversor,
