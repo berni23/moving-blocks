@@ -18,12 +18,13 @@ import {
 } from "@/Logic/Game/constraints";
 import GameSprite from "@/customTypes/gameSprite";
 import ElementSprite from "@/customTypes/elementSprite";
+import {maxGames, persist} from "@/config";
 
 
 // @ts-ignore
 export const useGamesStore = defineStore('games', {
 
-    persist: true,
+    persist: persist,
     state: () => ({
 
         _gameLoopInterval: null as number | null,
@@ -121,6 +122,9 @@ export const useGamesStore = defineStore('games', {
             this._currentGame = null
         },
         addGameToFinishedGames(game: Game) {
+            if(this._finishedGames.length>=maxGames){
+                this._finishedGames.shift();
+            }
             this._finishedGames.push(game);
         },
         modeOfName(name: string): Mode | null {

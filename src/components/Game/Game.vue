@@ -41,6 +41,7 @@ export default defineComponent({
       setup(props, {emit}) {
 
         const route = useRoute();
+        
         const router = useRouter();
         resetGame();
         const gamesStore = useGamesStore();

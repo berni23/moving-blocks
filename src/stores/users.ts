@@ -1,5 +1,6 @@
 import {defineStore} from "pinia";
 import User from "@/customTypes/user";
+import {persist} from "@/config";
 
 export const useUsersStore = defineStore('users', {
         state: () => ({
@@ -31,6 +32,6 @@ export const useUsersStore = defineStore('users', {
             currentUser: state => state._currentUser
         },
 
-        persist:true
+        persist:persist
     }
 )
