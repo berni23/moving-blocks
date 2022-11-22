@@ -10,6 +10,8 @@ const createGameWithMode = (modeString: String) => {
     const usersStore = useUsersStore();
     let user = usersStore.currentUser;
     const newGame = createGame(user ? (user as User).id : null, mode)
+
+
     clearFormerGameAndSetNewAsCurrent(newGame);
     return newGame;
 

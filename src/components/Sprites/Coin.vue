@@ -11,7 +11,7 @@
 import {defineComponent, reactive} from "vue";
 import {useGamesStore} from "@/stores/games";
 import applySpriteLogic from "@/Logic/Game/UseCases/ApplySpriteLogic";
-import { coinSize, coinWidthPixels, gameWidth} from "@/Logic/Game/constraints";
+import {coinSize, coinWidthPixels, gameWidth} from "@/Logic/Game/constraints";
 import ElementSprite from "@/customTypes/elementSprite";
 
 export default defineComponent({

@@ -23,7 +23,11 @@ export default defineComponent({
   components: {Audios, Game, CustomButton, MainHeader, Buttons, ModeComponent},
   setup(props, {emit}) {
 
-    onBeforeMount(() => resetGame())
+
+    onBeforeMount(() => {
+      console.log('choose mode');
+      resetGame()
+    })
     const usersStore = useUsersStore();
     const router = useRouter();
     const user = ref<User | null>(usersStore.currentUser);

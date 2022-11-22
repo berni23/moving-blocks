@@ -21,12 +21,17 @@ export default defineComponent({
 
   setup(props, {emit}) {
 
-    onBeforeMount(() => resetGame())
+    onBeforeMount(() => {
+
+      console.log('before mounting home view');
+      resetGame()
+    })
+
 
     const router = useRouter();
     const usersStore = useUsersStore();
     const isCurrentUser = ref(usersStore.isCurrentUser)
-    const goHowToPlay = () => router.push('how-to-play')
+    const goHowToPlay = () => router.push('controls')
     const goToNewUser = () => router.push('new-user')
     const goToNewGame = () => router.push('choose-mode')
     return {isCurrentUser, goHowToPlay, goToNewUser,goToNewGame}

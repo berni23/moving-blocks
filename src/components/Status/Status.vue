@@ -20,7 +20,7 @@
 <script lang="ts">
 import {computed, defineComponent} from "vue";
 import Heart from "@/components/Sprites/Heart.vue";
-import { useGamesStore } from "@/stores/games";
+import {useGamesStore} from "@/stores/games";
 import StatusCoin from "@/components/Status/StatusCoin.vue";
 
 export default defineComponent({

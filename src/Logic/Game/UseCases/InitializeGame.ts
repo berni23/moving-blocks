@@ -8,12 +8,11 @@ const initializeGame = () => {
     const gameStore = useGamesStore();
     const spritePusher = (arraySprites: Array<GameSprite>) => {
 
+        if (!arraySprites.length || !gameStore.currentGame) return;
         let gameSprite = arraySprites.shift() as GameSprite;
         if (gameSprite.component != 'timer') gameStore.displaySprite(gameSprite);
-        if (!arraySprites.length || !gameStore.currentGame) return;
 
-
-        setTimeout(() => spritePusher(arraySprites), arraySprites[0].time);
+        setTimeout(() => spritePusher(arraySprites), arraySprites[0]?arraySprites[0].time:100);
     }
 
     gameStore.startCurrentGame();

@@ -1,7 +1,6 @@
 import saveSprite from "@/Logic/Game/Services/Save/SaveSprite";
 import createGameSprite from "@/Logic/Game/UseCases/CreateGameSprite";
 import {getRandomInt} from "@/Logic/Game/Utils/randomNumberGenerators";
-import {dom} from "quasar";
 import {gHeight, marginGame} from "@/Logic/Game/constraints";
 
 

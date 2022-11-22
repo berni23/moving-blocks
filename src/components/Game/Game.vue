@@ -16,7 +16,7 @@
 </template>
 <script lang="ts">
 
-import {computed, defineComponent, onBeforeMount, onMounted, ref} from 'vue';
+import {computed, defineComponent, onBeforeMount, ref} from 'vue';
 import Buttons from "@/components/Buttons/Buttons.vue";
 import MainHeader from "@/views/MainHeader.vue";
 import CustomButton from "@/components/Buttons/CustomButton.vue";
@@ -33,34 +33,33 @@ import NameToComponentConversor from '@/Logic/Game/Services/Conversors/NameToCom
 import {intToPix} from '@/Logic/Game/Utils/pixelConv';
 import {gHeight} from '@/Logic/Game/constraints';
 import createGameWithMode from '@/Logic/Game/UseCases/CreteGameWithMode';
-import resetGame from "@/Logic/Game/UseCases/ResetGame";
 
 export default defineComponent({
       name: 'Game',
       components: {Player, Status, GameContent, CustomButton, MainHeader, Buttons, ModeComponent},
       setup(props, {emit}) {
-
         const route = useRoute();
-        
         const router = useRouter();
-        resetGame();
         const gamesStore = useGamesStore();
         const usersStore = useUsersStore();
         const user = ref<User | null>(usersStore.currentUser);
-        if (!user.value) router.push('/new-user')
         const arraySprites = computed(() => gamesStore.currentSprites);
         const gameHasStarted = computed(() => gamesStore.gameIsOngoing);
         const countdownText = ref('' as string | null);
 
+        onBeforeMount(() => {
+          if (!user.value) router.push('/new-user')
+          else if (!route.params.mode || gamesStore.currentGame) {
+            // resetGame();
+            router.push('/choose-mode');
+          } else {
+            createGameWithMode(typeof route.params.mode == 'string' ? route.params.mode : 'easy');
+            startGame(countdownText)
 
-        onBeforeMount(()=>{
+          }
 
-          if (!route.params.mode) router.push('/choose-mode');
-          resetGame();
-          createGameWithMode(typeof route.params.mode == 'string' ? route.params.mode : 'easy');
+        });
 
-        })
-        onMounted(() => startGame(countdownText));
         return {
           componentFromString: NameToComponentConversor,
           gameHasStarted,
@@ -70,8 +69,7 @@ export default defineComponent({
         }
       }
     }
-)
-;
+);
 </script>
 <style lang="scss">
 
@@ -95,6 +93,8 @@ export default defineComponent({
 
   .game {
     position: relative;
+
+    overflow: hidden !important;
   }
 
 

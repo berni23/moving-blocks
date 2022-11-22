@@ -1,13 +1,10 @@
 import initializeGame from "@/Logic/Game/UseCases/InitializeGame";
 import customWave from "@/Logic/Game/UseCases/CustomWave";
 import {Ref} from "vue";
-import {useGamesStore} from "@/stores/games";
 import countDown from "@/Logic/Game/Utils/countDown";
 
 
 function startGame(countDownText: Ref<string | null>) {
-
-    const gamesStore = useGamesStore();
 
 
 

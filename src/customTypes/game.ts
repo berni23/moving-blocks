@@ -8,5 +8,6 @@ export default interface Game {
     finished: boolean,
     lives: number,
     coins: number,
+    id:number
 }
 

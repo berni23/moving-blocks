@@ -18,8 +18,14 @@ const removeKey = (e: KeyboardEvent) => {
 
 const addKeyDetectors = () => {
     document.onkeydown = detectKey;
-     document.onkeyup = removeKey;
+    document.onkeyup = removeKey;
 
+}
+
+export const removeKeyDetectors
+    = () => {
+    document.onkeydown = null;
+    document.onkeyup = null;
 }
 
 export default addKeyDetectors;

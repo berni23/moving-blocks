@@ -5,7 +5,7 @@
 <script lang="ts">
 
 import CustomButton from "@/components/Buttons/CustomButton.vue";
-import {computed, defineComponent} from 'vue';
+import {defineComponent} from 'vue';
 import ModeComponent from "@/components/Game/Mode.vue";
 import MainHeader from "@/views/MainHeader.vue";
 import Buttons from "@/components/Buttons/Buttons.vue";

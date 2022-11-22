@@ -1,4 +1,4 @@
-import {Ref, ref} from "vue";
+import {Ref} from "vue";
 
 const arrayCountDown = ["3", "2", "1", "0", "GO", "!"]; // count down array for beginning the game
 

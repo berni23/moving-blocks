@@ -49,6 +49,7 @@ export const useGamesStore = defineStore('games', {
             this._timeDamage = setTimeout(() => {
 
                 if (this._timeDamage) clearTimeout(this._timeDamage);
+                this._timeDamage = null;
 
             }, timeDamageRecovery)
         },
@@ -112,7 +113,6 @@ export const useGamesStore = defineStore('games', {
             if (this._gameLoopInterval) clearInterval(this._gameLoopInterval);
             if (this._timeDamage) clearTimeout(this._timeDamage);
             if (this._timePowerUp) clearTimeout(this._timePowerUp);
-
             this._gameLoopInterval = null;
             this._timeDamage = null;
             this._timePowerUp = null;
@@ -120,9 +120,10 @@ export const useGamesStore = defineStore('games', {
         },
         removeCurrentGame() {
             this._currentGame = null
+
         },
         addGameToFinishedGames(game: Game) {
-            if(this._finishedGames.length>=maxGames){
+            if (this._finishedGames.length >= maxGames) {
                 this._finishedGames.shift();
             }
             this._finishedGames.push(game);
@@ -144,7 +145,7 @@ export const useGamesStore = defineStore('games', {
         },
 
 
-        resetGameVars() {
+        resetGameVars():number{
 
             //finish
             this.finishLoops();
@@ -156,27 +157,35 @@ export const useGamesStore = defineStore('games', {
             this.removeSprites();
             this.removeCurrentKey();
 
+            return 0;
 
         },
-        finishCurrentGame() {
+
+        resetGame() {
+            this.resetGameVars();
+        },
+        finishCurrentGame():number {
 
             if (this._currentGame) {
                 //set time , finished true and add to finished games
                 this._currentGame.time = this._iteration * gameInterval;
-
                 this._currentGame.finished = true;
                 this.addGameToFinishedGames(this._currentGame);
-
             }
-            this.resetGameVars();
-
+            return this.resetGameVars();
             //reset values to pre-game
-
-
         }
     },
 
     getters: {
+        highestId: state => {
+            const userIds = state._finishedGames.map(x => x.id);
+            let max = 0;
+            if (userIds.length) {
+                max = Math.max(...userIds);
+            }
+            return max ? max : 0;
+        },
         finishedGames: state => state._finishedGames,
         arraySprites: state => state._arraySprites,
         currentSprites: state => state._currentSprites,

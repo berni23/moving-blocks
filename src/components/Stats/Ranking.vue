@@ -67,22 +67,20 @@ export default defineComponent({
 
   },
   setup(props) {
-
-
     onBeforeMount(() => resetGame())
-
-
     const arrayGames = ref(props.arrayGames as Array<Game>);
     const userStore = useUsersStore();
     const arrayGamesForRanking = computed(() => {
       return arrayGames.value.map((gameInLoop, i) => {
+        if (!gameInLoop) return {match: 0, time: '0:00', user: 'unknown', coins: 0};
         const user = userStore.getUserOfId(gameInLoop.userId as number);
-
         let username = user ? user.name : 'unknown';
-        let match = (i + 1).toString();
 
+
+        if(!gameInLoop.id) console.log('no id',gameInLoop);
+        let match = (gameInLoop.id).toString();
         let time = millisToReadableMinAndSec(gameInLoop.time);
-        return {match, time,username, coins: gameInLoop.coins}
+        return {match, time, username, coins: gameInLoop.coins}
       }).sort((game1, game2) => (game1.coins > game2.coins) ? -1 : 1);
     });
 
@@ -140,21 +138,24 @@ export default defineComponent({
 
   &__content {
     font-family: $second-font;
-    font-weight: normal!important;
+    font-weight: normal !important;
     display: flex;
     flex-direction: row;
-    &__table{
+
+    &__table {
 
       //color:$color-primary!important;
 
-      thead{
+      thead {
         background-color: whitesmoke;
       }
-      tbody{
+
+      tbody {
         font-family: $second-font-light;
 
       }
-      width:100%
+
+      width: 100%
     }
 
     &__game {

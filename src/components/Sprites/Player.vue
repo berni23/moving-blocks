@@ -2,7 +2,6 @@
 
   <div id="me" class="player box" :class='classList'
        :style="{'height':dimensions.height,'width':dimensions.width, 'marginLeft':marginLeft,'marginTop':marginTop}">
-
     <img v-if="spritePlayerUrl" :style="{'height':dimensions.height,'width':dimensions.width}" :src="spritePlayerUrl"
          alt="player"/>
   </div>
@@ -14,18 +13,17 @@ import {computed, defineComponent, reactive, ref, watch} from 'vue';
 import {useGamesStore} from "@/stores/games";
 import {limitBottom, playerHeightPixels, playerWidthPixels, vBox} from "@/Logic/Game/constraints";
 import router from '@/router';
+import {removeKeyDetectors} from '@/Logic/Game/UseCases/AddKeyDetectors';
 
 
 export default defineComponent({
   name: "player",
-
   setup(props, {emit}) {
-
     const gameStore = useGamesStore();
     const logicGameFinished = () => {
+      removeKeyDetectors();
       gameStore.finishCurrentGame();
-      router.push('/ranking')
-
+      router.push('/ranking');
     }
 
     const posLeft = computed(() => gameStore.offsetLeft);
@@ -42,7 +40,7 @@ export default defineComponent({
 
     function applySpriteLogic() {
 
-      if (gameFinished.value) return;
+      // if (gameFinished.value) return;
       if (!gameStore.currentKey) return
       if (gameStore.goUp) {
         gameStore.setOffsetTop(Math.max(posTop.value - vBox, 0));
@@ -78,7 +76,6 @@ export default defineComponent({
           }
         }
     );
-
     return {spritePlayerUrl, dimensions, marginLeft, marginTop, classList};
 
   }

@@ -1,6 +1,6 @@
 <template>
 
-<audios/>
+  <audios/>
   <div class="navigation">
     <q-layout view="lHh lpr lFf" container style="height:60px" class="rounded-borders">
       <q-header elevated class="navigation__header">
@@ -11,6 +11,10 @@
                               :class="[item.name===routeName?'current-item':'item']" :label="item.label"
                               @click="goTo(item.name)"
                               :icon="item.icon"/>
+
+
+<!--            <q-breadcrumbs-el class="toolbar-item" label="store" icon="store" @click="clearStore"/>-->
+
           </q-breadcrumbs>
         </q-toolbar>
       </q-header>
@@ -32,6 +36,8 @@ import {defineComponent, ref} from 'vue';
 import CustomButton from "@/components/Buttons/CustomButton.vue";
 import {useRoute, useRouter} from 'vue-router';
 import Audios from "@/components/Common/Audios.vue";
+import {useUsersStore} from "@/stores/users";
+import {useGamesStore} from '@/stores/games';
 
 export default defineComponent({
   name: "main-header",
@@ -54,8 +60,10 @@ export default defineComponent({
 
     const route = useRoute();
     const router = useRouter();
-    const title= ref(props.title);
-    const goTo = (name:string)=> {router.push('/'+name)}
+    const title = ref(props.title);
+    const goTo = (name: string) => {
+      router.push('/' + name)
+    }
 
 
     const toolbarItems = [
@@ -79,7 +87,17 @@ export default defineComponent({
       }
     ];
 
-    return {goTo,showTitle:props.showTitle,title, toolbarItems, routeName: route.name}
+
+    let userStore = useUsersStore();
+    let gameStore = useGamesStore();
+
+    const clearStore = () => {
+      gameStore.$reset();
+      userStore.$reset();
+      console.log('clearing store');
+    }
+
+    return {goTo, showTitle: props.showTitle, title, toolbarItems, routeName: route.name, clearStore}
 
   }
 });
@@ -107,10 +125,11 @@ export default defineComponent({
 
   }
 
-  .toolbar-item{
+  .toolbar-item {
 
     cursor: pointer;
   }
+
   .current-item {
 
     color: $color-primary-dark !important;
