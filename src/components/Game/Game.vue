@@ -3,7 +3,12 @@
     <h1 id="count-down" v-if="!gameHasStarted">{{ countdownText }}</h1>
     <div class="game-wrapper" v-if="gameHasStarted">
       <status/>
+      <background/>
       <div class="game container" :style="{'height':height}">
+
+
+        <background/>
+
         <player/>
 
         <div v-if=arraySprites.length v-for='sprite in arraySprites' :key="sprite?sprite.id:0">
@@ -33,10 +38,11 @@ import NameToComponentConversor from '@/Logic/Game/Services/Conversors/NameToCom
 import {intToPix} from '@/Logic/Game/Utils/pixelConv';
 import {gHeight} from '@/Logic/Game/constraints';
 import createGameWithMode from '@/Logic/Game/UseCases/CreteGameWithMode';
+import Background from "@/components/background.vue";
 
 export default defineComponent({
       name: 'Game',
-      components: {Player, Status, GameContent, CustomButton, MainHeader, Buttons, ModeComponent},
+      components: {Background, Player, Status, GameContent, CustomButton, MainHeader, Buttons, ModeComponent},
       setup(props, {emit}) {
         const route = useRoute();
         const router = useRouter();

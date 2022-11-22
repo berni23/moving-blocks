@@ -2,8 +2,9 @@
 
   <div class="buttons">
     <custom-button class="buttons__try-again" v-if="isCurrentUser"  @clicked="emitNewGame" :text="'new game'"/>
+    <custom-button v-if="!isCurrentUser" class="buttons__new-user" @clicked="emitNewUser" :text="'new user'"/>
     <custom-button class="buttons__how-to" :phase="true" @clicked='emitHowToPlay' :text="'how to play'"/>
-    <custom-button class="buttons__new-user" @clicked="emitNewUser" :text="'new user'"/>
+
   </div>
 
 </template>

@@ -89,6 +89,8 @@ export default defineComponent({
 .how-to-play {
 
   margin-top: 20px;
+  height: 50vh;
+
   &__image{
     margin:20px;
   }

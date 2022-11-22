@@ -5,6 +5,7 @@ import GameView from "@/views/GameView.vue";
 import TableBoardView from "@/views/TableBoardView.vue";
 import ChooseModeView from "@/views/ChooseModeView.vue";
 import ControlsView from "@/views/ControlsView.vue";
+import UserView from "@/views/UserView.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -13,12 +14,10 @@ const routes: Array<RouteRecordRaw> = [
         component: HomeView,
         alias: "/home"
     },
-
-
     {
-        path: '/new-user',
-        name: 'new-user',
-        component: NewUserView
+        path: '/user',
+        name: 'user',
+        component: UserView
     },
     {
         path: '/game/:mode',

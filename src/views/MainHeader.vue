@@ -13,7 +13,7 @@
                               :icon="item.icon"/>
 
 
-<!--            <q-breadcrumbs-el class="toolbar-item" label="store" icon="store" @click="clearStore"/>-->
+            <!--            <q-breadcrumbs-el class="toolbar-item" label="store" icon="store" @click="clearStore"/>-->
 
           </q-breadcrumbs>
         </q-toolbar>
@@ -73,6 +73,11 @@ export default defineComponent({
         label: 'Main',
         name: 'home'
 
+      },     {
+        icon: 'person',
+        label: 'user',
+        name: 'user'
+
       },
       {
         icon: 'trending_up',
@@ -107,10 +112,7 @@ export default defineComponent({
 @import '../assets/scss/colors';
 @import '/src/assets/scss/fonts';
 
-
 .navigation {
-
-
   font-size: .8rem !important;
   font-family: $second-font;
 
@@ -126,12 +128,10 @@ export default defineComponent({
   }
 
   .toolbar-item {
-
     cursor: pointer;
   }
 
   .current-item {
-
     color: $color-primary-dark !important;
 
   }
@@ -153,6 +153,8 @@ export default defineComponent({
     text-align: center;
     position: relative;
     color: $color-primary;
+
+    font-family: $main-font;
   }
 
 }

@@ -31,7 +31,7 @@ export default defineComponent({
 
 body {
 
-  font-family: $main-font !important;
+  font-family: $main-font;
   min-height: 100vh !important;
   overflow-y: hidden;
   height: 100% !important;
@@ -63,6 +63,8 @@ body {
   text-align: center;
   min-height: 50vh;
 
+
+  position:relative;
   background-color: $main-bg-color;
   border-radius: 15px;
   box-shadow: 0 0 10px $color-primary;
@@ -70,4 +72,14 @@ body {
 }
 
 
+
+.q-notify{
+
+  font-family: Roboto,serif!important;
+}
+
+.q-menu .q-position-engine .q-menu--square .q-transition--fade-leave-active .q-transition-Sfade-leave-to {
+
+  font-family: $second-font!important;
+}
 </style>

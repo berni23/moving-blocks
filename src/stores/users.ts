@@ -14,8 +14,12 @@ export const useUsersStore = defineStore('users', {
             setUserAsCurrent(user: User) {
                 this._currentUser = user;
             },
-            getUserOfId(id: number):User|undefined {
+            getUserOfId(id: number): User | undefined {
                 return this._users.find((user) => user.id == id);
+            },
+
+            getUserOfName(name: string) {
+                return this._users.find((user) => user.name === name);
             }
         },
 
@@ -29,9 +33,11 @@ export const useUsersStore = defineStore('users', {
                 return max ? max : 0;
             },
             isCurrentUser: state => Boolean(state._currentUser),
-            currentUser: state => state._currentUser
+            currentUser: state => state._currentUser,
+            userNames: state => state._users.map((user) => user.name),
+            users: state => state._users
         },
 
-        persist:persist
+        persist: persist
     }
 )

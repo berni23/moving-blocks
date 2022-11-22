@@ -1,6 +1,8 @@
 <template>
   <main-header :show-title="true" :title="'Difficulty'"/>
   <section class="main-container container">
+
+    <user-card/>
     <mode-component @mode='newGame'/>
   </section>
 </template>
@@ -17,10 +19,11 @@ import User from "@/customTypes/user";
 import Audios from "@/components/Common/Audios.vue";
 import {useRouter} from "vue-router";
 import resetGame from "@/Logic/Game/UseCases/ResetGame";
+import UserCard from "@/components/UserCard.vue";
 
 export default defineComponent({
   name: 'ChooseModeView',
-  components: {Audios, Game, CustomButton, MainHeader, Buttons, ModeComponent},
+  components: {UserCard, Audios, Game, CustomButton, MainHeader, Buttons, ModeComponent},
   setup(props, {emit}) {
 
 
