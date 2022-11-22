@@ -130,22 +130,22 @@ export default defineComponent({
 .ranking {
 
 
+
   flex: 1;
   margin: 30px;
   padding: 20px;
   display: flex;
   flex-direction: column;
 
+  font-family: $main-font;
+
   &__content {
-    font-family: $second-font;
     font-weight: normal !important;
     display: flex;
     flex-direction: row;
 
     &__table {
-
-      //color:$color-primary!important;
-
+      font-family: $second-font;
       thead {
         background-color: whitesmoke;
       }

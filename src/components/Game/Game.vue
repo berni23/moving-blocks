@@ -3,11 +3,8 @@
     <h1 id="count-down" v-if="!gameHasStarted">{{ countdownText }}</h1>
     <div class="game-wrapper" v-if="gameHasStarted">
       <status/>
-      <background/>
       <div class="game container" :style="{'height':height}">
 
-
-        <background/>
 
         <player/>
 
