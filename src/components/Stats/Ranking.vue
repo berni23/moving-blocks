@@ -128,9 +128,6 @@ export default defineComponent({
 @import './src/assets/scss/fonts';
 
 .ranking {
-
-
-
   flex: 1;
   margin: 30px;
   padding: 20px;
