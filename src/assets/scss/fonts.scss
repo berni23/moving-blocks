@@ -1,7 +1,17 @@
 @font-face {
     font-family: 'pdark-font';
     src: url("/src/assets/fonts/pdark.woff")
-    //src: url("../scss/fonts/pdark.woff");
+}
+
+
+@font-face {
+    font-family: 'roboto-medium';
+    src: url("/src/assets/fonts/Roboto/Roboto-Medium.ttf")
+}@font-face {
+    font-family: 'roboto-light';
+    src: url("/src/assets/fonts/Roboto/Roboto-Light.ttf")
 }
 
 $main-font: 'pdark-font';
+$second-font: 'roboto-medium';
+$second-font-light: 'roboto-light';

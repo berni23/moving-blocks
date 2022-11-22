@@ -1,19 +1,24 @@
-import countDown from "@/Logic/Game/Utils/countDown";
 import initializeGame from "@/Logic/Game/UseCases/InitializeGame";
-import customWave from "@/Logic/Waves/customWave";
+import customWave from "@/Logic/Game/UseCases/CustomWave";
+import {Ref} from "vue";
+import countDown from "@/Logic/Game/Utils/countDown";
 
 
-function startGame() {
+function startGame(countDownText: Ref<string | null>) {
+
+
 
     //define waves
     customWave();
+    // const element = document.getElementById('count-down') as HTMLElement;
+    const soundStart =  new Audio(require('/src/assets/sounds/start.mp3'))
 
-    //countDown
-    const element = document.getElementById('count-down') as HTMLElement;
-    const soundStart = document.getElementById('sound-start') as HTMLAudioElement;
-    soundStart.play().then(r => {
-    });
-    countDown(element, initializeGame);
+    soundStart.play().then(r => {});
+
+    // initializeGame();
+    countDown(countDownText, initializeGame);
+
+
 }
 
 export default startGame;

@@ -1,32 +1,42 @@
 <template>
 
   <main-header/>
+  <section class="main-container container background-wrapper">
+    <user-card/>
 
-  <section class="main-container container">
-    <buttons @newUser="goToNewUser"/>
+
+    <buttons @howToPlay="goHowToPlay" @newUser="goToNewUser" @newGame="goToNewGame"/>
   </section>
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from 'vue';
-import Buttons from "@/components/Buttons.vue";
+import {defineComponent, onBeforeMount, ref} from 'vue';
+import Buttons from "@/components/Buttons/Buttons.vue";
 import MainHeader from "@/views/MainHeader.vue";
 import {useRouter} from "vue-router";
 import {useUsersStore} from "@/stores/users";
-import { useGamesStore } from '@/stores/games';
+import resetGame from "@/Logic/Game/UseCases/ResetGame";
+import UserCard from "@/components/UserCard.vue";
+import Background from "@/components/background.vue";
 
 export default defineComponent({
   name: 'HomeView',
-  components: {MainHeader, Buttons},
+  components: {Background, UserCard, MainHeader, Buttons},
 
   setup(props, {emit}) {
+
+    onBeforeMount(() => {
+      resetGame()
+    })
+
+
     const router = useRouter();
     const usersStore = useUsersStore();
     const isCurrentUser = ref(usersStore.isCurrentUser)
-    const emitNewUser = () => emit('new-user')
-    const goHowToPlay = () => router.push('how-to-play')
-    const goToNewUser = () => router.push('new-user')
-    return {isCurrentUser, goHowToPlay, goToNewUser, emitNewUser}
+    const goHowToPlay = () => router.push('controls')
+    const goToNewUser = () => router.push('user')
+    const goToNewGame = () => router.push('choose-mode')
+    return {isCurrentUser, goHowToPlay, goToNewUser,goToNewGame}
 
   }
 });

@@ -1,17 +1,16 @@
-import {DefineComponent} from "vue";
-import {gHeight, gWidth} from "@/Logic/Game/constraints";
+import {gHeight} from "@/Logic/Game/constraints";
 import GameSprite from "@/customTypes/gameSprite";
-import box from "@/components/Game/Sprites/box.vue";
+import box from "@/components/Sprites/box.vue";
 
 
 //time in milliseconds
-const createGameSprite = (component: any  = box, time: number = 50, offsetTop: number | null = null) => {
+const createGameSprite = (component: any  ='box', time: number = 50, offsetTop: number  = gHeight/2) => {
 
-    if (!offsetTop) offsetTop = gHeight / 2;
     return {
         component: component,
         offsetTop: offsetTop,
-        time: time
+        time: time,
+        id:null
     } as GameSprite
 
 }

@@ -1,40 +1,75 @@
 <template>
   <div>
-    <h1 id="count-down"></h1>
+    <h1 id="count-down" v-if="!gameHasStarted">{{ countdownText }}</h1>
     <div class="game-wrapper" v-if="gameHasStarted">
-      <status :num-lives="lives" :num-coins="coins"/>
-      <div class="game container">
+      <status/>
+      <div class="game container" :style="{'height':height}">
+
+
         <player/>
-        <component  v-for='sprite in arraySprites' :offsetTop='sprite.offsetTop' :is="sprite.component"/>
+
+        <div v-if=arraySprites.length v-for='sprite in arraySprites' :key="sprite?sprite.id:0">
+          <component v-if='sprite && sprite.component' :offsetTop='sprite.offsetTop' :id=sprite.id
+                     :is="componentFromString(sprite.component)"/>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
 
-import {computed, defineComponent, onMounted, reactive} from 'vue';
-import Buttons from "@/components/Buttons.vue";
+import {computed, defineComponent, onBeforeMount, ref} from 'vue';
+import Buttons from "@/components/Buttons/Buttons.vue";
 import MainHeader from "@/views/MainHeader.vue";
-import CustomButton from "@/components/CustomButton.vue";
-import {useGamesStore} from '@/stores/games';
-import ModeComponent from "@/components/Mode.vue";
-import Game from '@/customTypes/game';
-import startGame from "@/Logic/Game/UseCases/StartGame";
+import CustomButton from "@/components/Buttons/CustomButton.vue";
+import ModeComponent from "@/components/Game/Mode.vue";
 import GameContent from "@/components/Game/GameContent.vue";
-import Status from "@/components/Game/Status.vue";
-import Player from "@/components/Game/Sprites/Player.vue";
-import box from "@/components/Game/Sprites/box.vue";
+import Status from "@/components/Status/Status.vue";
+import Player from "@/components/Sprites/Player.vue";
+import {useRoute, useRouter} from "vue-router";
+import {useGamesStore} from '@/stores/games';
+import {useUsersStore} from '@/stores/users';
+import User from '@/customTypes/user';
+import startGame from '@/Logic/Game/UseCases/StartGame';
+import NameToComponentConversor from '@/Logic/Game/Services/Conversors/NameToComponentConversor';
+import {intToPix} from '@/Logic/Game/Utils/pixelConv';
+import {gHeight} from '@/Logic/Game/constraints';
+import createGameWithMode from '@/Logic/Game/UseCases/CreteGameWithMode';
+import Background from "@/components/background.vue";
 
 export default defineComponent({
       name: 'Game',
-      components: {Player, Status, GameContent, CustomButton, MainHeader, Buttons, ModeComponent},
+      components: {Background, Player, Status, GameContent, CustomButton, MainHeader, Buttons, ModeComponent},
       setup(props, {emit}) {
+        const route = useRoute();
+        const router = useRouter();
         const gamesStore = useGamesStore();
+        const usersStore = useUsersStore();
+        const user = ref<User | null>(usersStore.currentUser);
         const arraySprites = computed(() => gamesStore.currentSprites);
-        const game = reactive(gamesStore.currentGame as Game);
-        const gameHasStarted = computed(() => gamesStore.gameHasStarted);
-        onMounted(startGame);
-        return {gameHasStarted, coins: game.coins, lives: game.lives,box,arraySprites}
+        const gameHasStarted = computed(() => gamesStore.gameIsOngoing);
+        const countdownText = ref('' as string | null);
+
+        onBeforeMount(() => {
+          if (!user.value) router.push('/new-user')
+          else if (!route.params.mode || gamesStore.currentGame) {
+            // resetGame();
+            router.push('/choose-mode');
+          } else {
+            createGameWithMode(typeof route.params.mode == 'string' ? route.params.mode : 'easy');
+            startGame(countdownText)
+
+          }
+
+        });
+
+        return {
+          componentFromString: NameToComponentConversor,
+          gameHasStarted,
+          arraySprites,
+          height: intToPix(gHeight),
+          countdownText
+        }
       }
     }
 );
@@ -42,56 +77,37 @@ export default defineComponent({
 <style lang="scss">
 
 @import 'src/assets/scss/keyframes';
+@import 'src/assets/scss/colors';
+
+
+#count-down {
+
+  color: $color-primary;
+}
 
 .game-wrapper {
   position: relative;
 
   .heart {
-    background-image: url("/public/images/heart0.png");
     width: 30px;
     height: 30px;
   }
 
-  .coin {
-    position: absolute;
-    background-image: url("/public/images/coin_0.png");
-    width: 32px;
-    height: 32px;
-  }
-
-  .diamond {
-    position: absolute;
-    background-image: url("/public/images/diamond0.png");
-    background-repeat: no-repeat;
-    transform: scale(1.5);
-    width: 50px;
-    height: 50px;
-  }
-
-  .power-up {
-    animation: glowing 3s ease-in-out infinite;
-    -webkit-animation: glowing 3s ease-in-out infinite;
-  }
 
   .game {
-    width: 97%;
-    margin: 20px auto;
-    height: 500px;
     position: relative;
+
+    overflow: hidden !important;
   }
 
 
   .box {
 
     position: absolute !important;
-    width: 50px;
-    height: 50px;
   }
 
   .same-box {
     position: absolute;
-    width: 50px;
-    height: 50px;
   }
 
   .blue-box, .fast-blue-box {

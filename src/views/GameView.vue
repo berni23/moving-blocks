@@ -1,46 +1,22 @@
 <template>
-  <main-header/>
-  <section class="main-container container" v-if="!gameIsCreated">
-    <mode-component @mode='newGame'/>
-
-  </section>
-
-  <game v-else/>
+  <main-header :show-title="false"/>
+  <game/>
 </template>
 <script lang="ts">
 
-import createGame from "@/Logic/Game/Services/createGame";
-import CustomButton from "@/components/CustomButton.vue";
-import {computed, defineComponent, ref} from 'vue';
-import ModeComponent from "@/components/Mode.vue";
+import CustomButton from "@/components/Buttons/CustomButton.vue";
+import {defineComponent} from 'vue';
+import ModeComponent from "@/components/Game/Mode.vue";
 import MainHeader from "@/views/MainHeader.vue";
-import Buttons from "@/components/Buttons.vue";
-import {useUsersStore} from "@/stores/users";
-import {useGamesStore} from '@/stores/games';
+import Buttons from "@/components/Buttons/Buttons.vue";
 import Game from "@/components/Game/Game.vue";
-import Mode from "@/customTypes/mode";
-import {useRouter} from "vue-router";
-import User from "@/customTypes/user";
+import Audios from "@/components/Common/Audios.vue";
 
 export default defineComponent({
   name: 'GameView',
-  components: {Game, CustomButton, MainHeader, Buttons, ModeComponent},
+  components: {Audios, Game, CustomButton, MainHeader, Buttons, ModeComponent},
   setup(props, {emit}) {
-    const router = useRouter();
-    const usersStore = useUsersStore();
-    const gamesStore = useGamesStore();
-
-    const mode = ref<Mode | null>(null);
-    const user = ref<User | undefined>(usersStore.currentUser);
-    const gameIsCreated = computed(() => Boolean(gamesStore.currentGame));
-
-    if (!user) router.push('new-user');
-    const newGame = function (name: string) {
-      mode.value = Object.assign({}, gamesStore.modeOfName(name))
-      const newGame = createGame(user.value ? (user.value as User).id : null, mode.value)
-      gamesStore.setCurrentGame(newGame);
-    }
-    return {user, newGame, gameIsCreated}
+    return {};
   }
 });
 </script>

@@ -1,20 +1,25 @@
 import {defineStore} from "pinia";
 import User from "@/customTypes/user";
+import {persist} from "@/config";
 
 export const useUsersStore = defineStore('users', {
         state: () => ({
             _users: [] as Array<User>,
-            _currentUserId: null as number | null
+            _currentUser: null as User | null
         }),
         actions: {
             addUser(user: User) {
                 this._users.push(user)
             },
             setUserAsCurrent(user: User) {
-                this._currentUserId = user.id
+                this._currentUser = user;
             },
-            getUserOfId(id: number) {
-                return this._users.filter((user) => user.id == id);
+            getUserOfId(id: number): User | undefined {
+                return this._users.find((user) => user.id == id);
+            },
+
+            getUserOfName(name: string) {
+                return this._users.find((user) => user.name === name);
             }
         },
 
@@ -27,8 +32,12 @@ export const useUsersStore = defineStore('users', {
                 }
                 return max ? max : 0;
             },
-            isCurrentUser: state => Boolean(state._currentUserId),
-            currentUser: (state): User | undefined => state._users.find((u) => u.id === state._currentUserId)
-        }
+            isCurrentUser: state => Boolean(state._currentUser),
+            currentUser: state => state._currentUser,
+            userNames: state => state._users.map((user) => user.name),
+            users: state => state._users
+        },
+
+        persist: persist
     }
 )
