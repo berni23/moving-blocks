@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onBeforeMount, ref} from 'vue';
+import {defineComponent, ref} from 'vue';
 import Buttons from "@/components/Buttons/Buttons.vue";
 import MainHeader from "@/views/MainHeader.vue";
 import {useRouter} from "vue-router";
@@ -24,19 +24,14 @@ export default defineComponent({
   components: {Background, UserCard, MainHeader, Buttons},
 
   setup(props, {emit}) {
-
-    onBeforeMount(() => {
-      resetGame()
-    })
-
-
+    resetGame();
     const router = useRouter();
     const usersStore = useUsersStore();
     const isCurrentUser = ref(usersStore.isCurrentUser)
     const goHowToPlay = () => router.push('controls')
     const goToNewUser = () => router.push('user')
     const goToNewGame = () => router.push('choose-mode')
-    return {isCurrentUser, goHowToPlay, goToNewUser,goToNewGame}
+    return {isCurrentUser, goHowToPlay, goToNewUser, goToNewGame}
 
   }
 });

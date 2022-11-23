@@ -1,15 +1,15 @@
 import {useGamesStore} from "@/stores/games";
 import addKeyDetectors from "@/Logic/Game/UseCases/AddKeyDetectors";
 import GameSprite from "@/customTypes/gameSprite";
-import Game from "@/customTypes/game";
+import waveOfMode, {mediumWave} from "@/Logic/Game/Services/WaveGenerators/Waves";
 
 
-const initializeGame = () => {
+const initializeGame = (modeString: string) => {
 
     const gameStore = useGamesStore();
-    let waveCallback = (gameStore.currentGame as Game).mode.callBackWave;
+    console.log('modes',gameStore.modes)
     gameStore.removeSprites();
-    waveCallback();
+    waveOfMode(modeString)
     let arraySprites = Object.assign([], gameStore.arraySprites) as Array<GameSprite>
     const spritePusher = () => {
 

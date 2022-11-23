@@ -14,15 +14,11 @@ export default function duplicateSpritesAndShuffle() {
     const gameStore = useGamesStore();
     let arraySprites = [...gameStore.arraySprites]
     arraySprites = shuffleArray(arraySprites);
-
     let newArray = [] as Array<GameSprite>;
     arraySprites.forEach((sprite, i) => {
-
         sprite = Object.assign({}, sprite) as GameSprite;
-
         if (arraySprites[i - 1] && conditionOffset(sprite.offsetTop, arraySprites[i - 1].offsetTop) && sprite.time < 120) sprite.time = 120;
         newArray.push(sprite);
-
     });
     saveArraySprites(newArray);
 

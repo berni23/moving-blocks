@@ -29,9 +29,10 @@ export function easyWave() {
 
 export function mediumWave() {
 
+    createTwoObjectRows('box', 10, [1 / 5 * gHeight, 4 / 5 * gHeight])
     createObjectRow('coin', 5, gHeight / 2, 400);
     createDelay(200)
-    hardWave();
+    // hardWave();
 
 
 }
@@ -39,17 +40,15 @@ export function mediumWave() {
 export function hardWave() {
 
 
-
     createTwoObjectRows('box', 10, [1 / 5 * gHeight, 4 / 5 * gHeight])
-    createObjectRow()
-    createObjectRow('coin', 15, gHeight / 3.5)
+    createObjectRow('coin', 10, gHeight / 2)
+    createObjectRow('box', 5, gHeight / 2)
+    createObjectRow('coin', 15, gHeight / 2)
+
     createAlternateObjectRow(['coin', 'box'], 400)
     createObjectRow()
     createTwoObjectRows('coin', 12, [gHeight / 6, gHeight / 1.5])
     createTwoObjectRowsAndAThirdInTheMiddle();
-    duplicateSpritesAndShuffle();
-
-
     saveSprite(createGameSprite()); // we pass on arguments -> hence default values are set
     saveSprite(createGameSprite('coin', 2000, gHeight / 3)); // we pass on arguments -> hence default values are set
     createSnakeWall();
@@ -65,9 +64,29 @@ export function hardWave() {
     createDelay(200)
     createObjectsInRandPosition(20, 60)
     createDelay(200)
-    duplicateSpritesAndShuffle();
+    // duplicateSpritesAndShuffle();
     createRandomWalls();
     createRandomWalls();
     createRandomWalls();
     createPowerUp();
+}
+
+
+export default function waveOfMode(mode: string) {
+    switch (mode) {
+        case 'easy':
+            easyWave()
+            break;
+
+        case 'medium':
+            mediumWave()
+            break;
+        case 'hard':
+            hardWave();
+            break;
+
+        default:
+            mediumWave()
+
+    }
 }

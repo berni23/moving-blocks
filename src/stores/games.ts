@@ -59,7 +59,7 @@ export const useGamesStore = defineStore('games', {
                 maxLives: 3,
                 callBackWave: hardWave
 
-            } as Mode,] as Array<Mode>
+            } as Mode] as Array<Mode>
 
 
     }),

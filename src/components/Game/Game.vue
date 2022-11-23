@@ -62,8 +62,10 @@ export default defineComponent({
             // resetGame();
             router.push('/choose-mode');
           } else {
-            createGameWithMode(typeof route.params.mode == 'string' ? route.params.mode : 'easy');
-            startGame(countdownText)
+
+            const modeString = typeof route.params.mode == 'string' ? route.params.mode : 'easy'
+            createGameWithMode(modeString);
+            startGame(countdownText,modeString)
 
           }
 

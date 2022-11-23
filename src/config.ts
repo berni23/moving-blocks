@@ -1,4 +1,4 @@
 
 
-export const persist = false;
+export const persist = true;
 export const maxGames = 10;
