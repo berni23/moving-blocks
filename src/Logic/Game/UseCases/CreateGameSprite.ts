@@ -8,7 +8,7 @@ const createGameSprite = (component: any  ='box', time: number = 50, offsetTop: 
 
     return {
         component: component,
-        offsetTop: offsetTop,
+        offsetTop: Math.round(offsetTop),
         time: time,
         id:null
     } as GameSprite

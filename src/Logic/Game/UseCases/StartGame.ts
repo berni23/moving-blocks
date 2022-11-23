@@ -7,16 +7,16 @@ import countDown from "@/Logic/Game/Utils/countDown";
 function startGame(countDownText: Ref<string | null>) {
 
 
-
     //define waves
-    customWave();
+    // customWave();
     // const element = document.getElementById('count-down') as HTMLElement;
-    const soundStart =  new Audio(require('/src/assets/sounds/start.mp3'))
+    const soundStart = new Audio(require('/src/assets/sounds/start.mp3'))
 
-    soundStart.play().then(r => {});
+    soundStart.play().then(r => {
+    });
 
     // initializeGame();
-    countDown(countDownText, initializeGame);
+    countDown(countDownText, () => initializeGame(customWave));
 
 
 }

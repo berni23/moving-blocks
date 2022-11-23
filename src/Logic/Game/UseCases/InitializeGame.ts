@@ -3,24 +3,26 @@ import addKeyDetectors from "@/Logic/Game/UseCases/AddKeyDetectors";
 import GameSprite from "@/customTypes/gameSprite";
 
 
-const initializeGame = () => {
+const initializeGame = (waveCallback: Function) => {
 
     const gameStore = useGamesStore();
-    const spritePusher = (arraySprites: Array<GameSprite>) => {
+    waveCallback();
+    let arraySprites = Object.assign([],gameStore.arraySprites) as Array<GameSprite>
+    const spritePusher = () => {
 
-        if (!arraySprites.length || !gameStore.currentGame) return;
+        if (!gameStore.currentGame) return;
+        if (!arraySprites.length) {
+            arraySprites = Object.assign([],gameStore.arraySprites) as Array<GameSprite>;
+
+        }
         let gameSprite = arraySprites.shift() as GameSprite;
         if (gameSprite.component != 'timer') gameStore.displaySprite(gameSprite);
 
-        setTimeout(() => spritePusher(arraySprites), arraySprites[0]?arraySprites[0].time:100);
+        setTimeout(spritePusher, arraySprites[0] ? arraySprites[0].time : 100);
     }
-
     gameStore.startCurrentGame();
     gameStore.initializeLoops();
     addKeyDetectors();
-
-    spritePusher(gameStore.arraySprites);
-
-
+    spritePusher();
 }
 export default initializeGame
