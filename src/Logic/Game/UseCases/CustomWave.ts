@@ -23,7 +23,6 @@ export default function customWave() {
 
 
 
-
     // saveSprite(createGameSprite()); // we pass on arguments -> hence default values are set
     // saveSprite(createGameSprite('coin', 2000, gHeight / 3)); // we pass on arguments -> hence default values are set
     // createSnakeWall();

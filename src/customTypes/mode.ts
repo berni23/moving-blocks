@@ -2,7 +2,8 @@
 export default interface Mode {
 
     name:string,
-    maxLives:number
+    maxLives:number,
+    callBackWave:Function
 
 }
 

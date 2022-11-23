@@ -1,18 +1,20 @@
 import {useGamesStore} from "@/stores/games";
 import addKeyDetectors from "@/Logic/Game/UseCases/AddKeyDetectors";
 import GameSprite from "@/customTypes/gameSprite";
+import Game from "@/customTypes/game";
 
 
-const initializeGame = (waveCallback: Function) => {
+const initializeGame = () => {
 
     const gameStore = useGamesStore();
+    let waveCallback = (gameStore.currentGame as Game).mode.callBackWave;
     waveCallback();
-    let arraySprites = Object.assign([],gameStore.arraySprites) as Array<GameSprite>
+    let arraySprites = Object.assign([], gameStore.arraySprites) as Array<GameSprite>
     const spritePusher = () => {
 
         if (!gameStore.currentGame) return;
         if (!arraySprites.length) {
-            arraySprites = Object.assign([],gameStore.arraySprites) as Array<GameSprite>;
+            arraySprites = Object.assign([], gameStore.arraySprites) as Array<GameSprite>;
 
         }
         let gameSprite = arraySprites.shift() as GameSprite;
