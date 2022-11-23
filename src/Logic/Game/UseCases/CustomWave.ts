@@ -10,17 +10,6 @@ export default function customWave() {
 
 
 
-    createTwoObjectRowsAndAThirdInTheMiddle();
-    createTwoObjectRows('box',10,[1/5*gHeight,4/5*gHeight])
-    createObjectRow()
-    createObjectRow('coin', 15, gHeight / 3.5)
-    createAlternateObjectRow(['coin', 'box'], 400)
-    // createObjectRow()
-    createTwoObjectRows('coin', 12, [gHeight / 6, gHeight / 1.5])
-
-    duplicateSpritesAndShuffle();
-
-
 
 
     // saveSprite(createGameSprite()); // we pass on arguments -> hence default values are set
