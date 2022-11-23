@@ -18,7 +18,7 @@
 </template>
 <script lang="ts">
 
-import {computed, defineComponent, onBeforeMount, ref} from 'vue';
+import {computed, defineComponent, onBeforeMount, onBeforeUnmount, ref} from 'vue';
 import Buttons from "@/components/Buttons/Buttons.vue";
 import MainHeader from "@/views/MainHeader.vue";
 import CustomButton from "@/components/Buttons/CustomButton.vue";
@@ -36,11 +36,16 @@ import {intToPix} from '@/Logic/Game/Utils/pixelConv';
 import {gHeight} from '@/Logic/Game/constraints';
 import createGameWithMode from '@/Logic/Game/UseCases/CreteGameWithMode';
 import Background from "@/components/background.vue";
+import resetGame from "@/Logic/Game/UseCases/ResetGame";
 
 export default defineComponent({
+
       name: 'Game',
       components: {Background, Player, Status, GameContent, CustomButton, MainHeader, Buttons, ModeComponent},
       setup(props, {emit}) {
+
+
+
         const route = useRoute();
         const router = useRouter();
         const gamesStore = useGamesStore();
@@ -49,6 +54,7 @@ export default defineComponent({
         const arraySprites = computed(() => gamesStore.currentSprites);
         const gameHasStarted = computed(() => gamesStore.gameIsOngoing);
         const countdownText = ref('' as string | null);
+
 
         onBeforeMount(() => {
           if (!user.value) router.push('/new-user')
@@ -62,6 +68,8 @@ export default defineComponent({
           }
 
         });
+
+        onBeforeUnmount(()=>resetGame())
 
         return {
           componentFromString: NameToComponentConversor,

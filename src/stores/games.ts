@@ -2,7 +2,6 @@ import {defineStore} from "pinia";
 import Game from "@/customTypes/game";
 import Mode from "@/customTypes/mode";
 import {
-    arrayModes,
     gameInterval,
     initialCoordinates,
     keysDown,
@@ -19,6 +18,7 @@ import {
 import GameSprite from "@/customTypes/gameSprite";
 import ElementSprite from "@/customTypes/elementSprite";
 import {maxGames, persist} from "@/config";
+import {easyWave, hardWave, mediumWave} from "@/Logic/Game/Services/WaveGenerators/Waves";
 
 
 // @ts-ignore
@@ -38,7 +38,30 @@ export const useGamesStore = defineStore('games', {
         _offsetLeft: initialCoordinates[0] as number,
         _offsetTop: initialCoordinates[1] as number,
         _arraySprites: [] as Array<GameSprite>,
-        _currentSprites: [] as Array<GameSprite>
+        _currentSprites: [] as Array<GameSprite>,
+        _arrayModes: [
+            {
+                name: 'easy',
+                maxLives: 5,
+                callBackWave: easyWave
+
+            } as Mode,
+
+            {
+                name: 'medium',
+                maxLives: 4,
+                callBackWave: mediumWave
+
+            } as Mode,
+
+            {
+                name: 'hard',
+                maxLives: 3,
+                callBackWave: hardWave
+
+            } as Mode,] as Array<Mode>
+
+
     }),
 
     actions: {
@@ -129,7 +152,7 @@ export const useGamesStore = defineStore('games', {
             this._finishedGames.push(game);
         },
         modeOfName(name: string): Mode | null {
-            return arrayModes.find((mode) => mode.name === name) as Mode | null
+            return this._arrayModes.find((mode) => mode.name === name) as Mode | null
         },
 
         setCurrentGame(game: Game | null) {
@@ -143,28 +166,21 @@ export const useGamesStore = defineStore('games', {
         removeCurrentKey() {
             this._currentKey = ''
         },
-
-
-        resetGameVars():number{
-
+        resetGameVars(): number {
             //finish
             this.finishLoops();
             this._offsetLeft = initialCoordinates[0];
             this._offsetTop = initialCoordinates[1];
-
             //remove
             this.removeCurrentGame();
             this.removeSprites();
             this.removeCurrentKey();
-
             return 0;
-
         },
-
         resetGame() {
             this.resetGameVars();
         },
-        finishCurrentGame():number {
+        finishCurrentGame(): number {
 
             if (this._currentGame) {
                 //set time , finished true and add to finished games
@@ -210,6 +226,7 @@ export const useGamesStore = defineStore('games', {
                 width: playerWidth,
                 height: playerHeight
             } as ElementSprite;
-        }
+        },
+        modes: state => state._arrayModes
     }
 });

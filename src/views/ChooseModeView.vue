@@ -9,7 +9,7 @@
 <script lang="ts">
 
 import CustomButton from "@/components/Buttons/CustomButton.vue";
-import {defineComponent, onBeforeMount, ref} from 'vue';
+import {defineComponent, ref} from 'vue';
 import ModeComponent from "@/components/Game/Mode.vue";
 import MainHeader from "@/views/MainHeader.vue";
 import Buttons from "@/components/Buttons/Buttons.vue";
@@ -25,12 +25,7 @@ export default defineComponent({
   name: 'ChooseModeView',
   components: {UserCard, Audios, Game, CustomButton, MainHeader, Buttons, ModeComponent},
   setup(props, {emit}) {
-
-
-    onBeforeMount(() => {
-      console.log('choose mode');
-      resetGame()
-    })
+    resetGame()
     const usersStore = useUsersStore();
     const router = useRouter();
     const user = ref<User | null>(usersStore.currentUser);

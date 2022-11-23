@@ -1,6 +1,5 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import NewUserView from "@/views/NewUserView.vue";
 import GameView from "@/views/GameView.vue";
 import TableBoardView from "@/views/TableBoardView.vue";
 import ChooseModeView from "@/views/ChooseModeView.vue";

@@ -8,11 +8,15 @@ const initializeGame = () => {
 
     const gameStore = useGamesStore();
     let waveCallback = (gameStore.currentGame as Game).mode.callBackWave;
+    gameStore.removeSprites();
     waveCallback();
     let arraySprites = Object.assign([], gameStore.arraySprites) as Array<GameSprite>
     const spritePusher = () => {
 
-        if (!gameStore.currentGame) return;
+        if (!gameStore.currentGame) {
+            gameStore.removeSprites();
+            return;
+        }
         if (!arraySprites.length) {
             arraySprites = Object.assign([], gameStore.arraySprites) as Array<GameSprite>;
 

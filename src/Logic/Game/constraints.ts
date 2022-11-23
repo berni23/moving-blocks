@@ -1,8 +1,6 @@
 // game constraints
 
 import {intToPix} from "@/Logic/Game/Utils/pixelConv";
-import Mode from "@/customTypes/mode";
-import {easyWave, hardWave, mediumWave} from "@/Logic/Game/Services/WaveGenerators/Waves";
 
 //map constraints
 
@@ -42,43 +40,12 @@ export const initialCoordinates = [0, gHeight / 2];
 export const vBox: number = 6
 export const vOthers: number = 5;
 
-
 //keys constraints
 
 export const keysUp = ['ArrowUp', 'w'];
 export const keysDown = ['ArrowDown', 's'];
 export const keysRight = ['ArrowRight', 'd'];
 export const keysLeft = ['ArrowLeft', 'a'];
-
 export const keys = keysUp.concat(keysDown).concat(keysRight).concat(keysLeft);
-
-
-//game constraints
-
 export const gameInterval: number = 16
-; // gameInterval
-export const arrayModes =
-
-    [
-        {
-            name: 'easy',
-            maxLives: 5,
-            callBackWave: easyWave
-
-        } as Mode,
-
-        {
-            name: 'medium',
-            maxLives: 4,
-            callBackWave: mediumWave
-
-        } as Mode,
-
-        {
-        name: 'hard',
-        maxLives: 3,
-        callBackWave: hardWave
-
-    } as Mode,] as Array<Mode>
-
-
+;

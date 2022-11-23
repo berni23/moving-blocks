@@ -1,11 +1,3 @@
-import {gHeight} from "@/Logic/Game/constraints";
-import createObjectRow, {
-    createAlternateObjectRow,
-    createTwoObjectRows, createTwoObjectRowsAndAThirdInTheMiddle
-} from "@/Logic/Game/Services/WaveGenerators/Others/CreateObjectRow";
-import duplicateSpritesAndShuffle from "@/Logic/Game/Services/WaveGenerators/Others/DuplicateSpritesAndShuffle";
-
-
 export default function customWave() {
 
 

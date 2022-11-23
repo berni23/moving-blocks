@@ -43,10 +43,10 @@ import {useQuasar} from "quasar";
 import createUserAndSetAsCurrent from "@/Logic/User/UseCases/createUserAndSetAsCurrent";
 import {useUsersStore} from '@/stores/users';
 import CurrentUser from "@/components/UserCard.vue";
-import CustomButton from "@/components/Buttons/CustomButton.vue";
-import { userValidation } from '@/Logic/validations';
-import {warning, wellDone} from "@/Logic/Notifications";
 import UserCard from "@/components/UserCard.vue";
+import CustomButton from "@/components/Buttons/CustomButton.vue";
+import {userValidation} from '@/Logic/validations';
+import {warning, wellDone} from "@/Logic/Notifications";
 
 export default defineComponent({
   name: 'user',

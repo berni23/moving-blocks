@@ -34,7 +34,6 @@ export default defineComponent({
         const mediumModeGames = computed(() => games.value.filter((game) => game.mode.name == 'medium'));
         const hardModeGames = computed(() => games.value.filter((game) => game.mode.name == 'hard'));
 
-        console.log('games', mediumModeGames);
         return {title:props.title,easyModeGames, mediumModeGames, hardModeGames};
 
       }

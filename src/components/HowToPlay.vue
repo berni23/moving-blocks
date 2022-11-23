@@ -69,7 +69,6 @@ export default defineComponent({
     const next = () => {
       if (step.value >= (arrayPrompts.value.length - 1)) step.value = 0;
       else step.value = step.value + 1;
-      console.log('executing function', step.value);
     }
     const toMain = () => router.push('/');
     const prompt = computed(() => arrayPrompts.value[step.value]);

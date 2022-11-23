@@ -7,7 +7,7 @@
   </div>
 </template>
 <script lang="ts">
-import { useUsersStore } from "@/stores/users";
+import {useUsersStore} from "@/stores/users";
 import {computed, defineComponent} from "vue";
 import {useRouter} from "vue-router";
 
