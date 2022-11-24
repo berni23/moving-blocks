@@ -41,8 +41,10 @@ export default defineComponent({
         play = false
       }
       if (newVal < oldVal) {
-        playAudio(audioDamage);
+        let audio = playAudio(audioDamage);
         hold = true;
+        if (audio) audio.onended = () => hold = false;
+
       }
 
     });
@@ -51,9 +53,6 @@ export default defineComponent({
         let audio = playAudio(audioPowerUp)
         hold = true;
         if (audio) audio.onended = () => hold = false;
-        hold = true;
-
-
       }
     });
   }

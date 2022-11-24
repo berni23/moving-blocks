@@ -31,11 +31,10 @@ export function mediumWave(): Array<GameSprite> {
 
     // return createDelay(200);
     return createDelay(2000).concat(
-        spaceTunnel());
-    // return createTwoObjectRows('box', 10, [1 / 5 * gHeight, 4 / 5 * gHeight]).concat
-    // (createDelay(200))
-    //     .concat(
-    //         hardWave());
+        createTwoObjectRows('box', 10, [1 / 5 * gHeight, 4 / 5 * gHeight])).concat
+    (createDelay(200))
+        .concat(
+            hardWave());
 
 
 }
