@@ -8,9 +8,11 @@
 
         <player/>
 
-        <div v-if=arraySprites.length v-for='sprite in arraySprites' :key="sprite?sprite.id:0">
-          <component v-if='sprite && sprite.component' :offsetTop='sprite.offsetTop' :id=sprite.id
-                     :is="componentFromString(sprite.component)"/>
+        <div v-if=currentArraySprites.length v-for='(sprite,i) in currentArraySprites'
+             :key="sprite.id">
+          <component
+              v-if='sprite && sprite.component' :offsetTop='sprite.offsetTop' :id=sprite.id
+              :is="componentFromString(sprite.component)"/>
         </div>
       </div>
     </div>
@@ -37,46 +39,40 @@ import {gHeight} from '@/Logic/Game/constraints';
 import createGameWithMode from '@/Logic/Game/UseCases/CreteGameWithMode';
 import Background from "@/components/background.vue";
 import resetGame from "@/Logic/Game/UseCases/ResetGame";
+import GameSprite from '@/customTypes/gameSprite';
+import waveOfMode from "@/Logic/Game/Services/WaveGenerators/Waves";
 
 export default defineComponent({
-
       name: 'Game',
       components: {Background, Player, Status, GameContent, CustomButton, MainHeader, Buttons, ModeComponent},
       setup(props, {emit}) {
-
-
-
         const route = useRoute();
         const router = useRouter();
         const gamesStore = useGamesStore();
         const usersStore = useUsersStore();
         const user = ref<User | null>(usersStore.currentUser);
-        const arraySprites = computed(() => gamesStore.currentSprites);
+        const currentArraySprites = computed(()=>gamesStore.currentArraySprites);
+        const arraySprites = ref([] as Array<GameSprite>);
         const gameHasStarted = computed(() => gamesStore.gameIsOngoing);
         const countdownText = ref('' as string | null);
-
-
         onBeforeMount(() => {
           if (!user.value) router.push('/new-user')
           else if (!route.params.mode || gamesStore.currentGame) {
-            // resetGame();
+            resetGame();
             router.push('/choose-mode');
           } else {
-
             const modeString = typeof route.params.mode == 'string' ? route.params.mode : 'easy'
             createGameWithMode(modeString);
-            startGame(countdownText,modeString)
-
+            arraySprites.value = waveOfMode(modeString)
+            startGame(countdownText, arraySprites)
           }
-
         });
 
-        onBeforeUnmount(()=>resetGame())
-
+        onBeforeUnmount(() => resetGame())
         return {
           componentFromString: NameToComponentConversor,
           gameHasStarted,
-          arraySprites,
+          currentArraySprites,
           height: intToPix(gHeight),
           countdownText
         }

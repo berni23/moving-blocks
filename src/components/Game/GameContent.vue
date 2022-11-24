@@ -10,7 +10,7 @@ export default defineComponent({
   name: "GameContent",
   props: {
   },
-  setup(props) {
+  setup(props,{emit}) {
     return {}
   }
 })

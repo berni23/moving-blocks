@@ -13,7 +13,7 @@ import {coinWidthPixels} from "@/Logic/Game/constraints";
 export default defineComponent({
   name: "StatusCoin",
 
-  setup(props) {
+  setup(props,{emit}) {
     return {'size':coinWidthPixels}
   }
 })

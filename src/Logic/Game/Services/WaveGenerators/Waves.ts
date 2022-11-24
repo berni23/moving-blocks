@@ -5,13 +5,13 @@ import createObjectRow, {
     createTwoObjectRowsAndAThirdInTheMiddle
 } from "@/Logic/Game/Services/WaveGenerators/Others/CreateObjectRow";
 import {gHeight} from "@/Logic/Game/constraints";
-import duplicateSpritesAndShuffle from "@/Logic/Game/Services/WaveGenerators/Others/DuplicateSpritesAndShuffle";
 import createObjectsInRandPosition from "@/Logic/Game/Services/WaveGenerators/Others/CreateObjectInRandPosition";
 import createRandomWalls from "@/Logic/Game/Services/WaveGenerators/ObjectWalls/CreateRandomWalls";
 import {createPowerUp} from "@/Logic/Game/Services/WaveGenerators/CreateSimpleObjects";
-import saveSprite from "@/Logic/Game/Services/Save/SaveSprite";
-import createGameSprite from "@/Logic/Game/UseCases/CreateGameSprite";
 import createSnakeWall from "@/Logic/Game/Services/WaveGenerators/ObjectWalls/CreateSnakeWall";
+import GameSprite from "@/customTypes/gameSprite";
+import createGameSprite from "@/Logic/Game/UseCases/CreateGameSprite";
+import {spaceTunnel} from "@/Logic/Game/Services/WaveGenerators/ObjectWalls/CreateThickWall";
 
 
 export function easyWave() {
@@ -23,70 +23,76 @@ export function easyWave() {
     createObjectRow()
     createTwoObjectRows('coin', 12, [gHeight / 6, gHeight / 1.5])
     createTwoObjectRowsAndAThirdInTheMiddle();
-    duplicateSpritesAndShuffle();
+    // duplicateSpritesAndShuffle();
 
 }
 
-export function mediumWave() {
+export function mediumWave(): Array<GameSprite> {
 
-    createTwoObjectRows('box', 10, [1 / 5 * gHeight, 4 / 5 * gHeight])
-    createObjectRow('coin', 5, gHeight / 2, 400);
-    createDelay(200)
-    // hardWave();
+    // return createDelay(200);
+    return createDelay(2000).concat(
+        spaceTunnel());
+    // return createTwoObjectRows('box', 10, [1 / 5 * gHeight, 4 / 5 * gHeight]).concat
+    // (createDelay(200))
+    //     .concat(
+    //         hardWave());
 
 
 }
 
 export function hardWave() {
 
+    return createTwoObjectRowsAndAThirdInTheMiddle('box', 'coin', 20, [gHeight / 5, gHeight / 2, 4 * gHeight / 5]).concat(
+        createTwoObjectRows('box', 10, [1 / 5 * gHeight, 4 / 5 * gHeight])).concat(
+        createObjectRow('coin', 10, gHeight / 2)).concat(
+        createObjectRow('box', 5, gHeight / 2)).concat(
+        createObjectRow('coin', 5, gHeight / 2)).concat(
+        createAlternateObjectRow(['coin', 'box'], 400)).concat(
+        createTwoObjectRows('coin', 12, [gHeight / 6, gHeight / 1.5])).concat(
+        createObjectRow('box', 5, gHeight / 2)).concat(
+        createObjectRow('coin', 15, gHeight / 2)).concat(
+        createTwoObjectRowsAndAThirdInTheMiddle()).concat(
+        [createGameSprite('box', 400), createGameSprite('coin', 2000, gHeight / 3)]).concat(
+        createSnakeWall()).concat(
+        createDelay(200)).concat(
+        createObjectsInRandPosition(40, 50)).concat(
+        createRandomWalls()).concat(
+        createDelay(200)).concat(
+        createSnakeWall(80, 10, 'coin', 'box')).concat(
+        createObjectsInRandPosition(50, 120)).concat(
+        createObjectRow('coin', 10, gHeight / 2, 200)).concat(
+        spaceTunnel()).concat(
+            createDelay(200)).concat(
+            createObjectsInRandPosition(20, 60)).concat(
+            createDelay(200)).concat(
+            // duplicateSpritesAndShuffle();
+            createRandomWalls()).concat(
+            createRandomWalls()).concat(
+            createRandomWalls()).concat(
+            createPowerUp())
+}
 
-    createTwoObjectRows('box', 10, [1 / 5 * gHeight, 4 / 5 * gHeight])
-    createObjectRow('coin', 10, gHeight / 2)
-    createObjectRow('box', 5, gHeight / 2)
-    createObjectRow('coin', 15, gHeight / 2)
+export default function waveOfMode(mode: string): Array<GameSprite> {
 
-    createAlternateObjectRow(['coin', 'box'], 400)
-    createObjectRow()
-    createTwoObjectRows('coin', 12, [gHeight / 6, gHeight / 1.5])
-    createTwoObjectRowsAndAThirdInTheMiddle();
-    saveSprite(createGameSprite()); // we pass on arguments -> hence default values are set
-    saveSprite(createGameSprite('coin', 2000, gHeight / 3)); // we pass on arguments -> hence default values are set
-    createSnakeWall();
-    createDelay(200)
-    createObjectsInRandPosition(40, 50)
-    createRandomWalls();
-    createDelay(200)
-    createSnakeWall(80, 10, 'coin', 'box')
-    createObjectsInRandPosition(50, 120)
+    let wave = null as Array<GameSprite> | null;
+    switch (mode) {
+        // case 'easy':
+        //     return easyWave()
+        // case 'hard':
+        //     return hardWave();
+        default:
+            wave = mediumWave()
 
-    createObjectRow('coin', 10, gHeight / 2, 200);
-    createTwoObjectRowsAndAThirdInTheMiddle();
-    createDelay(200)
-    createObjectsInRandPosition(20, 60)
-    createDelay(200)
-    // duplicateSpritesAndShuffle();
-    createRandomWalls();
-    createRandomWalls();
-    createRandomWalls();
-    createPowerUp();
+    }
+    return addIdsToSprites(wave);
 }
 
 
-export default function waveOfMode(mode: string) {
-    switch (mode) {
-        case 'easy':
-            easyWave()
-            break;
+function addIdsToSprites(arraySprites: Array<GameSprite>) {
 
-        case 'medium':
-            mediumWave()
-            break;
-        case 'hard':
-            hardWave();
-            break;
+    arraySprites.forEach((sprite, i) => {
+        sprite.id = i + 1;
+    })
 
-        default:
-            mediumWave()
-
-    }
+    return arraySprites
 }

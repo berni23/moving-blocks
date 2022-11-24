@@ -13,7 +13,7 @@ import {useRouter} from "vue-router";
 
 export default defineComponent({
   name: "user-card",
-  setup(props) {
+  setup(props,{emit}) {
     const currentUser = computed(()=>useUsersStore().currentUser)
 
     const router = useRouter();

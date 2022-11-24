@@ -11,6 +11,7 @@ import {useGamesStore} from "@/stores/games";
 import applySpriteLogic from "@/Logic/Game/UseCases/ApplySpriteLogic";
 import {diamondWidthPixels, gameWidth} from "@/Logic/Game/constraints";
 import ElementSprite from "@/customTypes/elementSprite";
+import removeSprite from "@/Logic/Game/UseCases/removeSprite";
 
 export default defineComponent({
   name: "Diamond",
@@ -23,14 +24,14 @@ export default defineComponent({
       type: Number
     }
   },
-  setup(props) {
+  setup(props,{emit}) {
 
     onMounted(() => console.log('diamond mounted!'));
     const gameStore = useGamesStore();
     const element = reactive({offsetTop: props.offsetTop, offsetLeft: gameWidth()} as ElementSprite);
     const localCbCollision = () => {
       gameStore.increaseCoins(3);
-      gameStore.removeNthSprite(props.id)
+      removeSprite(props.id)
     }
 
     return {

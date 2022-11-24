@@ -17,7 +17,7 @@ import '/src/assets/scss/background.scss'
 export default defineComponent({
   name: "background",
   props: {},
-  setup(props) {
+  setup(props,{emit}) {
     return {}
   }
 })

@@ -55,7 +55,7 @@ export default defineComponent({
   },
   components: {Audios, CustomButton},
 
-  setup(props) {
+  setup(props,{emit}) {
 
 
     const route = useRoute();

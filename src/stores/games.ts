@@ -18,15 +18,11 @@ import {
 import GameSprite from "@/customTypes/gameSprite";
 import ElementSprite from "@/customTypes/elementSprite";
 import {maxGames, persist} from "@/config";
-import {easyWave, hardWave, mediumWave} from "@/Logic/Game/Services/WaveGenerators/Waves";
-
 
 // @ts-ignore
 export const useGamesStore = defineStore('games', {
-
     persist: persist,
     state: () => ({
-
         _gameLoopInterval: null as number | null,
         _currentGame: null as Game | null,
         _finishedGames: [] as Array<Game>,
@@ -37,43 +33,31 @@ export const useGamesStore = defineStore('games', {
         _timePowerUp: null as number | null,
         _offsetLeft: initialCoordinates[0] as number,
         _offsetTop: initialCoordinates[1] as number,
-        _arraySprites: [] as Array<GameSprite>,
-        _currentSprites: [] as Array<GameSprite>,
+        _currentArraySprites: [] as Array<GameSprite>,
+        _removedSprites: [] as Array<number>,
         _arrayModes: [
             {
                 name: 'easy',
                 maxLives: 5,
-                callBackWave: easyWave
 
             } as Mode,
-
             {
                 name: 'medium',
                 maxLives: 4,
-                callBackWave: mediumWave
-
             } as Mode,
-
             {
                 name: 'hard',
                 maxLives: 3,
-                callBackWave: hardWave
-
             } as Mode] as Array<Mode>
-
-
     }),
 
     actions: {
-
         applyDamage(intensity = 1) {
             if (!this._currentGame || this._timeDamage) return;
             this._currentGame.lives = Math.max(this._currentGame.lives - intensity, 0);
             this._timeDamage = setTimeout(() => {
-
                 if (this._timeDamage) clearTimeout(this._timeDamage);
                 this._timeDamage = null;
-
             }, timeDamageRecovery)
         },
 
@@ -81,45 +65,31 @@ export const useGamesStore = defineStore('games', {
             if (this._timePowerUp) clearTimeout(this._timePowerUp);
             this._timePowerUp = setTimeout(() => {
                 if (this._timePowerUp) clearTimeout(this._timePowerUp)
+
+                this._timePowerUp = null
             }, timePowerUp)
             if (this._timeDamage) clearTimeout(this._timeDamage);
-
         },
 
         increaseCoins(value = 1) {
             (this._currentGame as Game).coins += value;
-
         },
         removeSprites() {
-            this._arraySprites = [];
-            this._currentSprites = [];
+            this._currentArraySprites = [];
         },
         setOffsetLeft(offsetLeft: number) {
             this._offsetLeft = offsetLeft
         },
-        saveSprite(sprite: GameSprite) {
-            sprite.id = this._arraySprites.length + 1;
-            this._arraySprites.push(sprite);
-        },
-
-        saveArraySprites(arraySprites: Array<GameSprite>) {
-
-            arraySprites.forEach((sprite: GameSprite) => {
-                sprite.id = this._arraySprites.length + 1;
-                this.saveSprite(sprite);
-            });
-
-        },
-
         displaySprite(sprite: GameSprite) {
-            this._currentSprites.push(sprite);
+            this._currentArraySprites.push(sprite);
         },
 
         removeNthSprite(n: number) {
-            // this._currentSprites.splice(n, 1);
-            let index = this._currentSprites.findIndex(sprite => sprite.id == n);
-            if (!index) return;
-            this._currentSprites.splice(index, 1);
+             let index = this._currentArraySprites.findIndex(sprite => sprite.id == n);
+            // this._removedSprites.push(n);
+             if (index<=0||!index) return;
+            // let  sprites = [...this._currentArraySprites];
+            this._currentArraySprites.splice(index, 1);
         },
         setOffsetTop(offsetTop: number) {
             this._offsetTop = offsetTop
@@ -140,6 +110,7 @@ export const useGamesStore = defineStore('games', {
             this._timeDamage = null;
             this._timePowerUp = null;
             this._iteration = 0;
+            this._removedSprites = [];
         },
         removeCurrentGame() {
             this._currentGame = null
@@ -169,11 +140,13 @@ export const useGamesStore = defineStore('games', {
         resetGameVars(): number {
             //finish
             this.finishLoops();
+
             this._offsetLeft = initialCoordinates[0];
             this._offsetTop = initialCoordinates[1];
             //remove
-            this.removeCurrentGame();
+
             this.removeSprites();
+            this.removeCurrentGame();
             this.removeCurrentKey();
             return 0;
         },
@@ -203,8 +176,7 @@ export const useGamesStore = defineStore('games', {
             return max ? max : 0;
         },
         finishedGames: state => state._finishedGames,
-        arraySprites: state => state._arraySprites,
-        currentSprites: state => state._currentSprites,
+        currentArraySprites: state => state._currentArraySprites,
         currentGame: state => state._currentGame,
         iteration: state => state._iteration,
         isBouncingDamage: state => Boolean(state._timeDamage),
@@ -212,6 +184,7 @@ export const useGamesStore = defineStore('games', {
         currentKey: state => state._currentKey,
         offsetLeft: state => state._offsetLeft,
         offsetTop: state => state._offsetTop,
+        removedSprites: state => state._removedSprites,
         goUp: state => keysUp.includes(state._currentKey as string) && state._offsetTop >= 0,
         goDown: state => keysDown.includes(state._currentKey as string) && state._offsetTop <= limitBottom,
         goRight: state => keysRight.includes(state._currentKey as string) && state._offsetLeft <= limitRight(),

@@ -31,7 +31,7 @@ export const powerUpWidthPixels: string = intToPix(powerUpSize);
 
 
 export const timeDamageRecovery: number = 1000 //milliseconds
-export const timePowerUp: number = 10000 //milliseconds
+export const timePowerUp: number = 5000 //milliseconds
 
 
 export const limitBottom: number = gHeight - playerHeight;
