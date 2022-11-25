@@ -12,7 +12,7 @@ export default defineComponent({
   name: "Controls-view",
   components: {HowToPlay},
   props: {},
-  setup(props) {
+  setup(props,{emit}) {
     return {}
   }
 })

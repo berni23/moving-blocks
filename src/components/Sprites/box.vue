@@ -18,6 +18,7 @@ import {boxSize, boxWidthPixels, gameWidth} from "@/Logic/Game/constraints";
 import ElementSprite from '@/customTypes/elementSprite';
 import applySpriteLogic from "@/Logic/Game/UseCases/ApplySpriteLogic";
 import {intToPix} from "@/Logic/Game/Utils/pixelConv";
+import removeSprite from '@/Logic/Game/UseCases/removeSprite';
 
 export default defineComponent({
   name: "box",
@@ -35,8 +36,7 @@ export default defineComponent({
     const localCbCollision = () => {
       if (gameStore.isBouncingDamage) return;
       if (!gameStore.isPowerUp) gameStore.applyDamage();
-
-      gameStore.removeNthSprite(props.id);
+      removeSprite(props.id);
     }
     const spriteSize = intToPix(boxSize + 5);
     return {spriteSize: spriteSize, size: boxWidthPixels, ...applySpriteLogic(props.id, element, localCbCollision)};

@@ -13,6 +13,7 @@ import {useGamesStore} from "@/stores/games";
 import applySpriteLogic from "@/Logic/Game/UseCases/ApplySpriteLogic";
 import {coinSize, coinWidthPixels, gameWidth} from "@/Logic/Game/constraints";
 import ElementSprite from "@/customTypes/elementSprite";
+import removeSprite from "@/Logic/Game/UseCases/removeSprite";
 
 export default defineComponent({
   name: "Coin",
@@ -25,7 +26,7 @@ export default defineComponent({
       type: Number
     }
   },
-  setup(props) {
+  setup(props,{emit}) {
     const gameStore = useGamesStore();
     const element = reactive({
       offsetTop: props.offsetTop,
@@ -35,7 +36,7 @@ export default defineComponent({
     } as ElementSprite);
     const localCbCollision = () => {
       gameStore.increaseCoins();
-      gameStore.removeNthSprite(props.id)
+      removeSprite(props.id)
     }
 
     return {size: coinWidthPixels, ...applySpriteLogic(props.id, element, localCbCollision)}

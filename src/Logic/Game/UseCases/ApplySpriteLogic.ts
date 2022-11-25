@@ -6,6 +6,7 @@ import ElementSprite from "@/customTypes/elementSprite";
 import {intToPix} from "@/Logic/Game/Utils/pixelConv";
 import {useGamesStore} from "@/stores/games";
 import {isCollision} from "@/Logic/Game/Services/Conditions/IsCollision";
+import removeSprite from "@/Logic/Game/UseCases/removeSprite";
 
 const applySpriteLogic = (id: number, element: ElementSprite, callbackCollision: Function) => {
 
@@ -17,27 +18,22 @@ const applySpriteLogic = (id: number, element: ElementSprite, callbackCollision:
     const elementPlayer = computed(() => gameStore.elementPlayer);
     const elementCollided = ref(false);
     const shouldAppear = computed(() => inBoard.value && !elementCollided.value);
-
+    const  unwatch = watch(() => localIteration.value, loopLogic);
     function loopLogic() {
         if (!inBoard.value || !shouldAppear.value) {
-            gameStore.removeNthSprite(id)
+            unwatch();
+            removeSprite(id)
+
             return
         }
-
         if (!shouldAppear.value) return;
-
-     element.offsetLeft = element.offsetLeft - vOthers;
+        element.offsetLeft = element.offsetLeft - vOthers;
         if (isCollision(element, elementPlayer.value)) {
-
             elementCollided.value = true;
             callbackCollision();
         }
     }
-
-    watch(() => localIteration.value, loopLogic);
     return {marginLeft, marginTop, shouldAppear};
-
-
 }
 
 export default applySpriteLogic;

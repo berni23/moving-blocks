@@ -31,7 +31,7 @@ import {boxWidthPixels, playerHeightPixels, playerWidthPixels} from "@/Logic/Gam
 export default defineComponent({
   name: 'HowToPlay',
   components: {MainHeader, CustomButton, Box},
-  setup(props) {
+  setup(props,{emit}) {
 
     const step = ref(0 as number)
 

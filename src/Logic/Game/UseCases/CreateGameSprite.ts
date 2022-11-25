@@ -4,7 +4,7 @@ import box from "@/components/Sprites/box.vue";
 
 
 //time in milliseconds
-const createGameSprite = (component: any  ='box', time: number = 50, offsetTop: number  = gHeight/2) => {
+const createGameSprite = (component: any  ='box', time: number = 50, offsetTop: number  = gHeight/2):GameSprite => {
 
     return {
         component: component,

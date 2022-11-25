@@ -26,7 +26,7 @@ import StatusCoin from "@/components/Status/StatusCoin.vue";
 export default defineComponent({
   name: "Status",
   components: {StatusCoin, Heart},
-  setup(props) {
+  setup(props,{emit}) {
 
     const gamesStore = useGamesStore();
     const numLives = computed(()=>gamesStore.currentLives);

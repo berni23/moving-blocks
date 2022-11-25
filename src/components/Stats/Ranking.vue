@@ -66,7 +66,7 @@ export default defineComponent({
     }
 
   },
-  setup(props) {
+  setup(props,{emit}) {
     onBeforeMount(() => resetGame())
     const arrayGames = ref(props.arrayGames as Array<Game>);
     const userStore = useUsersStore();

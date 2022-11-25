@@ -24,7 +24,7 @@ export default defineComponent({
       components: {Ranking, MainHeader},
 
        props:['title'],
-      setup(props) {
+      setup(props,{emit}) {
 
 
 

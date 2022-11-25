@@ -18,30 +18,43 @@ export default defineComponent({
     const gamesStore = useGamesStore();
     let currentAudio = audioCoin;
     let play = true;
+    let hold = false;
+    const timeoutHoldFalse = ()=> setTimeout(() => hold = false, 1000)
     const stopCurrentAudio = () => {
       currentAudio.pause();
       currentAudio.currentTime = 0;
     }
     const playAudio = (audio: HTMLAudioElement) => {
-      if (!play) return;
+      if (hold || !play) return;
       stopCurrentAudio();
       currentAudio = audio;
       currentAudio.play();
+      return currentAudio
     }
-    watch(() => gamesStore.currentCoins, (newVal, oldVal) => {
+    let unwatch1 = watch(() => gamesStore.currentCoins, (newVal, oldVal) => {
           if (newVal == oldVal + 3) playAudio(audioDiamond);
           else if (newVal > oldVal) playAudio(audioCoin);
         }
     );
-    watch(() => gamesStore.currentLives, (newVal, oldVal) => {
+    let unwatch2 = watch(() => gamesStore.currentLives, (newVal, oldVal) => {
       if (newVal == 0) {
         playAudio(audioExplosion);
         play = false
       }
-      if (newVal < oldVal) playAudio(audioDamage);
+      if (newVal < oldVal) {
+         playAudio(audioDamage);
+        hold = true;
+        timeoutHoldFalse();
+
+      }
+
     });
-    watch(() => gamesStore.isPowerUp, (newVal, oldVal) => {
-      if (newVal) playAudio(audioPowerUp);
+    let unwatch3 = watch(() => gamesStore.isPowerUp, (newVal, oldVal) => {
+      if (newVal) {
+        playAudio(audioPowerUp)
+        hold = true;
+        timeoutHoldFalse();
+      }
     });
   }
 })

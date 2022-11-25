@@ -1,30 +1,20 @@
 import {useGamesStore} from "@/stores/games";
 import addKeyDetectors from "@/Logic/Game/UseCases/AddKeyDetectors";
 import GameSprite from "@/customTypes/gameSprite";
-import waveOfMode, {mediumWave} from "@/Logic/Game/Services/WaveGenerators/Waves";
+import {Ref} from "vue";
 
-
-const initializeGame = (modeString: string) => {
-
+const initializeGame = (arraySprites: Ref<Array<GameSprite>>) => {
     const gameStore = useGamesStore();
-    console.log('modes',gameStore.modes)
-    gameStore.removeSprites();
-    waveOfMode(modeString)
-    let arraySprites = Object.assign([], gameStore.arraySprites) as Array<GameSprite>
+    let localArraySprites = Object.assign([], arraySprites.value) as Array<GameSprite>
     const spritePusher = () => {
+        if (!gameStore.currentGame) return;
 
-        if (!gameStore.currentGame) {
-            gameStore.removeSprites();
-            return;
-        }
-        if (!arraySprites.length) {
-            arraySprites = Object.assign([], gameStore.arraySprites) as Array<GameSprite>;
+        if (!localArraySprites.length) localArraySprites = Object.assign([], arraySprites.value) as Array<GameSprite>;
 
-        }
-        let gameSprite = arraySprites.shift() as GameSprite;
-        if (gameSprite.component != 'timer') gameStore.displaySprite(gameSprite);
+        let gameSprite = localArraySprites.shift() as GameSprite;
+        gameStore.displaySprite(gameSprite);
 
-        setTimeout(spritePusher, arraySprites[0] ? arraySprites[0].time : 100);
+        setTimeout(spritePusher, localArraySprites[0] ? localArraySprites[0].time : 100);
     }
     gameStore.startCurrentGame();
     gameStore.initializeLoops();

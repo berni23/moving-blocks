@@ -2,12 +2,12 @@
 
   <div v-if="shouldAppear"
 
-       :style="{'width':size, 'height':size,'marginLeft':marginLeft,'marginTop':marginTop}"
+       :style="{'width':element.width, 'height':element.height,'marginLeft':marginLeft,'marginTop':marginTop}"
        class="power-up">
     <img
         class="power-up__image"
         src='/images/powerUp.gif'
-        :style="{'width':element.width, 'height':element.height}" alt="power_up"/>
+        :style="{'width':(element.width+5), 'height':(element.height+5)}" alt="power_up"/>
   </div>
 
 </template>
@@ -19,6 +19,7 @@ import {useGamesStore} from "@/stores/games";
 import {gameWidth, powerUpSize} from "@/Logic/Game/constraints";
 import ElementSprite from '@/customTypes/elementSprite';
 import applySpriteLogic from "@/Logic/Game/UseCases/ApplySpriteLogic";
+import removeSprite from "@/Logic/Game/UseCases/removeSprite";
 
 export default defineComponent({
   name: "PowerUp",
@@ -34,7 +35,7 @@ export default defineComponent({
     } as ElementSprite);
     const localCbCollision = () => {
       gameStore.applyPowerUp();
-      gameStore.removeNthSprite(props.id);
+      removeSprite(props.id)
     }
     return {element, ...applySpriteLogic(props.id, element, localCbCollision)};
 
@@ -55,6 +56,7 @@ export default defineComponent({
   width: 40px;
 
   position: absolute !important;
+
   &__image {
 
     height: 40px;
