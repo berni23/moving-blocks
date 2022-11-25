@@ -1,4 +1,4 @@
-import createDelay from "@/Logic/Game/Services/WaveGenerators/Others/CreateDelay";
+import createDelay, {createDelays} from "@/Logic/Game/Services/WaveGenerators/Others/CreateDelay";
 import createObjectRow, {
     createAlienRowAndCoinsInTheMiddle,
     createAlternateObjectRow,
@@ -107,6 +107,8 @@ export function customWave() {
 }
 
 export default function waveOfMode(mode: string): Array<GameSprite> {
+
+
 
     let wave = null as Array<GameSprite> | null;
     switch (mode) {

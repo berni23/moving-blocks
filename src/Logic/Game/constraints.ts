@@ -4,8 +4,11 @@ import {intToPix} from "@/Logic/Game/Utils/pixelConv";
 
 //map constraints
 
-export const gHeight: number = 500;
+// export const gHeight: number = 500;
 export const marginGame: number = 20;
+
+
+export const gHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0) -200;
 
 
 //player constraints

@@ -1,12 +1,14 @@
 <template>
 
   <main-header/>
-  <section class="main-container container background-wrapper">
+
+  <background/>
+<!--  <section class="main-container container background-wrapper">-->
     <user-card/>
 
 
     <buttons @howToPlay="goHowToPlay" @newUser="goToNewUser" @newGame="goToNewGame"/>
-  </section>
+<!--  </section>-->
 </template>
 
 <script lang="ts">

@@ -1,7 +1,7 @@
 <template>
 
 
-  <div class="background-wrapper" style="z-index:5">
+  <div class="background-wrapper" style="z-index:-1">
     <div class="stars stars1"></div>
 
     <div class="stars stars2"></div>

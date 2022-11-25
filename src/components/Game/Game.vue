@@ -1,13 +1,18 @@
 <template>
   <div>
     <h1 id="count-down" v-if="!gameHasStarted">{{ countdownText }}</h1>
+    <background    style=' z-index:-1; width:100%; position:absolute; top:5px;' :style="{'height':height}"/>
+
     <div class="game-wrapper" v-if="gameHasStarted">
       <status/>
-      <div class="game container" :style="{'height':height}">
 
+      <background    style=' z-index:-1; width:100%; position:absolute; top:5px;' :style="{'height':height}"/>
+
+      <div class="game" :style="{'height':height}">
+
+<!--        <background/>-->
 
         <player/>
-
         <div v-if=currentArraySprites.length v-for='(sprite,i) in currentArraySprites'
              :key="sprite.id">
           <component

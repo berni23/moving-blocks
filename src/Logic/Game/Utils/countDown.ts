@@ -5,6 +5,8 @@ const arrayCountDown = ["5", "4", "3", "2", "1", "0", "GO"]; // count down array
 
 const countDown = (countDownText: Ref, callback: Function) => {
     let counter = 0
+
+    return callback();
     let timer = setInterval(() => {
 
         countDownText.value = arrayCountDown[counter]
