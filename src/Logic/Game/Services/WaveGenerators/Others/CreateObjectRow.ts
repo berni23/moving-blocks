@@ -66,3 +66,9 @@ export function createTwoObjectRowsAndAThirdInTheMiddle(type = 'box', middleType
     return arraySprites;
 
 }
+
+
+export function createAlienRowAndCoinsInTheMiddle() {
+    return createTwoObjectRowsAndAThirdInTheMiddle('box', 'coin', 20, [gHeight / 5, gHeight / 2, 4 * gHeight / 5]);
+
+}

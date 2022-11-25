@@ -1,5 +1,6 @@
 import createDelay from "@/Logic/Game/Services/WaveGenerators/Others/CreateDelay";
 import createObjectRow, {
+    createAlienRowAndCoinsInTheMiddle,
     createAlternateObjectRow,
     createTwoObjectRows,
     createTwoObjectRowsAndAThirdInTheMiddle
@@ -11,19 +12,27 @@ import {createPowerUp} from "@/Logic/Game/Services/WaveGenerators/CreateSimpleOb
 import createSnakeWall from "@/Logic/Game/Services/WaveGenerators/ObjectWalls/CreateSnakeWall";
 import GameSprite from "@/customTypes/gameSprite";
 import createGameSprite from "@/Logic/Game/UseCases/CreateGameSprite";
-import {spaceTunnel} from "@/Logic/Game/Services/WaveGenerators/ObjectWalls/CreateThickWall";
+import {createThickWallNoHole, spaceTunnel} from "@/Logic/Game/Services/WaveGenerators/ObjectWalls/CreateThickWall";
+import createEnemyWall from "@/Logic/Game/Services/WaveGenerators/ObjectWalls/CreateEnemyWall";
+
+
+const createSeaCoins = () => createThickWallNoHole(100, 15, 'coin');
 
 
 export function easyWave() {
-    console.log('triggering easy wave');
-    createTwoObjectRows('box', 10, [1 / 5 * gHeight, 4 / 5 * gHeight])
-    createObjectRow()
-    createObjectRow('coin', 15, gHeight / 3.5)
-    createAlternateObjectRow(['coin', 'box'], 400)
-    createObjectRow()
-    createTwoObjectRows('coin', 12, [gHeight / 6, gHeight / 1.5])
-    createTwoObjectRowsAndAThirdInTheMiddle();
-    // duplicateSpritesAndShuffle();
+
+
+    return createObjectsInRandPosition(200, 210, 'box')
+        .concat(createEnemyWall())
+        .concat(createObjectRow())
+        .concat(createObjectRow('coin', 15, gHeight / 3.5))
+        .concat(createAlternateObjectRow(['coin', 'box'], 400))
+        .concat(createObjectRow())
+        .concat(createTwoObjectRows('coin', 12, [gHeight / 6, gHeight / 1.5]))
+        .concat(createTwoObjectRowsAndAThirdInTheMiddle())
+        .concat(createSeaCoins())
+        .concat(createObjectsInRandPosition(200, 300, 'box'))
+        .concat(mediumWave());
 
 }
 
@@ -34,12 +43,38 @@ export function mediumWave(): Array<GameSprite> {
         createTwoObjectRows('box', 10, [1 / 5 * gHeight, 4 / 5 * gHeight])).concat
     (createDelay(200))
         .concat(
-            hardWave());
+            customWave());
 
 
 }
 
+
 export function hardWave() {
+
+
+    let array = createDelay(200)
+        .concat(createAlienRowAndCoinsInTheMiddle())
+        .concat(createSnakeWall())
+        .concat(createRandomWalls())
+        .concat(createDelay(200))
+        .concat(createThickWallNoHole(100, 12, 'coin'))
+        .concat(spaceTunnel())
+        .concat(createSnakeWall(80, 10, 'coin', 'box'))
+        .concat(createEnemyWall()).concat(
+            createObjectsInRandPosition(200, 210, 'box').concat(
+                // let shuffled = duplicateSpritesAndShuffle(array2.concat(createDelays(12, 200)).concat(createAlienRowAndCoinsInTheMiddle()));
+                createRandomWalls()).concat(
+                createRandomWalls()).concat(
+                createRandomWalls()).concat(
+                createObjectsInRandPosition(40, 300, 'box')));
+
+    return array;
+
+    // return array.concat(array2).concat(shuffled);
+    // return createThickWallNoHole(100, 10, 'coin').concat(shuffled).concat(array);
+}
+
+export function customWave() {
 
     return createTwoObjectRowsAndAThirdInTheMiddle('box', 'coin', 20, [gHeight / 5, gHeight / 2, 4 * gHeight / 5]).concat(
         createTwoObjectRows('box', 10, [1 / 5 * gHeight, 4 / 5 * gHeight])).concat(
@@ -61,24 +96,26 @@ export function hardWave() {
         createObjectsInRandPosition(50, 120)).concat(
         createObjectRow('coin', 10, gHeight / 2, 200)).concat(
         spaceTunnel()).concat(
-            createDelay(200)).concat(
-            createObjectsInRandPosition(20, 60)).concat(
-            createDelay(200)).concat(
-            // duplicateSpritesAndShuffle();
-            createRandomWalls()).concat(
-            createRandomWalls()).concat(
-            createRandomWalls()).concat(
-            createPowerUp())
+        createDelay(200)).concat(
+        createObjectsInRandPosition(20, 60)).concat(
+        createDelay(200)).concat(
+        // duplicateSpritesAndShuffle();
+        createRandomWalls()).concat(
+        createRandomWalls()).concat(
+        createRandomWalls()).concat(
+        createPowerUp())
 }
 
 export default function waveOfMode(mode: string): Array<GameSprite> {
 
     let wave = null as Array<GameSprite> | null;
     switch (mode) {
-        // case 'easy':
-        //     return easyWave()
-        // case 'hard':
-        //     return hardWave();
+        case 'easy':
+            wave = easyWave();
+            break;
+        case 'hard':
+            wave = hardWave();
+            break;
         default:
             wave = mediumWave()
 

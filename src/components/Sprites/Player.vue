@@ -71,7 +71,7 @@ export default defineComponent({
             gameFinished.value = true;
             dimensions.height = '250px';
             dimensions.width = '250px';
-            setTimeout(logicGameFinished, 2500)
+            setTimeout(logicGameFinished, 1500)
             ;
           }
         }

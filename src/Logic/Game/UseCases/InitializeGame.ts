@@ -9,8 +9,7 @@ const initializeGame = (arraySprites: Ref<Array<GameSprite>>) => {
     const spritePusher = () => {
         if (!gameStore.currentGame) return;
 
-        if (!localArraySprites.length) return;
-        // if (!localArraySprites.length) localArraySprites = Object.assign([], arraySprites.value) as Array<GameSprite>;
+        if (!localArraySprites.length) localArraySprites = Object.assign([], arraySprites.value) as Array<GameSprite>;
 
         let gameSprite = localArraySprites.shift() as GameSprite;
         gameStore.displaySprite(gameSprite);

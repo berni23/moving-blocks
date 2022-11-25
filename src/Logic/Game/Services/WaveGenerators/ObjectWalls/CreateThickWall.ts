@@ -30,5 +30,5 @@ export function spaceTunnel() {
     return createTwoObjectRowsAndAThirdInTheMiddle().concat(
         createPowerUp()).concat(
         createDelay(300)).concat(
-        createThickWallNoHole(100, 20)).concat(createDelay(300))
+        createThickWallNoHole(100, 15)).concat(createDelay(300))
 }

@@ -21,8 +21,9 @@ const applySpriteLogic = (id: number, element: ElementSprite, callbackCollision:
     const  unwatch = watch(() => localIteration.value, loopLogic);
     function loopLogic() {
         if (!inBoard.value || !shouldAppear.value) {
-            removeSprite(id)
             unwatch();
+            removeSprite(id)
+
             return
         }
         if (!shouldAppear.value) return;
